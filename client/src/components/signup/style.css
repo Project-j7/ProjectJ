@@ -1,31 +1,103 @@
-#signup{
-    padding:20px;
-    height: fit-content;
-    border-radius: 5px;
-    background-color: blanchedalmond;
-    border: 1px solid black;
-    
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f4f7;
 }
 
-.signup-input-field{
-    border-radius: 3px;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    border: 1px solid black;
-
-}
-
-.signup-input-fields{
-    margin-bottom: 10px;
-    height: 100%;
-    border: 1px solid black;
-
-}
-
-.logo{
+.form-box {
+    background-color: #ffffff;
+    padding: 50px 30px 30px 30px;
+    width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-.acc_signin{
-    display:flex
+
+.logo-box {
+    margin-bottom: 20px;
 }
+
+.logo {
+    width: 60px;
+    height: auto;
+}
+
+.brand-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: border 0.3s ease, box-shadow 0.5s ease;
+}
+
+.input-field:focus {
+    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
+    border: 1px solid black;
+    outline: none;
+}
+
+.input-field:hover{
+    border: 1px solid black;
+    outline: none;
+}
+
+
+.captcha-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.captcha {
+    width: 100px;
+    height: auto;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a5568;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #2d3748;
+}
+
+.have-account {
+    margin-top: 20px;
+}
+
+.signin-link {
+    color: #3182ce;
+    text-decoration: none;
+}
+
+.sign-in-options {
+    margin: 20px 0;
+    color: #888;
+}
+
+.social-icon {
+    margin:10px 5px;
+    color:#888;
+}
+
