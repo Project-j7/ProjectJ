@@ -55,10 +55,15 @@ function Signup() {
                     <h1 className="brand-name">Sign Up</h1>
                 </div>
                 <form className="signup-form" onSubmit={handleSignup}>
-                    <input type="text" id="signup-field-username" className="input-field" placeholder="Username" required/>
-                    <input type="password" id="signup-field-password" className="input-field" placeholder="Password" required/>
-                    <input type="password" id="signup-field-confirm-password" className="input-field" placeholder="Confirm password" required/>
-                    <input type="email" id="signup-field-email" className="input-field" placeholder="E-mail address" required/>
+                    <input type="text" id="signup-field-username" className="input-field" placeholder="Username"
+                           required/>
+                    <input type="email" id="signup-field-email" className="input-field" placeholder="E-mail address"
+                           required/>
+                    <input type="password" id="signup-field-password" className="input-field" placeholder="Password"
+                           required/>
+                    <input type="password" id="signup-field-confirm-password" className="input-field"
+                           placeholder="Confirm password" required/>
+
                     <div className="captcha-box">
                         <img src="" alt="Captcha" className="captcha"/>
                     </div>
