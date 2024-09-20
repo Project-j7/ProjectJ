@@ -51,8 +51,8 @@ function Signup() {
         <div>
             <div className="form-box">
                 <div className="logo-box">
-                    <img src="" alt="malla chuduvuley"className="logo"/>
-                    <h1 className="brand-name">jai mumyyyyy</h1>
+                    <img src="" alt="Get Started" className="logo"/>
+                    <h1 className="brand-name">Sign Up</h1>
                 </div>
                 <form className="signup-form" onSubmit={handleSignup}>
                     <input type="text" id="signup-field-username" className="input-field" placeholder="Username" required/>
