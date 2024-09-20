@@ -77,8 +77,8 @@ function Login(){
     return(
         <div className="login-container">
         <div className="login-box">
-            <img src="" alt="OM BAGA BAGE VASU DEVAYA OM AYM KLEEM BHOOM BUSH SVAHA" className="login-logo"/>
-            <h2 className="login-title">lulululu</h2>
+            <img src="" alt="Welcome Back!" className="login-logo"/>
+            <h2 className="login-title">Sign In</h2>
             <form className="login-form" onSubmit={handleLogin}>
                 <input type="text" id= "login-field-username" className="input-field" placeholder="Username or E-mail"/>
                 <input type="password" id= "login-field-password" className="input-field" placeholder="Password"/>
