@@ -2,7 +2,7 @@ import React from "react"
 import "./style.css"
 import {account} from "../../appwrite/appwrite-config"
 import { authentication } from "../../firebase/firebase-config"
-import {TwitterAuthProvider, FacebookAuthProvider, signInWithRedirect, signInWithPopup} from "firebase/auth"
+import {TwitterAuthProvider, signInWithPopup,signInWithRedirect, FacebookAuthProvider} from "firebase/auth"
 
 function Login(){
 
