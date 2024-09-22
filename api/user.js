@@ -6,34 +6,34 @@ const router = express.Router();
 
 // User login endpoint
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    const {email, password} = req.body;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
         if (!user) {
-            return res.status(400).json({ error: "Invalid Email or Password" });
+            return res.status(400).json({error: "Invalid Email or Password"});
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ error: "Invalid Email or Password" });
+            return res.status(400).json({error: "Invalid Email or Password"});
         }
 
-        res.json({ msg: "User validation Success." });
+        res.json({msg: "User validation Success."});
     } catch (error) {
         console.error("Error during login:", error.message);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 });
 
 // User signup endpoint
 router.post("/signup", async (req, res) => {
-    const { username, email, password } = req.body;
+    const {username, email, password} = req.body;
 
     try {
-        const existingUser = await User.findOne({ $or: [{ email }, { username }] });
+        const existingUser = await User.findOne({$or: [{email}, {username}]});
         if (existingUser) {
-            return res.status(400).json({ error: "Username or Email already exists." });
+            return res.status(400).json({error: "Username or Email already exists."});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,10 +45,10 @@ router.post("/signup", async (req, res) => {
         });
 
         await userEntry.save();
-        res.status(201).json({ msg: `Successfully added ${username}` });
+        res.status(201).json({msg: `Successfully added ${username}`});
     } catch (error) {
         console.error("Error during signup:", error.message);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 });
 

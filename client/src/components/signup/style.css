@@ -48,7 +48,7 @@
     outline: none;
 }
 
-.input-field:hover{
+.input-field:hover {
     border: 1px solid black;
     outline: none;
 }
@@ -97,7 +97,7 @@
 }
 
 .social-icon {
-    margin:10px 5px;
-    color:#888;
+    margin: 10px 5px;
+    color: #888;
 }
 

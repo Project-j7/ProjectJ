@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     }
-}, { timestamps: true }); // Auto-generate createdAt and updatedAt timestamps
+}, {timestamps: true}); // Auto-generate createdAt and updatedAt timestamps
 
 // Export the user model
 module.exports = mongoose.model('test_user', userSchema);
