@@ -16,7 +16,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type'],
 }));
 
-// MongoDB connection string
+// MongoDB's connection string
 const MONGO_URI = "mongodb+srv://projectj_jewellery:jewellery07@project-jewellery.fy10i.mongodb.net/?retryWrites=true&w=majority&appName=Project-Jewellery";
 
 // Connect to MongoDB Atlas database
