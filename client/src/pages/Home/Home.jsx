@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Login from "../../components/login/index";
-import "./index.css";
+import "./style.css";
 
 export default function Home() {
     const [showLogin, setShowLogin] = useState(false);

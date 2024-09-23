@@ -85,7 +85,7 @@ function Signup() {
 
 
     return (
-        <div>
+        <div className="container">
             <div className="form-box">
                 <div className="logo-box">
                     <img src="" alt="Get Started" className="logo"/>
