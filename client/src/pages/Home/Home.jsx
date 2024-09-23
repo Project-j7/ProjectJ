@@ -13,6 +13,10 @@ export default function Home() {
         navigate('/account/login');  // Navigate to the /login page
     }
 
+    function signUpRedirect() {
+        navigate('/account/signup');
+    }
+
     // Show login popup when body login button is clicked
     function loginPopUp() {
         console.log("body button");
@@ -45,7 +49,7 @@ export default function Home() {
                             <div className="col-7" style={{marginTop:"100px"}}>
                                 <h1 style={{fontFamily: "playfair display", fontWeight: "bolder", fontSize: "65px"}}>Elevate Your<br/>Jewellery<br/> Experience</h1>
                                 <p style={{color:"#71717a", fontSize:"18px", marginTop:"15px"}}>Discover the art of jewellery design enhanced by Deep Learning<br/> Technology, transforming low-quality images into stunning, high resolution<br/> masterpieces.</p>
-                                <button className="Get_Started">Get Started</button>
+                                <button className="Get_Started" onClick={signUpRedirect}>Get Started</button>
                             </div>
                             <div className="col-5">
                                 <img className="w-75 img-fluid" style={{marginTop:"145px", borderRadius:"25px"}} alt="image"/>
