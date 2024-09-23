@@ -19,7 +19,7 @@ export default function Upload() {
 
         try {
             // Send the image to the backend for processing
-            const res = await fetch('/api/upload', {
+            const res = await fetch('http://localhost:5000/api/upload', {
                 method: 'POST',
                 body: formData,
             });
@@ -30,9 +30,9 @@ export default function Upload() {
                 // Show the original and processed images
                 const originalImageURL = URL.createObjectURL(imageInput);
                 setOriginalImageURL(originalImageURL);
-                setProcessedImageSrc(`http://localhost:5000/${result.processedImage}`);
+                setProcessedImageSrc(`http://localhost:5000/processed/${result.processedImage}`);
             } else {
-                alert("Error processing image.");
+                alert(result.error || "Error processing image.");
             }
         } catch (error) {
             console.error("Upload failed", error);
