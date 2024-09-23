@@ -29,9 +29,9 @@ export default function Home() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav m-auto">
-                            <a className="nav-link navItem_lg" href="#">Welcome Home</a>
-                            <a className="nav-link navItem_lg" href="#">Our story</a>
-                            <a className="nav-link navItem_lg" href="#">Shop Now</a>
+                            <a className="nav-link navItem_lg" href="#">Home</a>
+                            <a className="nav-link navItem_lg" href="#">Key Features</a>
+                            <a className="nav-link navItem_lg" href="#">About Us</a>
                         </div>
                         <button id="login_signup_button_lg" onClick={loginRedirect}>Login</button>  {/* Trigger the redirect */}
                     </div>
