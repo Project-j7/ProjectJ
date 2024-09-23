@@ -77,7 +77,7 @@ function Login() {
         <div className="login-container">
             <div className="login-box">
                 <img src="" alt="Welcome Back!" className="login-logo"/>
-                <h2 className="login-title">Sign In</h2>
+                <h2 className="login-title">Login</h2>
                 <form className="login-form" onSubmit={handleLogin}>
                     <input type="text" id="login-field-username" className="input-field"
                            placeholder="Username or E-mail"/>
@@ -85,7 +85,7 @@ function Login() {
                     <div className="captcha-box">
                         <img src="" alt="" className="login-logo"/>
                     </div>
-                    <button type="submit" className="login-btn">Sign In</button>
+                    <button type="submit" className="login-btn">Login</button>
                     <div className="password_signup">
                         <a href="/reset/forgotpassword" className="forgot-password">Forgot Password?</a>
                         <a href="/account/signup" className="sign-up">Sign Up</a>
