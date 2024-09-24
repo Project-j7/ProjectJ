@@ -12,7 +12,7 @@ Members:
 7) Srirama Manish K
 
 Note: 
-1) use 'npm run' in cmd to start both api and client simultaneously.
+1) use 'npm run' in cmd to start app.py, api and client simultaneously.
 2) To run app.py use command 'python app.py' in the cmd.
 3) Always run in this order -> app.py, api, client.
 4) Use Ctrl+C in cmd to stop the server.
