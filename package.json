@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "npm-run-all --parallel start:server start:client",
-  "start:server": "cd api && npm start",
-  "start:client": "cd client && npm start"
-},
-"private": true
+    "start": "npm-run-all --parallel start:app start:server start:client",
+    "start:app": "cd api\\model && python app.py",
+    "start:server": "cd api && npm start",
+    "start:client": "cd client && npm start"
+  },
+  "private": true
 }
