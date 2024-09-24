@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
 .login-popup {
     position: fixed;
     top: 50%;
@@ -5,12 +7,10 @@
     transform: translate(-50%, -50%);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
-
 .navItem_lg {
     text-decoration: none;
     position: relative;
-    color:black;
+    color: black;
 }
 
 .navItem_lg::after {
@@ -32,8 +32,8 @@
 #login_signup_button_lg {
     color: black;
     font-family: "Roboto";
-    height:40px;
-    width:150px;
+    height: 40px;
+    width: 150px;
     border-radius: 5px;
     background-color: transparent;
     padding: 10px;
@@ -44,15 +44,22 @@
 }
 
 #login_signup_button_lg:hover {
-    transform: scaleX(1.1);
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.Get_Started{
+.Get_Started {
     background-color: #347273;
-    color:white;
-    border-radius:10px;
+    color: white;
+    border-radius: 10px;
     border-width: 0;
-    padding:10px;
-    width:150px;
+    padding: 10px;
+    width: 150px;
+}
+
+.Get_Started:hover {
+    background-color: #2b5a55;
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
