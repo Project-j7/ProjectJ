@@ -66,6 +66,7 @@ function Login() {
             })
             .then(msg => {
                 console.log(msg);
+                window.location.href = 'http://localhost:3000/upload';
                 // Display the message returned by the server
             })
             .catch(error => {
