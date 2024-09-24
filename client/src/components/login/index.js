@@ -1,42 +1,41 @@
-import React from "react"
-import "./style.css"
-import {account} from "../../appwrite/appwrite-config"
-import {authentication} from "../../firebase/firebase-config"
-import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth"
+import React, {useState} from "react";
+import "./style.css";
+import {account} from "../../appwrite/appwrite-config";
+import {authentication} from "../../firebase/firebase-config";
+import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth";
 
 function Login() {
+    const [error, setError] = useState(null); // State for error messages
 
     async function handleGoogleLogin() {
         account.createOAuth2Session(
             'google',
             'http://localhost:3000',
-            //url of falied login
             'http://localhost:3000/account/failed'
         );
     }
 
     async function handleTwitterLogin() {
-        const Xprovider = new TwitterAuthProvider()
-        signInWithRedirect(authentication, Xprovider)
+        const provider = new TwitterAuthProvider();
+        signInWithRedirect(authentication, provider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Twitter login failed. Please try again.");
             });
-
     }
 
     async function handleFacebookLogin() {
         const fbProvider = new FacebookAuthProvider();
         signInWithPopup(authentication, fbProvider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Facebook login failed. Please try again.");
             });
     }
 
@@ -53,24 +52,23 @@ function Login() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
+            body: JSON.stringify({username, password})
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    return response.json().then(err => {
+                        throw new Error(err.error || 'Login failed');
+                    });
                 }
-                return response.json();  // Parse JSON if the response was successful
+                return response.json();
             })
             .then(msg => {
                 console.log(msg);
                 window.location.href = 'http://localhost:3000/upload';
-                // Display the message returned by the server
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
+                setError(error.message);
             });
     }
 
@@ -79,10 +77,12 @@ function Login() {
             <div className="login-box">
                 <img src="" alt="Welcome Back!" className="login-logo"/>
                 <h2 className="login-title">Login</h2>
+
                 <form className="login-form" onSubmit={handleLogin}>
                     <input type="text" id="login-field-username" className="input-field"
                            placeholder="Username or E-mail"/>
                     <input type="password" id="login-field-password" className="input-field" placeholder="Password"/>
+                    {error && <div className="error-message">{error}</div>}
                     <div className="captcha-box">
                         <img src="" alt="" className="login-logo"/>
                     </div>
@@ -114,11 +114,11 @@ function Login() {
                             <path
                                 d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
                         </svg>
-                    </a></div>
+                    </a>
+                </div>
             </div>
         </div>
-    )
+    );
 }
-
 
 export default Login;

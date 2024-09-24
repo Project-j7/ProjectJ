@@ -49,3 +49,6 @@ yarn-error.log*
 # Ignore upload and processed folders
 uploads/
 processed/
+
+# Ignore Python cache
+__pycache__/
