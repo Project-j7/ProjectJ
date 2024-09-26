@@ -1,9 +1,11 @@
 import "./style.css";
 import { useState } from "react";
+//import { useHistory } from "react-router-dom"; // Assuming you're using react-router
 
 export default function Upload() {
     const [originalImageURL, setOriginalImageURL] = useState(null);
     const [processedImageSrc, setProcessedImageSrc] = useState(null);
+    //const history = useHistory(); // React router hook to redirect
 
     async function handleUpload(event) {
         event.preventDefault();
@@ -18,7 +20,6 @@ export default function Upload() {
         formData.append('image', imageInput);
 
         try {
-            // Send the image to the backend for processing
             const res = await fetch('http://localhost:5000/api/upload', {
                 method: 'POST',
                 body: formData,
@@ -27,7 +28,6 @@ export default function Upload() {
             const result = await res.json();
 
             if (res.ok) {
-                // Show the original and processed images
                 const originalImageURL = URL.createObjectURL(imageInput);
                 setOriginalImageURL(originalImageURL);
                 setProcessedImageSrc(`http://localhost:5000/processed/${result.processedImage}`);
@@ -38,6 +38,10 @@ export default function Upload() {
             console.error("Upload failed", error);
             alert("An error occurred while uploading the image.");
         }
+    }
+
+    function handleLogout() {
+        //Code here
     }
 
     return (
@@ -65,6 +69,11 @@ export default function Upload() {
                                 <img id="processedImage" src={processedImageSrc} alt="Processed" />
                             </div>
                         )}
+                    </div>
+
+                    {/* Logout Button */}
+                    <div className="mt-4">
+                        <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                     </div>
                 </div>
             </div>
