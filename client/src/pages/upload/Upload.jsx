@@ -41,8 +41,20 @@ export default function Upload() {
     }
 
     function handleLogout() {
-        //Code here
+        // Code here
+        fetch("http://localhost:8001/user/logout",{
+            method:"GET",
+        })
+        .then(msg => {
+            console.log(msg);
+            
+            window.location.href = '/account/logout'; // To redirect to Home page after logout
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
     }
+
 
     return (
         <div className="container mt-5">

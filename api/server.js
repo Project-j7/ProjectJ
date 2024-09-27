@@ -17,7 +17,7 @@ app.use(cors({
 }));
 
 // MongoDB's connection string
-const MONGO_URI = "mongodb+srv://projectj_jewellery:jewellery07@project-jewellery.fy10i.mongodb.net/?retryWrites=true&w=majority&appName=Project-Jewellery";
+const MONGO_URI = "mongodb+srv://kaspakarthikeya02:Karthik02@cluster0.bksnz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Connect to MongoDB Atlas database
 mongoose.connect(MONGO_URI, {

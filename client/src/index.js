@@ -35,6 +35,10 @@ const router = createBrowserRouter([
     {
         path: '/upload',
         element: <Upload/>
+    },
+    {
+        path:'/account/logout',
+        element:<Home/>
     }
 ])
 
