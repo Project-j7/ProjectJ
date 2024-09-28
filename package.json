@@ -1,13 +1,15 @@
 {
   "name": "projectj-main",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.2.0",
+  "description": "Transforming art into reality. Our platform converts hand-drawn jewelry sketches into stunning, lifelike images using cutting-edge deep learning technology, bringing your creative visions to life.",
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all --parallel start:app start:server start:client",
+    "web": "npm-run-all --parallel start:server start:client",
     "start:app": "cd api\\model && python app.py",
     "start:server": "cd api && npm start",
     "start:client": "cd client && npm start"
   },
+
   "private": true
 }
