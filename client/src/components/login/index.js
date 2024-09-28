@@ -64,7 +64,7 @@ function Login() {
             })
             .then(msg => {
                 console.log(msg);
-                window.location.href = 'http://localhost:3000/upload';
+                window.location.href = 'http://localhost:3000/main';
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);

@@ -13,7 +13,7 @@ import Error from './pages/Error/Error';
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
-import Upload from './pages/upload/Upload';
+import Main from "./pages/Mainpage/Main";
 
 // rendering , main code
 
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
         element: <Signup/>
     },
     {
-        path: '/upload',
-        element: <Upload/>
+        path: '/main',
+        element: <Main/>
     },
     {
         path:'/account/logout',

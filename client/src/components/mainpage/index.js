@@ -1,11 +1,9 @@
 import "./style.css";
-import { useState } from "react";
-//import { useHistory } from "react-router-dom"; // Assuming you're using react-router
+import {useState} from "react";
 
-export default function Upload() {
+export default function Main() {
     const [originalImageURL, setOriginalImageURL] = useState(null);
     const [processedImageSrc, setProcessedImageSrc] = useState(null);
-    //const history = useHistory(); // React router hook to redirect
 
     async function handleUpload(event) {
         event.preventDefault();
@@ -47,7 +45,7 @@ export default function Upload() {
         })
         .then(msg => {
             console.log(msg);
-            
+
             window.location.href = '/account/logout'; // To redirect to Home page after logout
         })
         .catch(error => {
