@@ -7,7 +7,7 @@ export default function Main() {
 
     async function handleUpload(event) {
         event.preventDefault();
-
+ 
         const imageInput = document.getElementById('imageInput').files[0];
         if (!imageInput) {
             alert("Please select an image to upload.");
@@ -36,23 +36,26 @@ export default function Main() {
             console.error("Upload failed", error);
             alert("An error occurred while uploading the image.");
         }
-    }
+    } 
 
-    function handleLogout() {
-        // Code here
-        fetch("http://localhost:8001/user/logout",{
-            method:"GET",
-        })
-        .then(msg => {
-            console.log(msg);
-
-            window.location.href = '/account/logout'; // To redirect to Home page after logout
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
+    async function handleLogout() {
+        const response = await fetch("http://localhost:8001/user/logout", {
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                 // Specify content type
+            },
         });
+        const result = await response.json();
+        alert(result.msg)
+        if(response.status===200){
+            window.location.href = "http://localhost:3000/";
+        }
+        else{
+            alert(response.error || "Logout failed.");
+        }
     }
-
 
     return (
         <div className="container mt-5">

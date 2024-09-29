@@ -33,13 +33,9 @@ const router = createBrowserRouter([
         element: <Signup/>
     },
     {
-        path: '/main',
+        path: 'account/main',
         element: <Main/>
     },
-    {
-        path:'/account/logout',
-        element:<Home/>
-    }
 ])
 
 root.render(

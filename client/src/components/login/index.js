@@ -39,38 +39,35 @@ function Login() {
             });
     }
 
-    function handleLogin(event) {
+    const handleLogin = async (event) => {
         event.preventDefault();
-
+        
         const username = document.querySelector("#login-field-username").value;
         const password = document.querySelector("#login-field-password").value;
 
         console.log(username, password);
 
-        fetch('http://localhost:8001/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({username, password})
-        })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => {
-                        throw new Error(err.error || 'Login failed');
-                    });
-                }
-                return response.json();
-            })
-            .then(msg => {
-                console.log(msg);
-                window.location.href = 'http://localhost:3000/main';
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-                setError(error.message);
+        try {
+            const response = await fetch('http://localhost:8001/user/login', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
             });
-    }
+
+            if (response.ok) {
+                window.location.href = 'http://localhost:3000/account/main';
+            } else {
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.error || 'Login failed');
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            setError(error.message);
+        }
+    };
 
     return (
         <div className="login-container">
