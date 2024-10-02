@@ -1,13 +1,16 @@
 import "./style.css";
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function Main() {
     const [originalImageURL, setOriginalImageURL] = useState(null);
     const [processedImageSrc, setProcessedImageSrc] = useState(null);
+    const [message, setMessage] = useState(""); // Added state to hold message
+    const navigate = useNavigate(); // Initialize useNavigate
 
     async function handleUpload(event) {
         event.preventDefault();
- 
+
         const imageInput = document.getElementById('imageInput').files[0];
         if (!imageInput) {
             alert("Please select an image to upload.");
@@ -36,7 +39,29 @@ export default function Main() {
             console.error("Upload failed", error);
             alert("An error occurred while uploading the image.");
         }
-    } 
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:8001/user/main", {
+                    method: "POST",
+                    credentials: "include", // Include cookies in the request
+                });
+
+                if (!response.ok) {
+                    throw new Error("Unauthorized access");
+                }
+                const data = await response.json();
+                setMessage(data.msg); // Set the message state
+            } catch (error) {
+                console.error("Failed to fetch main page data:", error);
+                navigate("/account/login"); // Redirect to the login page if not authenticated
+            }
+        };
+
+        fetchData();
+    }, [navigate]);
 
     async function handleLogout() {
         const response = await fetch("http://localhost:8001/user/logout", {
@@ -44,16 +69,16 @@ export default function Main() {
             credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                 // Specify content type
             },
         });
+
         const result = await response.json();
-        alert(result.msg)
-        if(response.status===200){
-            window.location.href = "http://localhost:3000/";
-        }
-        else{
-            alert(response.error || "Logout failed.");
+        alert(result.msg);
+        
+        if (response.status === 200) {
+            window.location.href = "http://localhost:3000/"; // Redirect to login page on successful logout
+        } else {
+            alert(result.error || "Logout failed.");
         }
     }
 

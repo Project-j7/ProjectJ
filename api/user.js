@@ -7,7 +7,7 @@ function isAuthorized(req, res, next) {
     if (req.session.isAuthenticated) {
         return next(); // Proceed to the next middleware/route handler
     } else {
-        console.log("Unauthorized access attempt.");
+        res.redirect("/")
     
     }
 }
@@ -55,7 +55,7 @@ router.post("/login",async (req, res) => {
         if (!user) {
             return res.status(400).json({error: "Invalid Username or Password"});
         }
-
+        console.log("Attempt")
         // Compare password with the hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
@@ -79,6 +79,7 @@ router.post("/login",async (req, res) => {
 });
 
 router.post("/main",isAuthorized,(req,res)=>{
+    console.log("Main");
     return res.status(200).json({msg:"Good user to login."});
 });
 
@@ -86,7 +87,7 @@ router.post("/logout",isAuthorized,(req, res) => {
 
     console.log(req.msg);
     console.log("req.session: logout:", req.session);
-    
+
     if (req.session.username) {
         req.session.destroy((err) => {
             if (err) {

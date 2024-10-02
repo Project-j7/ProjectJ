@@ -33,9 +33,9 @@ export default function Home() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav m-auto">
-                            <a className="nav-link navItem_lg" href="#">Home</a>
-                            <a className="nav-link navItem_lg" href="#">Key Features</a>
-                            <a className="nav-link navItem_lg" href="#">About Us</a>
+                            <a className="nav-link navItem_lg" href="#Home">Home</a>
+                            <a className="nav-link navItem_lg" href="#KeyFeatures">Key Features</a>
+                            <a className="nav-link navItem_lg" href="#AboutUs">About Us</a>
                         </div>
                         <button id="login_signup_button_lg" onClick={loginRedirect}>Login</button>  {/* Trigger the redirect */}
                     </div>
@@ -44,7 +44,7 @@ export default function Home() {
 
             <div style={{marginLeft: "75px", minHeight:"100vh"}}>
                 <div className="container-fluid">
-                    <div className="column">
+                    <div className="column" id="Home">
                         <div className="row">
                             <div className="col-7" style={{marginTop:"100px"}}>
                                 <h1 style={{fontFamily: "playfair display", fontWeight: "bolder", fontSize: "65px"}}>Elevate Your<br/>Jewellery<br/> Experience</h1>
@@ -59,7 +59,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div id="sectioninfo_page" style={{minHeight:"100vh"}}>
+            <div className="sectioninfo_page" style={{minHeight:"100vh"}} id="KeyFeatures">
                 <div className="conatiner" style={{marginTop:"90px", marginLeft:"20px"}}>
                     <div className="column">
                         <div className="row" style={{width:"100%"}}>
@@ -85,7 +85,7 @@ export default function Home() {
                                     <p style={{color:"grey"}}>Easily integrate your designs into<br/>your existing workflow, allowing for a<br/>smooth transition from concept to<br/>creation</p>
                                 </div>
                             </div>
-                            <div className="col-12" style={{marginTop:"100px", padding:"50px 0 50px 150px", backgroundColor:"whitesmoke"}}>
+                            <div className="col-12" style={{marginTop:"100px", padding:"50px 0 50px 150px", backgroundColor:"whitesmoke"}} id="AboutUs">
                                 <h1 style={{color:"black", fontSize:"35px", fontWeight: "600"}}>How It Works</h1>
                                 <div className="mt-5 d-flex flex-row justify-content-start">
                                     <div style={{marginRight:"100px"}}>
