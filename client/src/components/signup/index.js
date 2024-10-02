@@ -73,6 +73,7 @@ function Signup() {
                 .then(msg => {
                     console.log(msg);
                     alert(msg.msg);  // Display the message returned by the server
+                    window.location.href = '/account/login'; // To redirect to login page after successful sign in
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
@@ -106,8 +107,7 @@ function Signup() {
                     </div>
                     <button type="submit" className="submit-btn">Sign Up</button>
                 </form>
-                <p className="have-account">Have an account? <a href="/account/login" className="signin-link">Sign
-                    In</a></p>
+                <p className="have-account">Have an account? <a href="/account/login" className="signin-link">Login</a></p>
                 <p className="sign-in-options">or you can sign in with</p>
                 <div>
                     <a id="social-icon-google" href="#" className="social-icon" onClick={handleGoogleLogin}>

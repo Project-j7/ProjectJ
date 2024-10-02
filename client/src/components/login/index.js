@@ -1,91 +1,89 @@
-import React from "react"
-import "./style.css"
-import {account} from "../../appwrite/appwrite-config"
-import {authentication} from "../../firebase/firebase-config"
-import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth"
+import React, {useState} from "react";
+import "./style.css";
+import {account} from "../../appwrite/appwrite-config";
+import {authentication} from "../../firebase/firebase-config";
+import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth";
 
 function Login() {
+    const [error, setError] = useState(null); // State for error messages
 
     async function handleGoogleLogin() {
         account.createOAuth2Session(
             'google',
             'http://localhost:3000',
-            //url of falied login
             'http://localhost:3000/account/failed'
         );
     }
 
     async function handleTwitterLogin() {
-        const Xprovider = new TwitterAuthProvider()
-        signInWithRedirect(authentication, Xprovider)
+        const provider = new TwitterAuthProvider();
+        signInWithRedirect(authentication, provider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Twitter login failed. Please try again.");
             });
-
     }
 
     async function handleFacebookLogin() {
         const fbProvider = new FacebookAuthProvider();
         signInWithPopup(authentication, fbProvider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Facebook login failed. Please try again.");
             });
     }
 
-    function handleLogin(event) {
+    const handleLogin = async (event) => {
         event.preventDefault();
-
+        
         const username = document.querySelector("#login-field-username").value;
         const password = document.querySelector("#login-field-password").value;
 
         console.log(username, password);
 
-        fetch('http://localhost:8001/user/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();  // Parse JSON if the response was successful
-            })
-            .then(msg => {
-                console.log(msg);
-                // Display the message returned by the server
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+        try {
+            const response = await fetch('http://localhost:8001/user/login', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
             });
-    }
+
+            if (response.ok) {
+                window.location.href = 'http://localhost:3000/account/main';
+            } else {
+                const errorResponse = await response.json();
+                throw new Error(errorResponse.error || 'Login failed');
+            }
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            setError(error.message);
+        }
+    };
 
     return (
         <div className="login-container">
             <div className="login-box">
                 <img src="" alt="Welcome Back!" className="login-logo"/>
-                <h2 className="login-title">Sign In</h2>
+                <h2 className="login-title">Login</h2>
+
                 <form className="login-form" onSubmit={handleLogin}>
                     <input type="text" id="login-field-username" className="input-field"
                            placeholder="Username or E-mail"/>
                     <input type="password" id="login-field-password" className="input-field" placeholder="Password"/>
+                    {error && <div className="error-message">{error}</div>}
                     <div className="captcha-box">
                         <img src="" alt="" className="login-logo"/>
                     </div>
-                    <button type="submit" className="login-btn">Sign In</button>
+                    <button type="submit" className="login-btn">Login</button>
                     <div className="password_signup">
                         <a href="/reset/forgotpassword" className="forgot-password">Forgot Password?</a>
                         <a href="/account/signup" className="sign-up">Sign Up</a>
@@ -113,11 +111,11 @@ function Login() {
                             <path
                                 d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
                         </svg>
-                    </a></div>
-                    </div>
+                    </a>
+                </div>
+            </div>
         </div>
-    )
+    );
 }
-
 
 export default Login;

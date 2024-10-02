@@ -11,4 +11,6 @@ Members:
 6) Karthikeya K
 7) Srirama Manish K
 
-use 'npm run' in cmd to start both api and client simultaneously.
+Note: 
+1) Use 'npm start' in cmd to start whole application (app.py, api and client simultaneously).
+2) Use 'npm run web' in cmd to start api and client simultaneously.

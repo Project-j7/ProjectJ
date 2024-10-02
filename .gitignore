@@ -45,3 +45,10 @@ yarn-error.log*
 
 # Debugging logs
 .vscode/
+
+# Ignore upload and processed folders
+uploads/
+processed/
+
+# Ignore Python cache
+__pycache__/
