@@ -1,6 +1,6 @@
 import "./style.css";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom"; // Import useNavigate
 
 export default function Main() {
     const [originalImageURL, setOriginalImageURL] = useState(null);
@@ -74,7 +74,7 @@ export default function Main() {
 
         const result = await response.json();
         alert(result.msg);
-        
+
         if (response.status === 200) {
             window.location.href = "http://localhost:3000/"; // Redirect to login page on successful logout
         } else {
@@ -89,7 +89,7 @@ export default function Main() {
                     <h1 className="mb-4">Image Upload & Processing</h1>
                     <form id="uploadForm" className="upload-form" onSubmit={handleUpload}>
                         <div className="mb-3">
-                            <input className="form-control" type="file" id="imageInput" accept="image/*" />
+                            <input className="form-control" type="file" id="imageInput" accept="image/*"/>
                         </div>
                         <button type="submit" className="btn btn-custom">Upload and Process</button>
                     </form>
@@ -98,13 +98,13 @@ export default function Main() {
                         {originalImageURL && (
                             <div className="image-section">
                                 <p className="image-title">Original Image</p>
-                                <img id="originalImage" src={originalImageURL} alt="Original" />
+                                <img id="originalImage" src={originalImageURL} alt="Original"/>
                             </div>
                         )}
                         {processedImageSrc && (
                             <div className="image-section">
                                 <p className="image-title">Processed Image</p>
-                                <img id="processedImage" src={processedImageSrc} alt="Processed" />
+                                <img id="processedImage" src={processedImageSrc} alt="Processed"/>
                             </div>
                         )}
                     </div>

@@ -7,6 +7,7 @@ model_path = "jewelry_model.h5"
 model = tf.keras.models.load_model(model_path)
 print("Model loaded successfully")
 
+
 # Function to process the image using the pre-trained model
 def process_image_with_model(input_image_path, output_image_path):
     try:

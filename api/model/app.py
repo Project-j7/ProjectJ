@@ -16,6 +16,7 @@ PROCESSED_FOLDER = './processed'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
+
 # API route to upload image
 @app.route('/api/upload', methods=['POST'])
 def upload_image():

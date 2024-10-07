@@ -41,7 +41,7 @@ function Login() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        
+
         const username = document.querySelector("#login-field-username").value;
         const password = document.querySelector("#login-field-password").value;
 
@@ -54,7 +54,7 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({username, password})
             });
 
             if (response.ok) {
