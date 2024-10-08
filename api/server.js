@@ -12,15 +12,15 @@ app.use(express.json());
 
 // Enable CORS (Cross-Origin Resource Sharing)
 app.use(cors({
-    origin: ["http://localhost:5000","http://localhost:3000"],
+    origin: ["http://localhost:5000", "http://localhost:3000"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type',"Cookie"],
-    credentials:true,
+    allowedHeaders: ['Content-Type', "Cookie"],
+    credentials: true,
 }));
 
 // MongoDB's connection string
 const MONGO_URI = "mongodb+srv://projectj_jewellery:jewellery07@project-jewellery.fy10i.mongodb.net/?retryWrites=true&w=majority&appName=Project-Jewellery";
- 
+
 // Connect to MongoDB Atlas database
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -36,9 +36,9 @@ app.use(session({
     secret: 'your-secret-key', // Use a secure secret key
     resave: false,
     saveUninitialized: false,
-    
-    cookie:{
-        maxAge:60000,
+
+    cookie: {
+        maxAge: 60000,
         SameSite: "None", // Necessary for cross-origin requests
         secure: false,
     }

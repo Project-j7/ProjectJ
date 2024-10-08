@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     }
-}, { timestamps: true });
+}, {timestamps: true});
 
 // Export the user model
 module.exports = mongoose.model('test_user', userSchema);

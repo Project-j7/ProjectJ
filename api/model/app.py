@@ -1,5 +1,4 @@
 import os
-import uuid
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from image_processing import process_image_with_model  # Import the processing function
@@ -18,12 +17,38 @@ os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
 
 def get_next_filename(folder_path, username):
-    """
-    Generate the next sequential filename for a given user in the specified folder.
-    """
     user_files = [f for f in os.listdir(folder_path) if f.startswith(username)]
     next_number = len(user_files) + 1
     return f"{username}{next_number:03d}"
+
+
+def clean_up_orphaned_files():
+    for username in os.listdir(UPLOAD_FOLDER):
+        user_upload_folder = os.path.join(UPLOAD_FOLDER, username)
+        user_processed_folder = os.path.join(PROCESSED_FOLDER, username)
+
+        if not os.path.isdir(user_upload_folder):
+            continue
+
+        # Get all uploaded and processed files for the user
+        uploaded_files = set(os.listdir(user_upload_folder))
+        processed_files = set(os.listdir(user_processed_folder))
+
+        for uploaded_file in uploaded_files:
+            # Check for the corresponding processed file
+            processed_file = 'processed_' + uploaded_file
+            if processed_file not in processed_files:
+                # If processed file is missing, delete the uploaded file
+                os.remove(os.path.join(user_upload_folder, uploaded_file))
+                print(f"Deleted orphaned uploaded file: {uploaded_file}")
+
+        for processed_file in processed_files:
+            # Check for the corresponding uploaded file
+            uploaded_file = processed_file.replace('processed_', '')
+            if uploaded_file not in uploaded_files:
+                # If uploaded file is missing, delete the processed file
+                os.remove(os.path.join(user_processed_folder, processed_file))
+                print(f"Deleted orphaned processed file: {processed_file}")
 
 
 # API route to upload image
@@ -65,5 +90,6 @@ def get_processed_image(username, filename):
 
 # Run the Flask app
 if __name__ == '__main__':
+    clean_up_orphaned_files()
     print("Starting Flask app on port 5000")
     app.run(debug=True, port=5000)
