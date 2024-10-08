@@ -21,6 +21,7 @@ export default function Main() {
 
         const formData = new FormData(); // Create form data for the file
         formData.append('image', imageInput); // Append image to the form data
+        formData.append('username', username); // Append username to the form data
 
         try {
             // Send a POST request to upload the image
