@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {GoogleOAuthProvider} from '@react-oauth/google';
-
+import {BrowserRouter, createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 //css import 
 import "./index.css";
@@ -14,9 +12,10 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Main from "./pages/Mainpage/Main";
+import { ServerUserProvider } from './contextStore/serverUserContext';
+import { FirebaseUserProvider } from './contextStore/firebaseUserContext'
 
 // rendering , main code
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
@@ -35,13 +34,15 @@ const router = createBrowserRouter([
     {
         path: 'account/main',
         element: <Main/>
-    },
+    }
 ])
 
 root.render(
     <React.StrictMode>
-        <GoogleOAuthProvider clientId="532076644406-7gn4q5lupm7vk7oq1oqi3pd005c293vd.apps.googleusercontent.com">
-            <RouterProvider router={router}/>
-        </GoogleOAuthProvider>
+        <FirebaseUserProvider>
+            <ServerUserProvider>
+                <RouterProvider router={router}/>
+            </ServerUserProvider>
+        </FirebaseUserProvider>
     </React.StrictMode>
 );

@@ -1,23 +1,36 @@
 import React, {useState} from "react";
+import { useNavigate} from "react-router-dom";
 import "./style.css";
-import {account} from "../../appwrite/appwrite-config";
 import {authentication} from "../../firebase/firebase-config";
-import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth";
+import {TwitterAuthProvider, signInWithRedirect, FacebookAuthProvider, GoogleAuthProvider, signInWithPopup, getAuth} from "firebase/auth";
+import { useFirebaseUser } from "../../contextStore/firebaseUserContext";
+import { getCookie } from "../../miniFunctions/cookie-parser";
 
-function Login() {
+function Login(){
     const [error, setError] = useState(null); // State for error messages
+    const navigate = useNavigate();
 
-    async function handleGoogleLogin() {
-        account.createOAuth2Session(
-            'google',
-            'http://localhost:3000',
-            'http://localhost:3000/account/failed'
-        );
+    const {googleSignIn} = useFirebaseUser();
+    
+    
+    async function handleGoogleLogin(){
+        try {
+            await googleSignIn();
+            const unsubscribe = authentication.onAuthStateChanged((user) => {
+                if (user) {
+                    navigate('/');
+                    unsubscribe(); 
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            setError("Google login failed. Please try again.");
+        }
     }
 
     async function handleTwitterLogin() {
-        const provider = new TwitterAuthProvider();
-        signInWithRedirect(authentication, provider)
+        const xprovider = new TwitterAuthProvider();
+        signInWithPopup(authentication, xprovider)
             .then((request) => {
                 console.log(request);
             })
@@ -44,25 +57,30 @@ function Login() {
         
         const username = document.querySelector("#login-field-username").value;
         const password = document.querySelector("#login-field-password").value;
-
-        console.log(username, password);
-
+        
         try {
-            const response = await fetch('http://localhost:8001/user/login', {
+            const response = await fetch('http://localhost:8000/login', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username, password })
-            });
-
-            if (response.ok) {
-                window.location.href = 'http://localhost:3000/account/main';
-            } else {
-                const errorResponse = await response.json();
-                throw new Error(errorResponse.error || 'Login failed');
+                body: JSON.stringify({
+                    username: username, 
+                    password: password 
+                })
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => console.log(err));
+            if (getCookie("token")) {
+                navigate('/');
             }
+
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             setError(error.message);

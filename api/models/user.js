@@ -19,4 +19,6 @@ const userSchema = new mongoose.Schema({
 }, {timestamps: true}); // Auto-generate createdAt and updatedAt timestamps
 
 // Export the user model
-module.exports = mongoose.model('test_user', userSchema);
+User = mongoose.model('user', userSchema);
+
+module.exports = User;

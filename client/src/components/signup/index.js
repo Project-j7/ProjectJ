@@ -1,46 +1,48 @@
-import React from "react";
+import React , {useState}from "react";
 import "./style.css";
-import {account} from "../../appwrite/appwrite-config"
 import {authentication} from "../../firebase/firebase-config"
-import {TwitterAuthProvider, signInWithPopup, signInWithRedirect, FacebookAuthProvider} from "firebase/auth"
+import {TwitterAuthProvider, signInWithRedirect, FacebookAuthProvider, GoogleAuthProvider} from "firebase/auth"
 
 
 function Signup() {
 
-    async function handleGoogleLogin() {
-        account.createOAuth2Session(
-            'google',
-            'http://localhost:3000',
-            //url of falied login
-            'http://localhost:3000/account/failed'
-        );
+    const [error, setError] = useState(null); // State for error messages
+
+    async function handleGoogleLogin(){
+        const gprovider = new GoogleAuthProvider();
+        signInWithRedirect(authentication, gprovider)
+            .then((request) => {
+                console.log(request);
+            })
+            .catch((error) => {
+                console.log(error);
+                setError("Google login failed. Please try again.");
+            });
     }
 
     async function handleTwitterLogin() {
-        const Xprovider = new TwitterAuthProvider()
-        signInWithRedirect(authentication, Xprovider)
+        const xprovider = new TwitterAuthProvider();
+        signInWithRedirect(authentication, xprovider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Twitter login failed. Please try again.");
             });
-
     }
 
     async function handleFacebookLogin() {
         const fbProvider = new FacebookAuthProvider();
-        signInWithPopup(authentication, fbProvider)
+        signInWithRedirect(authentication, fbProvider)
             .then((request) => {
-                    console.log(request);
-                }
-            )
+                console.log(request);
+            })
             .catch((error) => {
                 console.log(error);
+                setError("Facebook login failed. Please try again.");
             });
     }
-
 
     function handleSignup(event) {
         event.preventDefault();
@@ -53,7 +55,7 @@ function Signup() {
         console.log(username, password, confirmPassword, email)
 
         if (confirmPassword === password) {
-            fetch('http://localhost:8001/user/signup', {
+            fetch('http://localhost:8000/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

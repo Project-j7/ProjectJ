@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // For hashing passwords
-const User = require('./userModel'); // User model
+const User = require('./models/user'); // User model
 const router = express.Router();
 
 function isAuthorized(req, res, next) {
