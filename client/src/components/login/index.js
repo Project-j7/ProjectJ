@@ -75,11 +75,12 @@ function Login(){
             })
             .then((data) => {
                 console.log(data);
+                if(getCookie("token")) {
+                    navigate('/');
+                }
             })
             .catch((err) => console.log(err));
-            if (getCookie("token")) {
-                navigate('/');
-            }
+            
 
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
