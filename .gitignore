@@ -52,3 +52,6 @@ processed/
 
 # Ignore Python cache
 __pycache__/
+
+#Ignore .h5 files
+*.h5

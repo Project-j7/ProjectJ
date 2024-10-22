@@ -1,41 +1,52 @@
+import cv2
 import numpy as np
 from PIL import Image
 import tensorflow as tf
+from tensorflow.keras.preprocessing.image import img_to_array
 
-# Load the pre-trained model
-model_path = "jewelry_model.h5"
+# Load the model
+model_path = "generator.h5" # ensure that you have downloaded this model and placed it
 model = tf.keras.models.load_model(model_path)
 print("Model loaded successfully")
 
 
-# Function to process the image using the pre-trained model
-def process_image_with_model(input_image_path, output_image_path):
-    try:
-        # Load and preprocess the image
-        image = Image.open(input_image_path).convert('RGB')
+# Function to process the image using the model
+def process_image_with_model(image_path, output_path):
+    # Load the original image
+    image = cv2.imread(image_path)
+    original_size = (image.shape[1], image.shape[0])  # Width, Height of original image
 
-        # Store the original resolution of the image
-        original_size = image.size
+    # Resize the input image to 256x256
+    image_resized = cv2.resize(image, (256, 256))
 
-        # Resize to match model input size (256x256)
-        image_resized = image.resize((256, 256))
-        image_array = np.array(image_resized) / 255.0  # Normalize the image
-        image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
+    # Convert the resized image to LAB and perform edge detection on L and B channels
+    lab = cv2.cvtColor(image_resized, cv2.COLOR_BGR2LAB)
+    L, A, B = cv2.split(lab)
+    edges_luminance = cv2.Canny(L, threshold1=10, threshold2=60)
+    edges_color_b = cv2.Canny(B, threshold1=10, threshold2=60)
+    combined_edges = cv2.bitwise_or(edges_luminance, edges_color_b)
+    edges_inv = cv2.bitwise_not(combined_edges)
+    edges_inv_bgr = cv2.cvtColor(edges_inv, cv2.COLOR_GRAY2BGR)
 
-        # Use the model to predict the output
-        prediction = model.predict(image_array)
+    # Prepare the edge-detected image for the model input
+    white_background = np.ones_like(edges_inv_bgr) * 255
+    image_with_black_details = np.where(edges_inv_bgr == [0, 0, 0], [0, 0, 0], white_background).astype(np.uint8)
 
-        # Convert prediction to image and rescale pixel values
-        predicted_image = (prediction[0] * 255).astype(np.uint8)
-        predicted_image = Image.fromarray(predicted_image)
+    # Load the processed image using Unet model
+    input_array = img_to_array(cv2.cvtColor(image_with_black_details, cv2.COLOR_BGR2RGB))
+    input_array = (input_array / 127.5) - 1.0
+    input_array = np.expand_dims(input_array, axis=0)
 
-        # Resize the predicted image back to the original resolution
-        predicted_image_resized = predicted_image.resize(original_size)
+    predicted_image = model.predict(input_array)
+    predicted_image = (predicted_image[0] + 1) * 127.5
+    predicted_image = np.clip(predicted_image, 0, 255).astype(np.uint8)
 
-        # Save the output image
-        predicted_image_resized.save(output_image_path)
+    # Convert the processed image to PIL format
+    processed_img = Image.fromarray(predicted_image)
 
-        print(f"Processed image saved as {output_image_path}")
+    # Resize the processed image back to the original size
+    processed_img_resized = processed_img.resize(original_size)
 
-    except Exception as e:
-        print(f"Error processing image: {e}")
+    # Save the final processed image
+    processed_img_resized.save(output_path)
+    print(f"Processed and saved: {output_path}")
