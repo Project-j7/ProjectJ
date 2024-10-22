@@ -33,12 +33,12 @@ mongoose.connect(MONGO_URI, {
     });
 
 app.use(session({
-    secret: 'your-secret-key', // Use a secure secret key
+    secret: 'ritu', // Use a secure secret key
     resave: false,
     saveUninitialized: false,
 
     cookie: {
-        maxAge: 60000,
+        maxAge: 30 * 60 * 1000,
         SameSite: "None", // Necessary for cross-origin requests
         secure: false,
     }
