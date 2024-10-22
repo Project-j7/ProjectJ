@@ -1,5 +1,5 @@
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Main() {
@@ -7,86 +7,163 @@ export default function Main() {
     const [processedImageSrc, setProcessedImageSrc] = useState(null);
     const [username, setUsername] = useState("");
     const [showUploadPopup, setShowUploadPopup] = useState(false);
+    const [showWebcam, setShowWebcam] = useState(false);
+    const videoRef = useRef(null);
+    const canvasRef = useRef(null);
     const navigate = useNavigate();
 
     // Handle image upload
     async function handleUpload(event) {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault();
 
-        const imageInput = document.getElementById('imageInput').files[0]; // Get the uploaded file
+        const imageInput = document.getElementById('imageInput').files[0];
         if (!imageInput) {
             alert("Please select an image to upload.");
             return;
         }
 
-        const formData = new FormData(); // Create FormData object to hold the file and username
-        formData.append('image', imageInput); // Append the selected image to the FormData
-        formData.append('username', username); // Append the username to the FormData
+        const formData = new FormData();
+        formData.append('image', imageInput);
+        formData.append('username', username);
 
         try {
-            // Send a POST request to the server to upload the image
             const res = await fetch('http://localhost:5000/api/upload', {
                 method: 'POST',
                 body: formData,
             });
 
-            const result = await res.json(); // Parse the JSON response
+            const result = await res.json();
 
             if (res.ok) {
-                // If the upload is successful, create an object URL for the original image
                 const originalImageURL = URL.createObjectURL(imageInput);
-                setOriginalImageURL(originalImageURL); // Set the original image URL state
-                setProcessedImageSrc(`http://localhost:5000/processed/${result.processedImage}`); // Set the processed image URL
+                setOriginalImageURL(originalImageURL);
+                setProcessedImageSrc(`http://localhost:5000/processed/${result.processedImage}`);
             } else {
-                alert(result.error || "Error processing image."); // Show error message
+                alert(result.error || "Error processing image.");
             }
         } catch (error) {
-            console.error("Upload failed", error); // Log any errors to the console
-            alert("An error occurred while uploading the image."); // Show an alert for upload error
+            console.error("Upload failed", error);
+            alert("An error occurred while uploading the image.");
         }
     }
+
+    // Capture image from webcam and upload
+    const captureImage = async () => {
+        const canvas = canvasRef.current;
+        const video = videoRef.current;
+
+        if (!canvas || !video) {
+            alert("Webcam not available.");
+            return;
+        }
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0);
+
+        const imageData = canvas.toDataURL('image/png');
+        setOriginalImageURL(imageData);
+        setShowWebcam(false);
+
+        const blob = await fetch(imageData).then(res => res.blob());
+
+        const formData = new FormData();
+        formData.append('image', blob, 'captured_image.png');
+        formData.append('username', username);
+
+        try {
+            const res = await fetch('http://localhost:5000/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                setProcessedImageSrc(`http://localhost:5000/processed/${result.processedImage}`);
+            } else {
+                alert(result.error || "Error processing image.");
+            }
+        } catch (error) {
+            console.error("Upload failed", error);
+            alert("An error occurred while uploading the captured image.");
+        }
+
+        stopWebcam();
+    };
+
+    const startWebcam = async () => {
+        setShowWebcam(true);
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            videoRef.current.srcObject = stream;
+            videoRef.current.play();
+        } catch (error) {
+            console.error("Error accessing webcam", error);
+            alert("Could not access webcam. Please check your permissions.");
+        }
+    };
+
+    const stopWebcam = () => {
+        const videoElement = videoRef.current;
+
+        if (videoElement && videoElement.srcObject) {
+            const stream = videoElement.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+        }
+
+        if (videoElement) {
+            videoElement.srcObject = null;
+        }
+    };
 
     // Fetch user data when the component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Send a POST request to fetch user information
                 const response = await fetch("http://localhost:8001/user/main", {
                     method: "POST",
-                    credentials: "include", // Include credentials (cookies) for session handling
+                    credentials: "include",
                 });
 
                 if (!response.ok) {
-                    throw new Error("Unauthorized access"); // Throw an error if response is not ok
+                    throw new Error("Unauthorized access");
                 }
-                const data = await response.json(); // Parse the response as JSON
-                setUsername(data.username); // Set the username state
+                const data = await response.json();
+                setUsername(data.username);
             } catch (error) {
-                console.error("Failed to fetch main page data:", error); // Log errors to console
-                navigate("/account/login"); // Redirect to login if fetching data fails
+                console.error("Failed to fetch main page data:", error);
+                navigate("/account/login");
             }
         };
 
-        fetchData(); // Call the fetch function
-    }, [navigate]); // Rerun only if `navigate` changes
+        fetchData();
+
+        return () => {
+            stopWebcam(); // Cleanup when component unmounts
+        };
+    }, [navigate]);
 
     // Handle user logout
     async function handleLogout() {
         const response = await fetch("http://localhost:8001/user/logout", {
             method: "POST",
-            credentials: 'include', // Include credentials (cookies) for session handling
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
         });
 
-        const result = await response.json(); // Parse the JSON response
-        alert(result.msg); // Display logout message
+        const result = await response.json();
+        alert(result.msg);
 
         if (response.status === 200) {
-            window.location.href = "http://localhost:3000/account/login"; // Redirect to login page on successful logout
+            window.location.href = "http://localhost:3000/account/login";
         } else {
-            alert(result.error || "Logout failed."); // Display error message on failure
+            alert(result.error || "Logout failed.");
         }
     }
 
@@ -107,10 +184,11 @@ export default function Main() {
             {showUploadPopup && (
                 <div className="popup-overlay">
                     <div className="popup-content">
-                        <h3 className="popup-heading">Upload an Image</h3>
+                        <h3 className="popup-heading">Upload or Capture Image</h3>
+                        <button className="btn btn-info mb-3" onClick={startWebcam}>Use Webcam</button>
                         <form id="uploadForm" className="upload-form" onSubmit={handleUpload}>
                             <div className="mb-3">
-                                <input className="form-control" type="file" id="imageInput" accept="image/*"/>
+                                <input className="form-control" type="file" id="imageInput" accept="image/*" />
                             </div>
                             <button type="submit" className="btn btn-success">Upload and Process</button>
                         </form>
@@ -119,7 +197,7 @@ export default function Main() {
                                 {originalImageURL && (
                                     <>
                                         <p className="image-title">Original Image</p>
-                                        <img className="img-thumbnail image-resize" src={originalImageURL} alt="Original"/>
+                                        <img className="img-thumbnail image-resize" src={originalImageURL} alt="Original" />
                                     </>
                                 )}
                             </div>
@@ -127,12 +205,27 @@ export default function Main() {
                                 {processedImageSrc && (
                                     <>
                                         <p className="image-title">Processed Image</p>
-                                        <img className="img-thumbnail image-resize" src={processedImageSrc} alt="Processed"/>
+                                        <img className="img-thumbnail image-resize" src={processedImageSrc} alt="Processed" />
                                     </>
                                 )}
                             </div>
                         </div>
                         <button className="btn btn-danger mt-3" onClick={() => setShowUploadPopup(false)}>Close</button>
+                    </div>
+                </div>
+            )}
+
+            {showWebcam && (
+                <div className="popup-overlay">
+                    <div className="popup-content">
+                        <h3 className="popup-heading">Webcam Capture</h3>
+                        <video ref={videoRef} autoPlay className="webcam-video" style={{ width: '100%', maxHeight: '400px' }} />
+                        <canvas ref={canvasRef} style={{ display: 'none' }} />
+                        <button className="btn btn-success mt-2" onClick={captureImage}>Capture Image</button>
+                        <button className="btn btn-danger mt-2" onClick={() => {
+                            setShowWebcam(false);
+                            stopWebcam();
+                        }}>Close</button>
                     </div>
                 </div>
             )}
