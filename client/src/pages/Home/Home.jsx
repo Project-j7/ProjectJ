@@ -1,5 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import "./style.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import homeGif from "../../assets/homeGIF.gif";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -26,90 +28,86 @@ export default function Home() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav m-auto">
-                            <a className="nav-link navItem_lg" href="#Home">Home</a>
-                            <a className="nav-link navItem_lg" href="#KeyFeatures">Key Features</a>
-                            <a className="nav-link navItem_lg" href="#AboutUs">About Us</a>
+                            <a className="nav-link navItem_lg" href="#home">Home</a>
+                            <a className="nav-link navItem_lg" href="#key-features">Key Features</a>
+                            <a className="nav-link navItem_lg" href="#how-it-works">About Us</a>
                         </div>
                         <button id="login_signup_button_lg" onClick={loginRedirect}>Login</button>
                     </div>
                 </div>
             </nav>
 
-            <div className="main-content">
-                <div className="container-fluid">
-                    <div className="column" id="Home">
-                        <div className="row">
-                            <div className="col-7 content-text">
-                                <h1>Elevate Your<br/>Jewellery<br/> Experience</h1>
-                                <p>Discover the art of jewellery design enhanced by Deep Learning<br/> Technology,
-                                    transforming low-quality
-                                    images into stunning, high resolution<br/> masterpieces.</p>
-                                <button className="Get_Started" onClick={signUpRedirect}>Get Started</button>
-                            </div>
-                            <div className="col-5">
-                                <img className="w-75 img-fluid image" alt="jewellery"/>
-                            </div>
+            <header id="home">
+                <img src={homeGif} alt="Background Animation" className="bg-gif"/>
+                <div className="header-content home-header-content">
+                    <h1>Elevate Your Jewellery Design</h1>
+                    <p>Discover the art of jewellery design enhanced by Deep Learning Technology. Transforming your
+                        jewellery sketches into realistic jewels.</p>
+                    <button className="btn btn-animate" onClick={signUpRedirect}>Get Started</button>
+                </div>
+            </header>
+
+
+            <div
+                className="container-fluid text-center my-5 vh-100 d-flex flex-column justify-content-center align-items-center"
+                id="key-features">
+                <h2>Key Features</h2>
+                <p className="centered-paragraph">Enhance your jewellery designs effortlessly. Our tool uses Deep
+                    Learning technology to create high-quality visuals that capture the essence of luxury.</p>
+                <div className="row my-4">
+                    <div className="col-md-4">
+                        <div className="glass-card key-feature-card">
+                            <h3>Creative Design Generation</h3>
+                            <p>Generate unique and realistic jewellery designs based on your sketches, ensuring each
+                                piece is one-of-a-kind.</p>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                        <div className="glass-card key-feature-card">
+                            <h3>User Friendly Interface</h3>
+                            <p>Navigate through our sleek and modern interface designed for ease of use, making your
+                                design process enjoyable.</p>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                        <div className="glass-card key-feature-card">
+                            <h3>Seamless Integration</h3>
+                            <p>Easily integrate your designs into your existing workflow, allowing for a smooth
+                                transition from concept to creation.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="sectioninfo_page" id="KeyFeatures">
-                <div className="conatiner features-container">
-                    <div className="column">
-                        <div className="row">
-                            <div className="col-12">
-                                <h1 className="text-center section-header">Key Features</h1>
-                                <h1 className="text-center section-title">Innovate your Design</h1>
-                                <p className="text-center section-description">Enhance your jewellery designs
-                                    effortlessly. Our tool uses Deep Learning technology to create<br/>high-quality
-                                    visuals that capture the essence of luxury.</p>
-                            </div>
-                            <div className="col-12 d-flex flex-row justify-content-center feature-boxes">
-                                <div className="feature-box">
-                                    <i className="fa-solid fa-robot mb-4 feature-icon"></i>
-                                    <h1>Creative Design Generation</h1>
-                                    <p>Generate unique and realistic<br/>jewellery designs based
-                                        on your<br/>sketches, ensuring each piece<br/>is one-of-a-kind</p>
-                                </div>
-                                <div className="feature-box">
-                                    <i className="fa-solid fa-handshake-simple mb-4 feature-icon"></i>
-                                    <h1>User-Friendly Interface</h1>
-                                    <p>Navigate through our sleek and<br/>modern interface
-                                        designed for ease<br/>of use, making your design<br/>process enjoyable.</p>
-                                </div>
-                                <div className="feature-box">
-                                    <i className="fa-solid fa-star mb-4 feature-icon"></i>
-                                    <h1>Seamless Integration</h1>
-                                    <p>Easily integrate your designs into<br/>your existing
-                                        workflow, allowing for a<br/>smooth transition from concept to<br/>creation</p>
-                                </div>
-                            </div>
-                            <div className="col-12 about-us-section" id="AboutUs">
-                                <h1>How It Works</h1>
-                                <div className="d-flex flex-row justify-content-start about-us-steps">
-                                    <div className="about-step">
-                                        <i className="fa-solid fa-cloud-arrow-up mb-3"></i>
-                                        <p>Step 1: Upload Image</p>
-                                        <p>Easily upload your low-quality jewellery images for<br/>enhancement</p>
-                                    </div>
-                                    <div className="about-step">
-                                        <i className="fa-solid fa-arrows-rotate mb-3"></i>
-                                        <p>Step 2: Processing</p>
-                                        <p>Watch as our Deep Learning technology crafts stunning<br/>designs in
-                                            real-time</p>
-                                    </div>
-                                    <div className="about-step">
-                                        <i className="fa-solid fa-cloud-arrow-down mb-3"></i>
-                                        <p>Step 3: Download Image</p>
-                                        <p>Save the high quality image to your<br/> device with a quick click</p>
-                                    </div>
-                                </div>
-                            </div>
+            <div
+                className="container-fluid text-center my-5 vh-100 d-flex flex-column justify-content-center align-items-center"
+                id="how-it-works">
+                <h2>How it Works</h2>
+                <div className="row my-4">
+                    <div className="col-md-4">
+                        <div className="glass-card how-it-works-card">
+                            <h3>Step 1: Upload a Image</h3>
+                            <p>Easily upload your low-quality jewellery images for enhancement.</p>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                        <div className="glass-card how-it-works-card">
+                            <h3>Step 2: Processing Image</h3>
+                            <p>Watch as our DL technology crafts stunning designs in real-time.</p>
+                        </div>
+                    </div>
+                    <div className="col-md-4">
+                        <div className="glass-card how-it-works-card">
+                            <h3>Step 3: Download Image</h3>
+                            <p>Save the high-quality images to your device with a quick click.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <footer>
+                <p>&copy; 2024 Jewellery Design. All Rights Reserved.</p>
+            </footer>
         </div>
     );
 }

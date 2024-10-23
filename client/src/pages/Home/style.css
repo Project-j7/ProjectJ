@@ -1,12 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
 
-/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #f0f0f0;
+}
+
 .main-content {
     margin-left: 75px;
     min-height: 100vh;
 }
 
-/* Navbar */
+header {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+.bg-gif {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.header-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.home-header-content {
+    max-width: 66.67%;
+    padding: 0 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+.centered-paragraph {
+    max-width: 66.67%;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    padding: 0 20px;
+}
+
+header h1 {
+    font-size: 4rem;
+}
+
+header p {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
 .navItem_lg {
     text-decoration: none;
     position: relative;
@@ -29,10 +96,9 @@
     transform: scaleX(1);
 }
 
-/* Buttons */
 #login_signup_button_lg {
     color: black;
-    font-family: "Roboto";
+    font-family: "Roboto", serif;
     height: 40px;
     width: 150px;
     border-radius: 5px;
@@ -48,22 +114,6 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
-.Get_Started {
-    background-color: #347273;
-    color: white;
-    border-radius: 10px;
-    border-width: 0;
-    padding: 10px;
-    width: 150px;
-}
-
-.Get_Started:hover {
-    background-color: #2b5a55;
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-/* Main Content Styles */
 .content-text {
     margin-top: 100px;
 }
@@ -80,62 +130,76 @@
     margin-top: 15px;
 }
 
-.image {
-    margin-top: 145px;
-    border-radius: 25px;
+#key-features .row {
+    width: 75%;
+    margin: 0 auto;
 }
 
-/* Key Features Section */
-.features-container {
-    margin-top: 90px;
-    margin-left: 20px;
+#how-it-works .row {
+    width: 75%;
+    margin: 0 auto;
 }
 
-.section-header {
-    font-size: 20px;
-    color: #347273;
-}
-
-.section-title {
-    color: black;
-    font-size: 45px;
-    font-weight: 600;
-}
-
-.section-description {
-    color: grey;
-}
-
-.feature-boxes {
-    justify-content: center;
-}
-
-.feature-box {
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 20px;
-    margin: 35px;
-    padding: 40px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    padding: 20px;
     text-align: center;
-    border-width: 1px;
-    border-color: #347273;
-    border-style: solid;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    backdrop-filter: blur(10px);
 }
 
-.feature-icon {
-    font-size: 25px;
-    color: #347273;
+.key-feature-card, .how-it-works-card {
+    margin: 10px;
+    transition: transform 0.4s ease;
 }
 
-/* About Us Section */
-.about-us-section {
-    margin-top: 100px;
-    padding: 50px 0 50px 150px;
-    background-color: whitesmoke;
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(31, 38, 135, 0.57);
 }
 
-.about-us-steps {
-    margin-right: 100px;
+.btn-animate {
+    display: inline-block;
+    padding: 15px 30px;
+    color: white;
+    background: #ff5722;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.4s, transform 0.4s;
+    position: relative;
+    overflow: hidden;
 }
 
-.about-step {
-    margin-right: 100px;
+.btn-animate::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-100%);
+    transition: transform 0.4s;
+    z-index: 0;
+}
+
+.btn-animate:hover {
+    background: #ff3d00;
+    transform: translateY(-2px);
+}
+
+.btn-animate:hover::before {
+    transform: translateY(0);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: #fff;
 }
