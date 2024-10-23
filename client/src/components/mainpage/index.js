@@ -12,7 +12,7 @@ export default function Main() {
     // Handle image upload
     async function handleUpload(event) {
         event.preventDefault();
-
+ 
         const imageInput = document.getElementById('imageInput').files[0]; // Get the uploaded file
         if (!imageInput) {
             alert("Please select an image to upload.");
@@ -65,7 +65,7 @@ export default function Main() {
                 console.error("Failed to fetch main page data:", error); // Log errors
                 navigate("/account/login"); // Redirect to login on failure
             }
-        };
+        }; 
 
         fetchData();
     }, [navigate]); // Dependency array: rerun only if `navigate` changes
@@ -109,7 +109,7 @@ export default function Main() {
                                 <p className="image-title">Original Image</p>
                                 <img id="originalImage" src={originalImageURL} alt="Original"/>
                             </div>
-                        )}
+                        )} 
                         {processedImageSrc && (
                             <div className="image-section">
                                 <p className="image-title">Processed Image</p>
@@ -117,7 +117,6 @@ export default function Main() {
                             </div>
                         )}
                     </div>
-
                     <div className="mt-4">
                         <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
                     </div>

@@ -1,5 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+/* background-color:#e9e5d9; */
 
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+body{
+    color:black;
+}
 .login-popup {
     position: fixed;
     top: 50%;
@@ -7,16 +13,40 @@
     transform: translate(-50%, -50%);
 }
 
+
+.navbar{
+    position: fixed;
+    width: 99vw;
+    background-color: #e9e5d9;
+    /* background-color: rgb(249, 210, 217); */
+    /* box-shadow: 0px 3px 10px rgb(165, 62, 62); */
+    place-items: center;
+    height: 4.3rem;
+    z-index: 1;
+    
+    
+}
+.navbar-brand{
+    font-family: "Dancing Script", cursive;
+    font-size: 40px;
+    font-weight: 700;
+}
+
 .navItem_lg {
+    font-size: 20px;
     text-decoration: none;
-    position: relative;
-    color: black;
+    color:white;
+}
+.navItem_lg:hover{
+    transform: scale(1.12);
+    transition: transform 0.3s ease;
 }
 
 .navItem_lg::after {
     content: ' ';
     position: absolute;
     background-color: black;
+    color: white;
     height: 1px;
     width: 100%;
     left: 0;
@@ -26,40 +56,99 @@
 }
 
 .navItem_lg:hover::after {
-    transform: scaleX(1);
+    transform: scaleX(1.04);    
+    color: #347273;
+}
+.nav-link:active {
+    font-weight: bold;
+   
+}
+.navbar-nav{
+    color: white;
+    gap:30px;
 }
 
+.nav_line{
+    background-image: linear-gradient(#d0b200, #a58d00);
+}
 #login_signup_button_lg {
-    color: black;
+    color: white;
     font-family: "Roboto";
     height: 40px;
     width: 150px;
     border-radius: 5px;
-    background-color: transparent;
-    padding: 10px;
-    font-size: 13px;
-    border: 1px solid black;
+    border: 0px;
+    font-size: 20px;
+    line-height: -120px;
     transform: scaleX(1);
     transition: transform 0.3s;
+    background-color: brown;
+    
 }
 
 #login_signup_button_lg:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+   
+    transform: scale(1.02);
+    box-shadow: 0 0px 6px rgb(152, 152, 219);
 }
 
 .Get_Started {
-    background-color: #347273;
+    
     color: white;
-    border-radius: 10px;
-    border-width: 0;
-    padding: 10px;
-    width: 150px;
+    font-family: "Roboto";
+    height: 50px;
+    width: 160px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 20px;
+    line-height: -120px;
+    transform: scaleX(1);
+    transition: transform 0.3s;
+    background-color: brown;
 }
 
 .Get_Started:hover {
-    background-color: #2b5a55;
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    
+   
+    transform: scale(1.02);
+    box-shadow: 0 0px 6px rgb(152, 152, 219);
 }
 
+.working{
+    /* background-color: #f8f0cf; */
+    
+}
+
+.gem-gif{
+    border-radius: 2.5rem; 
+    
+    
+    
+}
+
+
+.gem-gif:hover {
+    box-shadow: inset 0 0 15px black;
+    
+    /* filter: brightness(1.2); Makes the image completely black */
+    
+}
+
+
+
+
+img{
+    border-radius: 29px;
+}
+
+.main{
+    background-color: #e9e5d9;
+}
+
+.keyFeatures {
+    border-radius: 20px;
+    margin: 35px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid black;
+}

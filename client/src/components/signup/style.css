@@ -1,22 +1,26 @@
+body{
+    background-color: #eeece7;
+}
 .container {
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #eeece7;
 }
 
 .form-box {
-    background-color: #ffffff;
-    padding: 50px 30px 30px 30px;
-    width: 400px;
-    height: auto;
+    background-color: #e9e5d9;
+    padding: 50px 30px 50px 30px;
+    width: 500px;
+    height: 90%;
     border-radius: 8px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .logo-box {
-    margin-bottom: 20px;
 }
 
 .logo {
@@ -25,8 +29,8 @@
 }
 
 .brand-name {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 35px;
+    font-weight: 600;
     margin-top: 10px;
     color: #333;
 }
@@ -42,7 +46,7 @@
 }
 
 .input-field:focus {
-    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
+    box-shadow: 0 1px 5px brown;
     border: 1px solid black;
     outline: none;
 }
@@ -68,7 +72,7 @@
 .submit-btn {
     width: 90%;
     padding: 12px;
-    background-color: #4a5568;
+    background-color: brown;
     color: white;
     font-size: 16px;
     border: none;
@@ -78,7 +82,7 @@
 }
 
 .submit-btn:hover {
-    background-color: #2d3748;
+    
 }
 
 .have-account {

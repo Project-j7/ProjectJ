@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
 }
-
+ 
 .image-container img {
     width: 48%;
     height: auto;
@@ -10,7 +10,7 @@
     border-radius: 5px;
     padding: 5px;
 }
-
+ 
 .upload-form {
     margin: 20px 0;
 }
