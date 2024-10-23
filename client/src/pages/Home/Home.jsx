@@ -1,10 +1,7 @@
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import Login from "../../components/login/index";
 import "./style.css";
 
 export default function Home() {
-    const [showLogin, setShowLogin] = useState(false);  // State to toggle login popup
     const navigate = useNavigate();
 
     // Redirect to login page when navbar login is clicked
@@ -15,12 +12,6 @@ export default function Home() {
 
     function signUpRedirect() {
         navigate('/account/signup');
-    }
-
-    // Show login popup when body login button is clicked
-    function loginPopUp() {
-        console.log("body button");
-        setShowLogin(true);  // Show the login popup
     }
 
     return (
