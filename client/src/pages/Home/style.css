@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
 
-.login-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* General Styles */
+.main-content {
+    margin-left: 75px;
+    min-height: 100vh;
 }
 
+/* Navbar */
 .navItem_lg {
     text-decoration: none;
     position: relative;
@@ -29,6 +29,7 @@
     transform: scaleX(1);
 }
 
+/* Buttons */
 #login_signup_button_lg {
     color: black;
     font-family: "Roboto";
@@ -39,7 +40,6 @@
     padding: 10px;
     font-size: 13px;
     border: 1px solid black;
-    transform: scaleX(1);
     transition: transform 0.3s;
 }
 
@@ -63,3 +63,79 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
+/* Main Content Styles */
+.content-text {
+    margin-top: 100px;
+}
+
+.content-text h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: bolder;
+    font-size: 65px;
+}
+
+.content-text p {
+    color: #71717a;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.image {
+    margin-top: 145px;
+    border-radius: 25px;
+}
+
+/* Key Features Section */
+.features-container {
+    margin-top: 90px;
+    margin-left: 20px;
+}
+
+.section-header {
+    font-size: 20px;
+    color: #347273;
+}
+
+.section-title {
+    color: black;
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.section-description {
+    color: grey;
+}
+
+.feature-boxes {
+    justify-content: center;
+}
+
+.feature-box {
+    border-radius: 20px;
+    margin: 35px;
+    padding: 40px;
+    text-align: center;
+    border-width: 1px;
+    border-color: #347273;
+    border-style: solid;
+}
+
+.feature-icon {
+    font-size: 25px;
+    color: #347273;
+}
+
+/* About Us Section */
+.about-us-section {
+    margin-top: 100px;
+    padding: 50px 0 50px 150px;
+    background-color: whitesmoke;
+}
+
+.about-us-steps {
+    margin-right: 100px;
+}
+
+.about-step {
+    margin-right: 100px;
+}
