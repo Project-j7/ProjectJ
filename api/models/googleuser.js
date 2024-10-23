@@ -11,6 +11,11 @@ const googleUserSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true
+    },
+    role:{
+        type:String,
+        required: true,
+        default: 'GENERAL'
     }
 }, {timestamps: true})
 

@@ -7,7 +7,8 @@ function setToken(user){
     const payload = {
         _id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        role: user.role
     }
     const token = jwt.sign(payload, PRIVATE_KEY);
     

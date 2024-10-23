@@ -14,7 +14,7 @@ import Home from "./pages/Home/Home";
 import Main from "./pages/Mainpage/Main";
 import { ServerUserProvider } from './contextStore/serverUserContext';
 import { FirebaseUserProvider } from './contextStore/firebaseUserContext'
-
+import Admin from "./pages/admin/index"
 // rendering , main code
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
     {
         path: 'account/main',
         element: <Main/>
+    },
+    {
+        path: '/admin',
+        element: <Admin/>
     }
 ])
 

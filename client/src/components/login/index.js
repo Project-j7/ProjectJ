@@ -5,14 +5,28 @@ import {authentication} from "../../firebase/firebase-config";
 import {TwitterAuthProvider, signInWithRedirect, FacebookAuthProvider, GoogleAuthProvider, signInWithPopup, getAuth} from "firebase/auth";
 import { useFirebaseUser } from "../../contextStore/firebaseUserContext";
 import { getCookie } from "../../miniFunctions/cookie-parser";
+import { useServerUser } from "../../contextStore/serverUserContext";
 
 function Login(){
     const [error, setError] = useState(null); // State for error messages
     const navigate = useNavigate();
 
-    const {googleSignIn} = useFirebaseUser();
+    const serverUser = useServerUser();
+    const {firebaseUser, googleSignIn} = useFirebaseUser();
     
+    console.log(firebaseUser);
+    console.log(serverUser);
     
+    if(firebaseUser || serverUser){
+        console.log("Entered the if block");
+        return(
+            <div>
+                <h1>YOU ARE AUTHETICATED.</h1>
+                <a href="#" onClick={navigate('/')}>go to your dashboard</a>
+            </div>
+        )
+    }
+
     async function handleGoogleLogin(){
         try {
             await googleSignIn();

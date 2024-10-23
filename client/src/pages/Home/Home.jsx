@@ -18,6 +18,7 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(false); 
   const navigate = useNavigate();
 
+    
 
   useEffect(() => {
     if (serverUser) {
