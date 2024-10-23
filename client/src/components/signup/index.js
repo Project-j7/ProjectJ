@@ -1,16 +1,8 @@
 import React from "react";
 import "./style.css";
-import {account} from "../../appwrite/appwrite-config"
-function Signup() {
+import backgroundImage from "../../assets/background.jpeg";
 
-    async function handleGoogleLogin() {
-        account.createOAuth2Session(
-            'google',
-            'http://localhost:3000',
-            //url of falied login
-            'http://localhost:3000/account/failed'
-        );
-    }
+function Signup() {
 
     function handleSignup(event) {
         event.preventDefault();
@@ -54,9 +46,8 @@ function Signup() {
 
     }
 
-
     return (
-        <div className="container">
+        <div className="container" style={{backgroundImage: `url(${backgroundImage})`}}>
             <div className="form-box">
                 <div className="logo-box">
                     <h1 className="brand-name">Sign Up</h1>
@@ -72,7 +63,6 @@ function Signup() {
                            placeholder="Confirm password" required/>
 
                     <div className="captcha-box">
-                        <img src="" alt="Captcha" className="captcha"/>
                     </div>
                     <button type="submit" className="submit-btn">Sign Up</button>
                 </form>
@@ -80,7 +70,7 @@ function Signup() {
                 </p>
                 <p className="sign-in-options">or you can sign in with</p>
                 <div>
-                    <a id="social-icon-google" href="#" className="social-icon" onClick={handleGoogleLogin}>
+                    <a id="social-icon-google" href="#" className="social-icon" onClick={null}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                              className="bi bi-google" viewBox="0 0 16 16">
                             <path
