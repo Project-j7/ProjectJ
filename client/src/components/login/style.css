@@ -1,95 +1,111 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; /* Prevent scrolling due to background GIF */
+}
+
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(5px); /* Optional for frosted glass effect */
 }
 
 .login-box {
-    background-color: #ffffff;
-    padding: 50px 30px 30px 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
     width: 400px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
-.login-logo {
-    width: 70px;
-    margin-bottom: 10px;
-}
-
 .login-title {
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 700;
     margin-bottom: 20px;
-    color: #333333;
+    color: #333;
 }
 
 .input-field {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin: 10px 0;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 16px;
     transition: border 0.3s ease, box-shadow 0.5s ease;
 }
 
 .input-field:focus {
-    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
-    border: 1px solid black;
+    box-shadow: 0 1px 8px rgba(250, 129, 7, 0.5);
+    border: 1px solid #f9a800;
     outline: none;
 }
 
 .input-field:hover {
-    border: 1px solid black;
-    outline: none;
+    border: 1px solid #f9a800;
 }
 
 .login-btn {
-    width: 90%;
-    padding: 12px;
+    width: 100%;
+    padding: 14px;
     margin-top: 15px;
-    background-color: #3b485b;
+    background-color: #b7581f;
     color: #ffffff;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .login-btn:hover {
-    background-color: #2a374a;
+    background-color: #da112a;
+    transform: translateY(-2px);
 }
 
 .password_signup {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
-.forgot-password, .sign-up {
+.forgot-password,
+.sign-up {
     font-size: 14px;
-    color: #666666;
+    color: #666;
     text-decoration: none;
 }
 
-.forgot-password:hover, .sign-up:hover {
+.forgot-password:hover,
+.sign-up:hover {
     text-decoration: underline;
 }
 
 .alternative-signin {
     margin: 20px 0 10px;
     font-size: 14px;
-    color: #999999;
+    color: #999;
 }
 
 .social-icon {
     margin: 10px 5px;
     color: #888;
+    transition: color 0.3s ease;
 }
 
+.social-icon:hover {
+    color: #f9a800;
+}
 
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin: 10px 0;
+}
