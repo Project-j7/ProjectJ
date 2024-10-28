@@ -1,68 +1,113 @@
+body {
+    font-family: 'Cormorant Garamond', serif;
+    /* background: url('background-image.jpg') no-repeat center center fixed;  */
+    background-size: cover;
+    color: #333;
+    background-color: rgb(240, 247, 244);
+}
+
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color:  rgb(240, 247, 244);
+    backdrop-filter: blur(10px); /* Blurring background */
 }
 
 .login-box {
-    background-color: #ffffff;
-    padding: 50px 30px 30px 30px;
-    width: 400px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 40px 30px;
+    width: 600px;
+    height: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
+    animation: floating 4s ease-in-out infinite; /* Floating effect */
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 0.6s ease forwards, floating 4s ease-in-out infinite; /* Combined fade and floating */
+    margin-right: 250px;
 }
 
-.login-logo {
-    width: 70px;
-    margin-bottom: 10px;
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Float up slightly */
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 .login-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #333333;
+    font-size: 32px;
+    color: #006666; /* Elegant green */
+    margin-bottom: 10px;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
 }
 
 .input-field {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    font-size: 16px;
-    transition: border 0.3s ease, box-shadow 0.5s ease;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
 }
 
 .input-field:focus {
-    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
-    border: 1px solid black;
-    outline: none;
-}
-
-.input-field:hover {
-    border: 1px solid black;
-    outline: none;
+    border-color: #006666; 
+    box-shadow: 0 0 5px #2a9797;
 }
 
 .login-btn {
-    width: 90%;
+    width: 100%;
     padding: 12px;
-    margin-top: 15px;
-    background-color: #3b485b;
+    background-color: #006666; 
     color: #ffffff;
-    font-size: 16px;
-    font-weight: 500;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Transition for glow effect */
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.8s;
+    margin-top: 10px;
 }
 
 .login-btn:hover {
-    background-color: #2a374a;
+    background-color: #38bbbb;
+    box-shadow: 0 0 15px #006666;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.social-icon {
+    color: #006666; 
+    text-decoration: none;
+    transition: color 0.3s, box-shadow 0.3s; /* Transition for glow effect */
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.9s;
+}
+
+.social-icon:hover {
+    color: #006666;
 }
 
 .password_signup {
@@ -75,21 +120,12 @@
     font-size: 14px;
     color: #666666;
     text-decoration: none;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 1s;
 }
 
 .forgot-password:hover, .sign-up:hover {
     text-decoration: underline;
+     
 }
-
-.alternative-signin {
-    margin: 20px 0 10px;
-    font-size: 14px;
-    color: #999999;
-}
-
-.social-icon {
-    margin: 10px 5px;
-    color: #888;
-}
-
-

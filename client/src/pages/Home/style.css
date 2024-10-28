@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
 
+body{
+    overflow: auto;
+}
 .login-popup {
     position: fixed;
     top: 50%;
@@ -10,13 +13,13 @@
 .navItem_lg {
     text-decoration: none;
     position: relative;
-    color: black;
+    color: #333333;
 }
 
 .navItem_lg::after {
     content: ' ';
     position: absolute;
-    background-color: black;
+    background-color: #333333;
     height: 1px;
     width: 100%;
     left: 0;
@@ -30,7 +33,7 @@
 }
 
 #login_signup_button_lg {
-    color: black;
+    color: #333333;
     font-family: "Roboto";
     height: 40px;
     width: 150px;
@@ -38,7 +41,7 @@
     background-color: transparent;
     padding: 10px;
     font-size: 13px;
-    border: 1px solid black;
+    border: 1px solid #333333;
     transform: scaleX(1);
     transition: transform 0.3s;
 }
@@ -49,7 +52,7 @@
 }
 
 .Get_Started {
-    background-color: #347273;
+    background-color: #006666;
     color: white;
     border-radius: 10px;
     border-width: 0;
@@ -63,3 +66,87 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
+.keyFeatures {
+    border-radius: 20px;
+    margin: 35px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid #006666;
+}
+
+.keyFeatures:hover{
+    transform: scale(1.12);
+}
+
+.back {
+    background: rgb(240, 247, 244);
+    padding-bottom: 50px; /* Add padding to the bottom */
+    overflow-y: auto;
+}
+
+/* rgb(211, 248, 236) */ 
+/* background: linear-gradient(to bottom, #A2C2E4, #faf6f6); */
+/* #347273; */
+
+.home_page_pic_1{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_2{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_3{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_4{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+} 
+
+.home_page_pic_5{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_6{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_7{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_8{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}
+
+.home_page_pic_9{
+    width:100px;
+    height: 130px;
+    background-size:cover;
+    border-radius:20px;
+}

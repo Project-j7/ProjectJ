@@ -1,102 +1,127 @@
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background-color: rgb(240, 247, 244);
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent scrolling */
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Full height of the viewport */
+    width: 100%;
+    backdrop-filter: blur(10px); /* Blurring background */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    padding: 0; /* Remove padding */
 }
 
 .form-box {
-    background-color: #ffffff;
-    padding: 50px 30px 30px 30px;
-    width: 400px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 20px; /* Adjusted padding to prevent overflow */
+    border-radius: 10px 10px 30px 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    width: 400px; /* Set width */
+    /* max-width: 90%; Ensure the form fits smaller screens */
+    animation: floating 4s ease-in-out infinite;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards, floating 4s ease-in-out infinite;
+    /* margin-top: 50px; */
+    /* margin-bottom: 50px; */
+    margin-right: 150px;
+    height: 560px;
 }
 
-.logo-box {
-    margin-bottom: 20px;
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Float up slightly */
+    }
 }
 
-.logo {
-    width: 60px;
-    height: auto;
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 .brand-name {
     font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #333;
+    color: #006666;
+    margin-bottom: 10px;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.5s;
 }
 
 .input-field {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 8px;
+    margin: 8px 0;
     border-radius: 6px;
     border: 1px solid #ddd;
-    font-size: 16px;
-    transition: border 0.3s ease, box-shadow 0.5s ease;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.6s;
 }
 
 .input-field:focus {
-    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
-    border: 1px solid black;
-    outline: none;
-}
-
-.input-field:hover {
-    border: 1px solid black;
-    outline: none;
-}
-
-
-.captcha-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 15px 0;
-}
-
-.captcha {
-    width: 100px;
-    height: auto;
+    border-color: #006666;
+    box-shadow: 0 0 5px #84f8f8;
 }
 
 .submit-btn {
-    width: 90%;
-    padding: 12px;
-    background-color: #4a5568;
-    color: white;
-    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    background-color: #006666;
+    color: #ffffff;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 0.8s;
+    margin-top: 10px;
 }
 
 .submit-btn:hover {
-    background-color: #2d3748;
-}
-
-.have-account {
-    margin-top: 20px;
-}
-
-.signin-link {
-    color: #3182ce;
-    text-decoration: none;
-}
-
-.sign-in-options {
-    margin: 20px 0;
-    color: #888;
+    background-color: #35c5c5;
+    box-shadow: 0 0 10px #4ac7c7;
 }
 
 .social-icon {
-    margin: 10px 5px;
-    color: #888;
+    color: #006666; /* Updated icon color */
+    text-decoration: none;
+    margin: 0 10px;
 }
 
+.social-icon:hover {
+    color: #006666;
+}
+
+.have-account, .sign-in-options {
+    font-size: 12px;
+    color: #666666;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    animation-delay: 1s;
+    margin-top: 10px;
+}
+
+.signin-link {
+    color: #006666;
+    text-decoration: none;
+}
+
+.signin-link:hover {
+    text-decoration: underline;
+}
