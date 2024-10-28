@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
-import Login from "../../components/login/index";
 import "./style.css";
 import Image from "./homePageImage.jpg";
 
