@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Login from "../../components/login/index";
 import "./style.css";
@@ -31,48 +31,23 @@ export default function Home() {
         console.log("body button");
         setShowLogin(true); // Show the login popup
     }
-    const FaqItem = ({ question, answer }) => {
-        const [isOpen, setIsOpen] = useState(false);
     
-        const toggleFaq = () => {
-            setIsOpen(!isOpen);
-        };
+    function displayFaq(){
+        const faqs = document.querySelectorAll(".faqs mt-3 mr-5 mb-3 pb-2");
+
+        faqs.forEach(function (faq) {
+            faq.addEventListener("click", function () {
+                faq.classList.toggle("active"); // Toggle the active class to show/hide answer
     
-        return (
-            <div className={`faqs mt-3 mr-5 mb-3 pb-2 ${isOpen ? "active" : ""}`} onClick={toggleFaq}>
-                <div className="question">
-                    <h1>{question}</h1>
-                    <i className={`fa-solid ${isOpen ? "fa-chevron-down" : "fa-chevron-right"}`} />
-                </div>
-                <div className="answer" style={{ maxHeight: isOpen ? "500px" : "0", overflow: "hidden", transition: "max-height 0.3s ease" }}>
-                    <p>{answer}</p>
-                </div>
-            </div>
-        );
-    };
-    
-    const Faqs = () => {
-        const faqData = [
-            { question: "Is the colorization done in real-time?", answer: "The process is near real-time for standard images..." },
-            { question: "How can I get started with using this tool?", answer: "To start colorizing your greyscale images..." },
-            { question: "How accurate is the colorization process?", answer: "The accuracy of the colorization depends..." },
-            { question: "How do you ensure the privacy of the uploaded images?", answer: "All uploaded images are processed securely..." },
-            { question: "What technology do you use to colorize greyscale images?", answer: "We use advanced deep learning algorithms..." }
-        ];
-    
-        return (
-            <div id="FAQs" className="mt-5 w-100">
-                <div style={{ marginLeft: 130 }}>
-                    <h2 className="faq_heading">FAQs</h2>
-                    {faqData.map((faq, index) => (
-                        <FaqItem key={index} question={faq.question} answer={faq.answer} />
-                    ))}
-                </div>
-            </div>
-        );
-    };
-    
-    export default Faqs;
+                const icon = faq.querySelector(".fa-solid");
+                if (icon) {
+                    icon.classList.toggle("fa-chevron-right");
+                    icon.classList.toggle("fa-chevron-down"); // Toggle the icon direction
+                }
+            });
+        }) 
+    }
+
     return (
         <div className="back">
             <nav className="pt-3 navbar navbar-expand-lg navbar-light">
@@ -129,7 +104,7 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* <div id="featuresSection" style={{ minHeight: "100vh" }}>
+            <div id="featuresSection" style={{ minHeight: "100vh" }}>
                 <div className="conatiner" style={{ marginTop: "90px", marginLeft: "20px" }}>
                     <div className="column">
                         <div className="row" style={{ width: "100%" }}>
@@ -175,8 +150,8 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
-                        </div> */}
-                        <div id="FAQs" className="mt-5 w-100">
+                        </div>
+                        <div id="FAQs" className="mt-5 w-100" >
                             <div style={{ marginLeft: 130 }}>
                                 <div className="column">
                                     <div className="row" style={{ width: "100%" }}>
@@ -268,7 +243,7 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                        {/* <div id="ContactUs" style={{ margin: "200px 0 50px 0" }}>
+                        <div id="ContactUs" style={{ margin: "200px 0 50px 0" }}>
                             <div className="column">
                                 <div className="row" style={{ width: "100%" }}>
                                     <div className="col-6">
@@ -383,10 +358,10 @@ export default function Home() {
                                                 <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
                                             </svg>
                                         </a>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
-                        </div>*/}
+                        </div>
                     </div>
                 </div>
             </div>
