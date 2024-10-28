@@ -129,7 +129,7 @@ function Login() {
                 <input type="password" id="login-field-password" class="input-field" placeholder="Password" />
                 
                 {/* reCAPTCHA */}
-                <div className="g-recaptcha d-flex justify-content-center" data-sitekey="6LcyqWsqAAAAAP0Ru9J_G_gEzYU0fXMIfiwdUHpE"></div>
+                <div className="g-recaptcha d-flex justify-content-center" data-sitekey="6LecGG4qAAAAALEL-sGYlFvjGrSZ4dMhLQBKXm7c"></div>
 
                 <button type="submit" class="login-btn">Login</button>
                 

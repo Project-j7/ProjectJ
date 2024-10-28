@@ -150,3 +150,84 @@ body{
     background-size:cover;
     border-radius:20px;
 }
+
+.faq_heading{
+    text-align: start;
+    font-size: 30px;
+    font-weight:bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.faqs{
+    border-bottom: 1px solid black;
+}
+
+.question{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.question h1{
+    font-size: 20px;
+}
+
+.question i{
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.answer{
+    max-height: 0;
+    overflow: hidden;
+    cursor: pointer;
+    display: none;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.answer p{
+    font-size: 14px;
+}
+
+.faqs.active .answer{
+    max-height: 300px;
+    display: block;
+}
+
+.office_hours h1{
+    font-size: 20px;
+}
+
+.office_hours p{
+    font-size: 15px;
+}
+
+.address h1{
+    font-size:20px;
+}
+
+.address p{
+    font-size:15px;
+}
+
+.phone_no h1{
+    font-size: 20px;
+}
+
+.phone_no p{
+    font-size: 15px;
+}
+
+.copy_rights{
+    font-size: 14px;
+}
+
+.links a{
+    font-size: 13px;
+    color: rgb(94, 91, 91);
+    transition: 0.5s ease;
+}
+
+.links a:hover{
+    color: black;
+}

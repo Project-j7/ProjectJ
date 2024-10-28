@@ -62,7 +62,7 @@ const secretKey = process.env.SECRET_KEY;
 
 // Example endpoint for your backend
 app.post('/api/verify', async (req, res) => {
-    const secretKey = "6LcyqWsqAAAAAJoB2hD0W0dk7fUFMqchEjiUL9Vu";
+    const secretKey = "6LecGG4qAAAAAJJNu5PHz3QB5yygUMwcdZsG79Oi";
     const token = req.body.response; // Token received from the client
     console.log("request body is",req.body);
     console.log("After token",token);
