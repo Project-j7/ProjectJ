@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-from image_processing import process_image_with_model  # Import the processing function
+from image_processing import process_single_image  # Import the processing function
 
 # Initialize Flask app and enable CORS
 app = Flask(__name__)
@@ -77,7 +77,7 @@ def upload_image():
     # Process the image using the model
     processed_filename = 'processed_' + filename
     processed_image_path = os.path.join(user_processed_folder, processed_filename)
-    process_image_with_model(image_path, processed_image_path)
+    process_single_image(image_path, processed_image_path)
 
     return jsonify({'processedImage': f"{username}/{processed_filename}"})
 
