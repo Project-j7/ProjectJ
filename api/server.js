@@ -38,7 +38,7 @@ app.use(session({
     saveUninitialized: false,
 
     cookie: {
-        maxAge: 60000,
+        maxAge: 30 * 60 * 1000,
         SameSite: "None", // Necessary for cross-origin requests
         secure: false,
     }
