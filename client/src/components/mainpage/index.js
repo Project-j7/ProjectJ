@@ -1,6 +1,6 @@
 import "./style.css";
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState, useEffect, useRef} from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function Main() {
     const [originalImageURL, setOriginalImageURL] = useState(null);
@@ -97,7 +97,7 @@ export default function Main() {
     const startWebcam = async () => {
         setShowWebcam(true);
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const stream = await navigator.mediaDevices.getUserMedia({video: true});
             videoRef.current.srcObject = stream;
             videoRef.current.play();
         } catch (error) {
@@ -188,7 +188,7 @@ export default function Main() {
                         <button className="btn btn-info mb-3" onClick={startWebcam}>Use Webcam</button>
                         <form id="uploadForm" className="upload-form" onSubmit={handleUpload}>
                             <div className="mb-3">
-                                <input className="form-control" type="file" id="imageInput" accept="image/*" />
+                                <input className="form-control" type="file" id="imageInput" accept="image/*"/>
                             </div>
                             <button type="submit" className="btn btn-success">Upload and Process</button>
                         </form>
@@ -197,7 +197,8 @@ export default function Main() {
                                 {originalImageURL && (
                                     <>
                                         <p className="image-title">Original Image</p>
-                                        <img className="img-thumbnail image-resize" src={originalImageURL} alt="Original" />
+                                        <img className="img-thumbnail image-resize" src={originalImageURL}
+                                             alt="Original"/>
                                     </>
                                 )}
                             </div>
@@ -205,7 +206,8 @@ export default function Main() {
                                 {processedImageSrc && (
                                     <>
                                         <p className="image-title">Processed Image</p>
-                                        <img className="img-thumbnail image-resize" src={processedImageSrc} alt="Processed" />
+                                        <img className="img-thumbnail image-resize" src={processedImageSrc}
+                                             alt="Processed"/>
                                     </>
                                 )}
                             </div>
@@ -219,13 +221,15 @@ export default function Main() {
                 <div className="popup-overlay">
                     <div className="popup-content">
                         <h3 className="popup-heading">Webcam Capture</h3>
-                        <video ref={videoRef} autoPlay className="webcam-video" style={{ width: '100%', maxHeight: '400px' }} />
-                        <canvas ref={canvasRef} style={{ display: 'none' }} />
+                        <video ref={videoRef} autoPlay className="webcam-video"
+                               style={{width: '100%', maxHeight: '400px'}}/>
+                        <canvas ref={canvasRef} style={{display: 'none'}}/>
                         <button className="btn btn-success mt-2" onClick={captureImage}>Capture Image</button>
                         <button className="btn btn-danger mt-2" onClick={() => {
                             setShowWebcam(false);
                             stopWebcam();
-                        }}>Close</button>
+                        }}>Close
+                        </button>
                     </div>
                 </div>
             )}

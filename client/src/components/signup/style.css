@@ -1,22 +1,27 @@
 .container {
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #eeece7;
+}
+
+.test {
+    background-color: #eeece7;
 }
 
 .form-box {
-    background-color: #ffffff;
-    padding: 50px 30px 30px 30px;
-    width: 400px;
-    height: auto;
+    background-color: #e9e5d9;
+    padding: 30px;
+    width: 500px;
+    height: 90%;
     border-radius: 8px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 .logo-box {
-    margin-bottom: 20px;
 }
 
 .logo {
@@ -25,9 +30,9 @@
 }
 
 .brand-name {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
+    font-size: 2rem;
+    font-weight: 600;
+
     color: #333;
 }
 
@@ -42,7 +47,7 @@
 }
 
 .input-field:focus {
-    box-shadow: 0 1px 5px rgba(250, 129, 7, 1);
+    box-shadow: 0 1px 5px brown;
     border: 1px solid black;
     outline: none;
 }
@@ -53,24 +58,17 @@
 }
 
 
-.captcha-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 15px 0;
-}
-
-.captcha {
-    width: 100px;
-    height: auto;
+.g-recaptcha {
+    margin-top: 7px;
 }
 
 .submit-btn {
     width: 90%;
     padding: 12px;
-    background-color: #4a5568;
+    background-color: brown;
     color: white;
     font-size: 16px;
+    margin-top: 15px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -78,7 +76,7 @@
 }
 
 .submit-btn:hover {
-    background-color: #2d3748;
+
 }
 
 .have-account {
@@ -99,4 +97,3 @@
     margin: 10px 5px;
     color: #888;
 }
-

@@ -65,7 +65,7 @@
 }
 
 .login-btn:hover {
-    
+
 }
 
 .password_signup {
@@ -78,14 +78,17 @@
     font-size: 14px;
     color: #666666;
     text-decoration: none;
- 
+
 }
- .sign-up {
+
+.sign-up {
     padding-right: 25px;
- }
- .forgot-password{
+}
+
+.forgot-password {
     padding-left: 25px;
- }
+}
+
 .forgot-password:hover, .sign-up:hover {
     text-decoration: underline;
 }
@@ -100,5 +103,3 @@
     margin: 10px 5px;
     color: #888;
 }
-
-
