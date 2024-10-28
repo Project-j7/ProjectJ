@@ -1,0 +1,247 @@
+/* background-color:#e9e5d9; */
+
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+body{
+    color:black;
+}
+
+.login-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.navbar{
+    position: fixed;
+    width: 99vw;
+    background-color: #e9e5d9;
+    /* background-color: rgb(249, 210, 217); */
+    /* box-shadow: 0px 3px 10px rgb(165, 62, 62); */
+    place-items: center;
+    height: 4.3rem;
+    z-index: 1;
+    
+    
+}
+.navbar-brand{
+    font-family: "Dancing Script", cursive;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.navItem_lg {
+    font-size: 20px;
+    text-decoration: none;
+    color:white;
+}
+.navItem_lg:hover{
+    transform: scale(1.12);
+    transition: transform 0.3s ease;
+}
+
+.navItem_lg::after {
+    content: ' ';
+    position: absolute;
+    background-color: black;
+    color: white;
+    height: 1px;
+    width: 100%;
+    left: 0;
+    bottom: -1px;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.navItem_lg:hover::after {
+    transform: scaleX(1.04);    
+    color: #347273;
+}
+.nav-link:active {
+    font-weight: bold;
+   
+} 
+.navbar-nav{
+    color: white;
+    gap:30px;
+}
+
+.nav_line{
+    background-image: linear-gradient(#d0b200, #a58d00);
+}
+
+.profile {
+    border-radius: 50%;  /* Makes it a perfect circle */
+    width: 40px;
+    height: 40px;  /* Ensure equal width and height */
+    text-align: center;
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    font-size: 20px;
+    color: white;
+    cursor:pointer;
+    background-color: rgb(161, 48, 48);
+}
+.dropdown {
+    width: 150px;
+    height: auto; /* Adjust height to be auto so it fits the content */
+    margin-top: 10px; /* Space between profile icon and dropdown */
+    margin-left: -90px; /* Move it to the left; adjust as necessary */
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #ece1c9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    z-index: 7; /* Ensure dropdown appears above other content */
+}
+
+.dropdown button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.dropdown button:hover {
+    background-color: #e1d8bf;
+    border-left: 4px solid rgb(195, 133, 133);
+}
+.logout-button{
+    background-color: whitesmoke;
+}
+
+#login_signup_button_lg {
+    color: white;
+    font-family: "Roboto";
+    height: 40px;
+    width: 150px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 20px;
+    line-height: -120px;
+    transform: scaleX(1);
+    transition: transform 0.3s;
+    background-color: rgb(200, 53, 53);
+    
+}
+
+#login_signup_button_lg:hover {
+   
+    transform: scale(1.02);
+    box-shadow: 0 0px 6px rgb(152, 152, 219);
+}
+
+.Get_Started {
+    color: white;
+    font-family: "Roboto";
+    height: 50px;
+    width: 160px;
+    border-radius: 5px;
+    border: 0px;
+    font-size: 20px;
+    line-height: -120px;
+    transform: scaleX(1);
+    transition: transform 0.3s;
+    background-color: brown; 
+}
+
+.Get_Started:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0px 6px rgb(152, 152, 219);
+}
+
+.working{
+    /* background-color: #f8f0cf; */
+    
+}
+
+.gem-gif{
+    border-radius: 2.5rem; 
+    
+    
+    
+}
+
+.gem-gif:hover {
+    box-shadow: inset 0 0 15px black;
+    
+    /* filter: brightness(1.2); Makes the image completely black */
+    
+}
+
+img{
+    border-radius: 29px;
+}
+
+.main{
+    background-color: #e9e5d9;
+    /* background-color: #f4e5d6    ; */
+}
+
+.keyFeatures {
+    border-radius: 20px;
+    margin: 55px;
+    padding: 40px;
+    font-size: 1.1vw;
+    text-align: center;
+    border: 1px solid black;
+    transition: transform 0.3s ease-in-out;
+}
+.keyFeatures:hover{
+    transform: scale(1.05);
+}
+
+.logout-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+}
+.drop{
+    
+    height: 40px; /* Adjust height to be auto so it fits the content */
+    margin-top: 120px; /* Space between profile icon and dropdown */
+    margin-left: 660px; /* Move it to the left; adjust as necessary */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: #e8d4ab;
+    box-shadow: 0px 0px 7px rgb(99, 98, 98);
+    padding: 15px;
+    border-radius: 5px;
+   
+    z-index: 7; /* Ensure dropdown appears above other content */
+}
+
+.logout-symbol{
+    margin-right: 10px; 
+}
+
+.homeImage{
+    height: 75vh;
+}
+.icons-div{
+    display: flex;
+    justify-content: center;
+   
+}
+.icons-background{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 47px;
+    height: 47px;
+}
+
