@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from PIL import Image
+from tqdm import tqdm
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import img_to_array
 
@@ -14,35 +15,41 @@ print("Models loaded successfully")
 
 # Function to detect edges in the input image
 def detect_edges(image_path):
-    # Load the image from the specified path
+    # Initialize progress bar with 6 total steps
+    progress = tqdm(total=6, desc="Processing Image")
+
+    # Step 1: Load the image from the specified path
     image = cv2.imread(image_path)
+    progress.update(1)  # Update progress bar
 
-    # Save the original size for later resizing
+    # Step 2: Save the original size for later resizing
     original_size = (image.shape[1], image.shape[0])  # Width, Height of the original image
+    progress.update(1)
 
-    # Resize the image to 256x256 for model processing
+    # Step 3: Resize the image to 256x256 for model processing
     image_resized = cv2.resize(image, (256, 256))
+    progress.update(1)
 
-    # Convert the resized image to LAB color space to separate luminance and color channels
+    # Step 4: Convert the resized image to LAB color space to separate luminance and color channels
     lab = cv2.cvtColor(image_resized, cv2.COLOR_BGR2LAB)
     L, _, B = cv2.split(lab)  # Split LAB channels to get L (luminance) and B (color) channels
+    progress.update(1)
 
-    # Detect edges on the L (luminance) and B (color) channels
+    # Step 5: Detect edges on the L (luminance) and B (color) channels
     edges_luminance = cv2.Canny(L, threshold1=10, threshold2=60)
     edges_color_b = cv2.Canny(B, threshold1=10, threshold2=60)
-
-    # Combine the edges from both channels
     combined_edges = cv2.bitwise_or(edges_luminance, edges_color_b)
+    progress.update(1)
 
-    # Invert the edges to make them white on a black background
+    # Step 6: Invert the edges and prepare a white background with black edges
     edges_inv = cv2.bitwise_not(combined_edges)
-
-    # Convert to BGR format for model compatibility
     edges_inv_bgr = cv2.cvtColor(edges_inv, cv2.COLOR_GRAY2BGR)
-
-    # Create a white background with black edges
     white_background = np.ones_like(edges_inv_bgr) * 255
     image_with_black_details = np.where(edges_inv_bgr == [0, 0, 0], [0, 0, 0], white_background).astype(np.uint8)
+    progress.update(1)
+
+    # Close the progress bar
+    progress.close()
 
     return image_with_black_details, original_size  # Return edge-detected image and original size
 
@@ -68,6 +75,7 @@ def process_image_with_model(model, input_image):
 
 # Main function to process a single image
 def process_single_image(image_path, output_path):
+    print("Starting image processing...")
     # Detect edges and obtain the original size
     edge_detected_image, original_size = detect_edges(image_path)
     print("Stage - 1 Edge detection success")
