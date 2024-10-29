@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useFirebaseUser } from "../../contextStore/firebaseUserContext";
 import { useServerUser } from "../../contextStore/serverUserContext";
 import { useState, useEffect } from 'react';
 import Navbar from "../../components/navbar";
 import './styles.css';
 
-function Dashboard() {
+function Favourites(){
     const serverUser = useServerUser();
     const [user, setUser] = useState(null);
     const [username, setUsername] = useState(null);
@@ -24,7 +23,9 @@ function Dashboard() {
         .then(response => response.json())
         .then(data => {
             if (data.images) {
-                setImages(data.images);
+                setImages(data.images.filter( (img) => {
+                    return (img.favourite === true)
+                }));
             } else {
                 console.log("No images found for the user.");
             }
@@ -86,6 +87,7 @@ function Dashboard() {
     return (
         <div>
             <Navbar />
+            <h3>Favourites</h3>
             <div className="image-gallery">
                 {images.length > 0 ? (
                     images.map((img) => (
@@ -116,4 +118,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default Favourites;

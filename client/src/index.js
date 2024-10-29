@@ -14,7 +14,12 @@ import Home from "./pages/Home/Home";
 import Main from "./pages/Mainpage/Main";
 import { ServerUserProvider } from './contextStore/serverUserContext';
 import { FirebaseUserProvider } from './contextStore/firebaseUserContext'
-import Admin from "./pages/admin/index"
+import Admin from "./pages/admin/index";
+import { Fabricate }from './pages/fabricate';
+import Dashboard from './pages/dashboard';
+import Pinned from './pages/pinned';
+import Favourites from './pages/favourites';
+
 // rendering , main code
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -38,6 +43,22 @@ const router = createBrowserRouter([
     {
         path: '/admin',
         element: <Admin/>
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard/>
+    },
+    {
+        path: '/dashboard/fabricate',
+        element: <Fabricate/>
+    },
+    {
+        path: '/dashboard/pinned',
+        element: <Pinned/>
+    },
+    {
+        path: '/dashboard/favourites',
+        element: <Favourites/>
     }
 ])
 

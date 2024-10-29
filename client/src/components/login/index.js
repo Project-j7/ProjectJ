@@ -90,7 +90,7 @@ function Login(){
             .then((data) => {
                 console.log(data);
                 if(getCookie("token")) {
-                    navigate('/');
+                    navigate('/dashboard');
                 }
             })
             .catch((err) => console.log(err));

@@ -12,9 +12,9 @@ import { Logout } from "../../components/logout";
 export default function Home() {
   const serverUser = useServerUser();
 
-  const {firebaseUser, googleSignOut} = useFirebaseUser();
+  const {googleSignOut} = useFirebaseUser();
 
-  const [authUser, setAuthUser] = useState('NoUser');
+  const [authUser, setAuthUser] = useState(undefined);
   const [showLogin, setShowLogin] = useState(false); 
   const navigate = useNavigate();
 
@@ -23,17 +23,20 @@ export default function Home() {
   useEffect(() => {
     if (serverUser) {
       setAuthUser(serverUser.username);
-    } else if (firebaseUser) {
-      setAuthUser(firebaseUser.displayName);
-    }
-  }, [serverUser, firebaseUser]);
+    } 
+  }, [serverUser]);
 
   function loginRedirect() {
     navigate('/account/login'); 
   }
 
-  function signUpRedirect() {
-    navigate('/account/signup');
+  function handleRedirect() {
+    if(!authUser){
+      navigate('/account/signup');
+    }
+    else{
+      navigate('/dashboard');
+    }
   }
 
   // Show login popup when body login button is clicked
@@ -43,21 +46,21 @@ export default function Home() {
 
   return (
     <div>
-      <h1>HI</h1>
-      {authUser}
+      
       <nav className="pt-3 navbar navbar-expand-lg navbar-light position-">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Jewellery Creator</a>
+          <a className="navbar-brand" href="#">SKREMSI</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav m-auto">
+              <a className="nav-link navItem_lg" href="#">{authUser}</a>
               <a className="nav-link navItem_lg" href="#">Home</a>
               <a className="nav-link navItem_lg" href="#">Key Features</a>
               <a className="nav-link navItem_lg" href="#">About Us</a>
             </div>
-            {(firebaseUser?.displayName || serverUser) ? <Logout/> : <button id="login_signup_button_lg" onClick={loginRedirect}>Login</button> }
+            {(serverUser) ? <Logout/> : <button id="login_signup_button_lg" onClick={loginRedirect}>Login</button> }
           </div>
         </div>
       </nav>
@@ -75,7 +78,7 @@ export default function Home() {
                   Technology, transforming low-quality images into stunning, high resolution<br />
                   masterpieces.
                 </p>
-                <button className="Get_Started" onClick={signUpRedirect}>Get Started</button>
+                <button className="Get_Started" onClick={handleRedirect}>Get Started</button>
               </div>
               <div className="col-5">
                 <img className="w-75 img-fluid" style={{ marginTop: "145px", borderRadius: "25px" }} alt="image" />

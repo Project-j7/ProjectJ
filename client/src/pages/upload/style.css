@@ -1,0 +1,26 @@
+.image-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-container img {
+    width: 48%;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.upload-form {
+    margin: 20px 0;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+}
+
+.image-title {
+    text-align: center;
+    font-weight: bold;
+}

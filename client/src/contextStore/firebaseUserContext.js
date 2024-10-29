@@ -18,15 +18,13 @@ export const FirebaseUserProvider = ({children}) => {
     
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(authentication, (currentUser) => {
-            setfirebaseUser(currentUser);
-
             //store details of user in database
             if(currentUser){
                 const username = currentUser.displayName;
                 const email = currentUser.email;
 
                 (async function(){
-                    await fetch('http://localhost:8000/user/google', {
+                    await fetch('http://localhost:8000/signup', {
                         method: 'POST',
                         credentials: 'include',
                         headers: {
@@ -34,7 +32,8 @@ export const FirebaseUserProvider = ({children}) => {
                         },
                         body: JSON.stringify({
                             username: username, 
-                            email: email 
+                            email: email,
+                            password: "undefined"
                         })
                     })
                     .then((res)=>{
