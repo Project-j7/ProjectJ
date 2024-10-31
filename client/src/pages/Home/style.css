@@ -14,11 +14,6 @@ body {
     background-color: #f0f0f0;
 }
 
-.main-content {
-    margin-left: 75px;
-    min-height: 100vh;
-}
-
 header {
     height: 100vh;
     display: flex;
@@ -98,7 +93,7 @@ header p {
 
 #login_signup_button_lg {
     color: black;
-    font-family: "Roboto", serif;
+    font-family: 'Roboto', serif;
     height: 40px;
     width: 150px;
     border-radius: 5px;
@@ -112,22 +107,6 @@ header p {
 #login_signup_button_lg:hover {
     transform: scale(1.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.content-text {
-    margin-top: 100px;
-}
-
-.content-text h1 {
-    font-family: "Playfair Display", serif;
-    font-weight: bolder;
-    font-size: 65px;
-}
-
-.content-text p {
-    color: #71717a;
-    font-size: 18px;
-    margin-top: 15px;
 }
 
 #key-features .row {
@@ -150,7 +129,8 @@ header p {
     backdrop-filter: blur(10px);
 }
 
-.key-feature-card, .how-it-works-card {
+.key-feature-card,
+.how-it-works-card {
     margin: 10px;
     transition: transform 0.4s ease;
 }
@@ -164,7 +144,7 @@ header p {
     display: inline-block;
     padding: 15px 30px;
     color: white;
-    background: #ff5722;
+    background: #da6b10 !important;
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
@@ -189,7 +169,7 @@ header p {
 }
 
 .btn-animate:hover {
-    background: #ff3d00;
+    background: #e7640c;
     transform: translateY(-2px);
 }
 
