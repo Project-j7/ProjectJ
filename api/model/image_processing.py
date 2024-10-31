@@ -6,8 +6,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import img_to_array
 
 # Load models
-model_a_path = "Ritu290.h5"
-model_b_path = "Saha.h5"
+model_a_path = "stage1.h5"
+model_b_path = "stage2.h5"
 model_a = tf.keras.models.load_model(model_a_path)
 model_b = tf.keras.models.load_model(model_b_path)
 print("Models loaded successfully")
