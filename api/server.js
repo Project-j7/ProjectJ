@@ -5,7 +5,7 @@ const session = require("express-session");
 require("dotenv").config();
 
 // Initialize Express app
-const PORT = process.env.PORT || 8001;
+const PORT = process.env.PORT;
 const app = express();
 
 // Middleware to parse incoming JSON requests
@@ -20,26 +20,25 @@ app.use(cors({
 }));
 
 // MongoDB's connection string
-const MONGO_URI = "mongodb+srv://projectj_jewellery:jewellery07@project-jewellery.fy10i.mongodb.net/?retryWrites=true&w=majority&appName=Project-Jewellery";
+const MONGO_URI = process.env.MONGO_URI;
 
 // Connect to MongoDB Atlas database
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-    .then(() => console.log("Connection to Database Established."))
+    .then(() => console.log("✅ Connection to Database Established."))
     .catch((err) => {
-        console.error("Database connection failed:", err.message);
+        console.error("❌ Database connection failed:", err.message);
         process.exit(1);
     });
 
 app.use(session({
-    secret: 'your-secret-key', // Use a secure secret key
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-
     cookie: {
-        maxAge: 600000,
+        maxAge: 30 * 60 * 1000,
         SameSite: "None", // Necessary for cross-origin requests
         secure: false,
     }
@@ -53,39 +52,28 @@ app.use('/user', userRoutes);
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on PORT: ${PORT}`);
+    console.log(`🚀 Server running on PORT: ${PORT}`);
 });
-
-
-const fetch = require('node-fetch'); // Import fetch if not available natively
-
-// const secretKey = process.env.SECRET_KEY;
 
 // Example endpoint for your backend
 app.post('/api/verify', async (req, res) => {
-    const secretKey = "6LcyqWsqAAAAAJoB2hD0W0dk7fUFMqchEjiUL9Vu";
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
     const token = req.body.response; // Token received from the client
-    console.log("request body is", req.body);
-    console.log("After token", token);
-    console.log("secretKey", secretKey);
 
     try {
         // Make a fetch request to the external API, using the secret key
-
-        const response = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
+        const response = await import('node-fetch').then(({default: fetch}) => fetch(`https://www.google.com/recaptcha/api/siteverify`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: `secret=${secretKey}&response=${token}` // Send the secret key and the response token
-        });
-        console.log("api/verify");
+        }));
 
         const data = await response.json();
-        console.log("data", data);
-        res.json(data).status(200); // Send the response back to the client
+        res.status(200).json(data); // Send the response back to the client
     } catch (error) {
         console.error(error);
-        res.status(500).json({error: 'Verification failed'});
+        res.status(500).json({error: '❌ Verification failed'});
     }
 });
