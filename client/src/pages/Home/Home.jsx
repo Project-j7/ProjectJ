@@ -21,9 +21,12 @@ export default function Home() {
     
 
   useEffect(() => {
+    console.log(serverUser);
+
     if (serverUser) {
       setAuthUser(serverUser.username);
     } 
+    console.log(serverUser);
   }, [serverUser]);
 
   function loginRedirect() {

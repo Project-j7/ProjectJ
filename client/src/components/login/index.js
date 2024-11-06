@@ -22,7 +22,7 @@ function Login(){
         return(
             <div>
                 <h1>YOU ARE AUTHETICATED.</h1>
-                <a href="#" onClick={navigate('/')}>go to your dashboard</a>
+                <a href="#" onClick={navigate('/dashboard')}>go to your dashboard</a>
             </div>
         )
     }
@@ -32,8 +32,32 @@ function Login(){
             await googleSignIn();
             const unsubscribe = authentication.onAuthStateChanged((user) => {
                 if (user) {
-                    navigate('/');
-                    unsubscribe(); 
+                    console.log(user);
+
+                    fetch('http://localhost:8000/login', {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: user.displayName, 
+                            password: "undefined",
+                            email: user.email 
+                        })
+                    })
+                    .then((res) => {
+                        return res.json();
+                    })
+                    .then((data) => {
+                        console.log(data);
+                        if(getCookie("token")) {
+                            navigate('/dashboard');
+                        }
+                    })
+                    .catch((err) => console.log(err));
+                    unsubscribe();
+                     
                 }
             });
         } catch (error) {
