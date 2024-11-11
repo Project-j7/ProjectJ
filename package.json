@@ -10,5 +10,9 @@
     "start:server": "cd api && npm start",
     "start:client": "cd client && npm start"
   },
-  "private": true
+  "private": true,
+  "workspaces": [
+    "api",
+    "client"
+  ]
 }
