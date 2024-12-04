@@ -14,6 +14,7 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Main from "./pages/Mainpage/Main";
+import Sidebar from './components/sidebar/sidebar';
 
 // rendering , main code
 
@@ -21,7 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home/>,
+        element: <><Sidebar/><Home/></>,
         errorElement: <Error/>
     },
     {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'account/main',
-        element: <Main/>
+        element: <><Sidebar/><Main/></>
     },
 ])
 
