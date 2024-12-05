@@ -8,10 +8,10 @@ export default function ImageToImage() {
     const [showOptionsPopup, setShowOptionsPopup] = useState(false);
     const [showWebcamPopup, setShowWebcamPopup] = useState(false);
     const [username, setUsername] = useState(sessionStorage.getItem("username") || "");
+    const [fileToProcess, setFileToProcess] = useState(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
-    // Fetch username from backend or sessionStorage
     useEffect(() => {
         const fetchUsername = async () => {
             if (!username) {
@@ -36,17 +36,21 @@ export default function ImageToImage() {
         fetchUsername();
     }, [username]);
 
-    // Handle image upload
-    const handleUpload = async (imageFile) => {
-        if (!imageFile) {
-            alert("Please select an image to upload.");
+    const handleUpload = (imageFile) => {
+        if (imageFile) {
+            setInputImage(URL.createObjectURL(imageFile)); // Show the preview
+            setFileToProcess(imageFile); // Store the file to be processed later
+        }
+    };
+
+    const handleProcess = async () => {
+        if (!fileToProcess) {
+            alert("Please upload or capture an image before generating.");
             return;
         }
 
-        setInputImage(URL.createObjectURL(imageFile)); // Display the image immediately
-
         const formData = new FormData();
-        formData.append("image", imageFile);
+        formData.append("image", fileToProcess);
         formData.append("username", username || "default_user");
 
         try {
@@ -61,47 +65,17 @@ export default function ImageToImage() {
             if (response.ok) {
                 const processedImageUrl = `http://localhost:5000/processed/${result.processedImage}`;
                 setProcessedImage(processedImageUrl);
-
-                // Save the processed image to the collection folder
-                await saveToCollection(processedImageUrl);
             } else {
                 alert(result.error || "Error processing image.");
             }
         } catch (error) {
-            console.error("Upload failed", error);
-            alert("An error occurred while uploading the image.");
+            console.error("Processing failed", error);
+            alert("An error occurred while processing the image.");
         } finally {
             setLoading(false);
         }
     };
 
-    // Save the processed image to the collection folder
-    const saveToCollection = async (processedImageUrl) => {
-        try {
-            const response = await fetch(processedImageUrl);
-            const blob = await response.blob();
-
-            const formData = new FormData();
-            formData.append("image", blob, "processed_image.png");
-            formData.append("username", username);
-
-            const saveResponse = await fetch("http://localhost:8001/save-image", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (saveResponse.ok) {
-                console.log("Processed image saved to collection folder.");
-            } else {
-                const errorText = await saveResponse.text();
-                console.error("Failed to save processed image to collection folder:", errorText);
-            }
-        } catch (error) {
-            console.error("Error saving processed image to collection folder:", error);
-        }
-    };
-
-    // Open file picker
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -110,7 +84,6 @@ export default function ImageToImage() {
         setShowOptionsPopup(false);
     };
 
-    // Start webcam
     const startWebcam = async () => {
         setShowOptionsPopup(false);
         setShowWebcamPopup(true);
@@ -124,7 +97,6 @@ export default function ImageToImage() {
         }
     };
 
-    // Stop webcam
     const stopWebcam = () => {
         const videoElement = videoRef.current;
         if (videoElement && videoElement.srcObject) {
@@ -135,7 +107,6 @@ export default function ImageToImage() {
         setShowWebcamPopup(false);
     };
 
-    // Capture image from webcam
     const captureImage = async () => {
         const canvas = canvasRef.current;
         const video = videoRef.current;
@@ -146,7 +117,6 @@ export default function ImageToImage() {
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const imageData = canvas.toDataURL("image/png");
 
-            // Convert data URL to Blob
             const blob = await fetch(imageData).then((res) => res.blob());
             const file = new File([blob], "webcam-image.png", { type: "image/png" });
 
@@ -160,7 +130,6 @@ export default function ImageToImage() {
             <h2 className="page-title">Image to Image Processing</h2>
             <p>Welcome, {username || "Guest"}</p>
             <div className="image-boxes">
-                {/* Input Image Section */}
                 <div className="image-box">
                     <h3>Input Image</h3>
                     <div className="image-preview">
@@ -174,8 +143,6 @@ export default function ImageToImage() {
                         </button>
                     </div>
                 </div>
-
-                {/* Processed Image Section */}
                 <div className="image-box">
                     <h3>Processed Image</h3>
                     <div className="image-preview">
@@ -187,8 +154,13 @@ export default function ImageToImage() {
                     </div>
                 </div>
             </div>
-
-            {/* Options Popup */}
+            <button
+                className="generate-button"
+                onClick={handleProcess}
+                disabled={!fileToProcess || loading}
+            >
+                {loading ? "Processing..." : "Generate"}
+            </button>
             {showOptionsPopup && (
                 <div className="options-popup">
                     <div className="popup-content">
@@ -218,8 +190,6 @@ export default function ImageToImage() {
                     </div>
                 </div>
             )}
-
-            {/* Webcam Popup */}
             {showWebcamPopup && (
                 <div className="webcam-popup">
                     <div className="popup-content">

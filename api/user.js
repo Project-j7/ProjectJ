@@ -101,48 +101,4 @@ router.post("/logout", isAuthorized, (req, res) => {
     }
 });
 
-// Save image endpoint
-router.post("/save-image", isAuthorized, (req, res) => {
-    try {
-        const username = req.session.username;
-        const image = req.files?.image; // Assumes `express-fileupload` is used for handling files
-
-        if (!image) {
-            return res.status(400).json({error: "No image provided."});
-        }
-
-        // Define user directory
-        const userDir = path.join(__dirname, "client", "collection", username);
-
-        // Create the directory if it doesn't exist
-        if (!fs.existsSync(userDir)) {
-            fs.mkdirSync(userDir, {recursive: true});
-        }
-
-        // Get the next sequential image name
-        const existingFiles = fs
-            .readdirSync(userDir)
-            .filter((file) => file.startsWith("img") && file.endsWith(".png"));
-        const nextImageNumber = existingFiles.length + 1;
-        const imageFilename = `img${nextImageNumber}.png`;
-
-        // Save the image to the user's folder
-        const imagePath = path.join(userDir, imageFilename);
-        image.mv(imagePath, (err) => {
-            if (err) {
-                console.error("Error saving image:", err.message);
-                return res.status(500).json({error: "Failed to save the image."});
-            }
-
-            return res.status(200).json({
-                msg: "Image saved successfully.",
-                path: imagePath,
-            });
-        });
-    } catch (error) {
-        console.error("Error in /save-image:", error.message);
-        return res.status(500).json({error: "Internal server error"});
-    }
-});
-
 module.exports = router;

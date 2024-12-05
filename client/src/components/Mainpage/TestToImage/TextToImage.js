@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import "./TextToImage.css";
 
 export default function TextToImage() {
@@ -9,7 +9,30 @@ export default function TextToImage() {
     const API_TOKEN = "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";
     const modelUrl = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2";
 
-    // Handle text prompt submission
+    // Fetch username dynamically on component mount
+    useEffect(() => {
+        const fetchUsername = async () => {
+            try {
+                const response = await fetch("http://localhost:8001/user/details", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setUsername(data.username || "guest");
+                    sessionStorage.setItem("username", data.username || "guest");
+                }
+            } catch (error) {
+                console.error("Error fetching username:", error);
+            }
+        };
+
+        if (!sessionStorage.getItem("username")) {
+            fetchUsername();
+        }
+    }, []);
+
     const handleGenerateImage = async () => {
         if (!textPrompt.trim()) {
             alert("Please enter a text prompt!");
@@ -17,7 +40,7 @@ export default function TextToImage() {
         }
 
         setLoading(true);
-        setGeneratedImage(null); // Clear previous image
+        setGeneratedImage(null);
 
         try {
             const response = await fetch(modelUrl, {
@@ -28,15 +51,17 @@ export default function TextToImage() {
                 },
                 body: JSON.stringify({
                     inputs: textPrompt,
-                    options: {wait_for_model: true},
+                    options: { wait_for_model: true },
                 }),
             });
 
             if (response.ok) {
                 const blob = await response.blob();
+                const file = new File([blob], "generated_image.png", { type: "image/png" });
                 const imageUrl = URL.createObjectURL(blob);
-                setGeneratedImage(imageUrl); // Display the image
-                await saveImage(blob); // Save the image on the server
+                setGeneratedImage(imageUrl);
+
+                await saveImage(file, username);
             } else {
                 const errorText = await response.text();
                 alert(`Error: ${response.status} - ${errorText}`);
@@ -49,24 +74,24 @@ export default function TextToImage() {
         }
     };
 
-    // Save the generated image to the server
-    const saveImage = async (imageBlob) => {
+    const saveImage = async (file, username) => {
         const formData = new FormData();
-        formData.append("image", imageBlob, "generated_image.png");
+        formData.append("image", file);
         formData.append("username", username);
 
         try {
-            const response = await fetch("http://localhost:8001/save-image", {
+            const response = await fetch("http://localhost:5000/api/text-image-save", {
                 method: "POST",
                 body: formData,
             });
 
             if (response.ok) {
-                alert("Image saved successfully!");
+                const result = await response.json();
+                alert(`Image saved successfully at: ${result.processedImage}`);
             } else {
                 const errorText = await response.text();
                 console.error("Error saving image:", errorText);
-                alert("Failed to save the image.");
+                alert("Failed to save the image and username.");
             }
         } catch (error) {
             console.error("Error saving image:", error);
@@ -91,7 +116,7 @@ export default function TextToImage() {
             {generatedImage && (
                 <div className="image-preview-container">
                     <h3>Generated Image</h3>
-                    <img src={generatedImage} alt="Generated" className="generated-image"/>
+                    <img src={generatedImage} alt="Generated" className="generated-image" />
                 </div>
             )}
         </div>

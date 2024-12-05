@@ -12,7 +12,7 @@ import Home from "./components/Home/Home";
 import Main from "./components/Mainpage/Main/Main";
 import ImageToImage from "./components/Mainpage/ImageToImage/ImageToImage";
 import TextToImage from "./components/Mainpage/TestToImage/TextToImage";
-// import Collections from "./pages/Mainpage/Collections";
+// import Collections from "./components/Mainpage/Collections/Collections";
 // import Favorites from "./pages/Mainpage/Favorites";
 
 const router = createBrowserRouter([
