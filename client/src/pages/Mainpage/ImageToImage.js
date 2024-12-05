@@ -1,14 +1,43 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./ImageToImage.css";
 
-export default function ImageToImage({ username }) {
+export default function ImageToImage() {
     const [inputImage, setInputImage] = useState(null);
     const [processedImage, setProcessedImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showOptionsPopup, setShowOptionsPopup] = useState(false);
     const [showWebcamPopup, setShowWebcamPopup] = useState(false);
+    const [username, setUsername] = useState(sessionStorage.getItem("username") || "");
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+
+    // Fetch username from backend or sessionStorage
+    useEffect(() => {
+        const fetchUsername = async () => {
+            const storedUsername = sessionStorage.getItem("username");
+            if (storedUsername) {
+                setUsername(storedUsername);
+            } else {
+                try {
+                    const response = await fetch("http://localhost:8001/user/details", {
+                        method: "GET",
+                        credentials: "include",
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        setUsername(data.username);
+                        sessionStorage.setItem("username", data.username);
+                    } else {
+                        console.error("Failed to fetch username");
+                    }
+                } catch (error) {
+                    console.error("Error fetching username:", error);
+                }
+            }
+        };
+
+        fetchUsername();
+    }, []);
 
     // Handle image upload
     const handleUpload = async (imageFile) => {
@@ -59,7 +88,7 @@ export default function ImageToImage({ username }) {
         setShowOptionsPopup(false);
         setShowWebcamPopup(true);
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const stream = await navigator.mediaDevices.getUserMedia({video: true});
             videoRef.current.srcObject = stream;
             videoRef.current.play();
         } catch (error) {
@@ -92,7 +121,7 @@ export default function ImageToImage({ username }) {
 
             // Convert data URL to Blob
             const blob = await fetch(imageData).then((res) => res.blob());
-            const file = new File([blob], "webcam-image.png", { type: "image/png" });
+            const file = new File([blob], "webcam-image.png", {type: "image/png"});
 
             handleUpload(file);
             stopWebcam();
@@ -102,13 +131,14 @@ export default function ImageToImage({ username }) {
     return (
         <div className="image-to-image-container">
             <h2 className="page-title">Image to Image Processing</h2>
+            <p>Welcome, {username || "Guest"}</p>
             <div className="image-boxes">
                 {/* Input Image Section */}
                 <div className="image-box">
                     <h3>Input Image</h3>
                     <div className="image-preview">
                         {inputImage ? (
-                            <img src={inputImage} alt="Input" className="image" />
+                            <img src={inputImage} alt="Input" className="image"/>
                         ) : (
                             <p className="placeholder-text">Upload or capture an image</p>
                         )}
@@ -123,7 +153,7 @@ export default function ImageToImage({ username }) {
                     <h3>Processed Image</h3>
                     <div className="image-preview">
                         {processedImage ? (
-                            <img src={processedImage} alt="Processed" className="image" />
+                            <img src={processedImage} alt="Processed" className="image"/>
                         ) : (
                             <p className="placeholder-text">No processed image</p>
                         )}
@@ -152,7 +182,10 @@ export default function ImageToImage({ username }) {
                         <button className="popup-option-button" onClick={startWebcam}>
                             Use Webcam
                         </button>
-                        <button className="close-popup-button" onClick={() => setShowOptionsPopup(false)}>
+                        <button
+                            className="close-popup-button"
+                            onClick={() => setShowOptionsPopup(false)}
+                        >
                             Close
                         </button>
                         <input
@@ -160,7 +193,7 @@ export default function ImageToImage({ username }) {
                             id="fileInput"
                             accept="image/*"
                             onChange={handleFileUpload}
-                            style={{ display: "none" }}
+                            style={{display: "none"}}
                         />
                     </div>
                 </div>
@@ -171,8 +204,8 @@ export default function ImageToImage({ username }) {
                 <div className="webcam-popup">
                     <div className="popup-content">
                         <h3>Capture Image from Webcam</h3>
-                        <video ref={videoRef} autoPlay className="webcam-video" />
-                        <canvas ref={canvasRef} style={{ display: "none" }} />
+                        <video ref={videoRef} autoPlay className="webcam-video"/>
+                        <canvas ref={canvasRef} style={{display: "none"}}/>
                         <div className="popup-actions">
                             <button onClick={captureImage} className="capture-button">
                                 Capture
