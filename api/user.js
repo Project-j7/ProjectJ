@@ -1,14 +1,22 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const User = require('./userModel');
+const express = require("express");
+const bcrypt = require("bcrypt");
+const User = require("./userModel");
+const path = require("path");
+const fs = require("fs");
+const fileUpload = require("express-fileupload");
 const router = express.Router();
+
+// Enable file upload
+router.use(fileUpload({
+    createParentPath: true, // Automatically create parent directories if they don't exist
+}));
 
 // Middleware to check if a user is authenticated before accessing certain routes
 function isAuthorized(req, res, next) {
     if (req.session.isAuthenticated) {
         return next(); // If authenticated, proceed to the next middleware
     } else {
-        res.redirect("/"); // If not authenticated, redirect to homepage or login page
+        res.status(401).json({error: "Unauthorized"}); // If not authenticated, return error
     }
 }
 
@@ -17,30 +25,24 @@ router.post("/signup", async (req, res) => {
     const {username, email, password} = req.body;
 
     try {
-        // Check if a user with the same email or username already exists
         const existingUser = await User.findOne({$or: [{email}, {username}]});
         if (existingUser) {
-            return res.status(400).json({error: "Username or Email already exists."}); // Return error if user exists
+            return res.status(400).json({error: "Username or Email already exists."});
         }
 
-        // Hash the password before saving it to the database
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user with the hashed password
         const userEntry = new User({
             username,
             email,
             password: hashedPassword,
         });
 
-        // Save the user to the database
         await userEntry.save();
-
-        // Respond with a success message
         return res.status(201).json({msg: `Successfully added ${username}`});
     } catch (error) {
-        console.error("Error during signup:", error.message); // Log any errors
-        return res.status(500).json({error: "Internal server error"}); // Return a server error
+        console.error("Error during signup:", error.message);
+        return res.status(500).json({error: "Internal server error"});
     }
 });
 
@@ -49,27 +51,20 @@ router.post("/login", async (req, res) => {
     const {username, password} = req.body;
 
     try {
-        // Check if the user exists by username
         const user = await User.findOne({username});
         if (!user) {
-            return res.status(400).json({error: "Invalid Username or Password"}); // Return error if user doesn't exist
+            return res.status(400).json({error: "Invalid Username or Password"});
         }
 
-        // Compare the provided password with the stored hashed password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({error: "Invalid Username or Password"}); // Return error if passwords don't match
+            return res.status(400).json({error: "Invalid Username or Password"});
         }
 
-        // Store user info in the session
         req.session.username = username;
         req.session.userId = user._id;
         req.session.isAuthenticated = true;
 
-        console.log("req.id", req.session.userId); // Log user ID
-        console.log("req.session: ", req.session); // Log session details
-
-        // Respond with a success message and user details
         return res.status(200).json({
             msg: "Login successful.",
             user: {
@@ -78,40 +73,76 @@ router.post("/login", async (req, res) => {
             },
         });
     } catch (error) {
-        console.error("Error during login:", error.message); // Log any errors
-        return res.status(500).json({error: "Internal server error"}); // Return a server error
+        console.error("Error during login:", error.message);
+        return res.status(500).json({error: "Internal server error"});
     }
 });
 
 // Main endpoint accessible only to logged-in users
 router.post("/main", isAuthorized, (req, res) => {
-    console.log("Main"); // Log access to main route
     return res.status(200).json({
         msg: "Good user to login.",
-        username: req.session.username // Return the username from the session
+        username: req.session.username,
     });
 });
 
 // User logout endpoint
 router.post("/logout", isAuthorized, (req, res) => {
-
-    console.log(req.msg); // Log request message
-    console.log("req.session: logout:", req.session); // Log session details during logout
-
     if (req.session.username) {
-        // Destroy the session if the user is logged in
         req.session.destroy((err) => {
             if (err) {
-                return res.status(500).json({error: "Failed to logout."}); // Return error if logout fails
+                return res.status(500).json({error: "Failed to logout."});
             }
-            res.clearCookie('connect.sid'); // Clear the session cookie
-            console.log("session after logout: ", req.session); // Log session after logout
-            return res.status(200).json({msg: "Logout successful."}); // Return a success message
+            res.clearCookie("connect.sid");
+            return res.status(200).json({msg: "Logout successful."});
         });
     } else {
-        console.log("No user logged in."); // Log if no user is logged in
-        return res.status(400).json({msg: "No user to log out."}); // Return error if no user is logged in
+        return res.status(400).json({msg: "No user to log out."});
     }
 });
 
-module.exports = router; // Export the router for use in other files
+// Save image endpoint
+router.post("/save-image", isAuthorized, (req, res) => {
+    try {
+        const username = req.session.username;
+        const image = req.files?.image; // Assumes `express-fileupload` is used for handling files
+
+        if (!image) {
+            return res.status(400).json({error: "No image provided."});
+        }
+
+        // Define user directory
+        const userDir = path.join(__dirname, "client", "collection", username);
+
+        // Create the directory if it doesn't exist
+        if (!fs.existsSync(userDir)) {
+            fs.mkdirSync(userDir, {recursive: true});
+        }
+
+        // Get the next sequential image name
+        const existingFiles = fs
+            .readdirSync(userDir)
+            .filter((file) => file.startsWith("img") && file.endsWith(".png"));
+        const nextImageNumber = existingFiles.length + 1;
+        const imageFilename = `img${nextImageNumber}.png`;
+
+        // Save the image to the user's folder
+        const imagePath = path.join(userDir, imageFilename);
+        image.mv(imagePath, (err) => {
+            if (err) {
+                console.error("Error saving image:", err.message);
+                return res.status(500).json({error: "Failed to save the image."});
+            }
+
+            return res.status(200).json({
+                msg: "Image saved successfully.",
+                path: imagePath,
+            });
+        });
+    } catch (error) {
+        console.error("Error in /save-image:", error.message);
+        return res.status(500).json({error: "Internal server error"});
+    }
+});
+
+module.exports = router;

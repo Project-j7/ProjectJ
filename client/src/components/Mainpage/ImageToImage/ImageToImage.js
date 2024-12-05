@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ImageToImage.css";
 
 export default function ImageToImage() {
@@ -14,10 +14,7 @@ export default function ImageToImage() {
     // Fetch username from backend or sessionStorage
     useEffect(() => {
         const fetchUsername = async () => {
-            const storedUsername = sessionStorage.getItem("username");
-            if (storedUsername) {
-                setUsername(storedUsername);
-            } else {
+            if (!username) {
                 try {
                     const response = await fetch("http://localhost:8001/user/details", {
                         method: "GET",
@@ -28,7 +25,7 @@ export default function ImageToImage() {
                         setUsername(data.username);
                         sessionStorage.setItem("username", data.username);
                     } else {
-                        console.error("Failed to fetch username");
+                        console.error("Failed to fetch username:", data.error);
                     }
                 } catch (error) {
                     console.error("Error fetching username:", error);
@@ -37,7 +34,7 @@ export default function ImageToImage() {
         };
 
         fetchUsername();
-    }, []);
+    }, [username]);
 
     // Handle image upload
     const handleUpload = async (imageFile) => {
@@ -62,7 +59,11 @@ export default function ImageToImage() {
             const result = await response.json();
 
             if (response.ok) {
-                setProcessedImage(`http://localhost:5000/processed/${result.processedImage}`);
+                const processedImageUrl = `http://localhost:5000/processed/${result.processedImage}`;
+                setProcessedImage(processedImageUrl);
+
+                // Save the processed image to the collection folder
+                await saveToCollection(processedImageUrl);
             } else {
                 alert(result.error || "Error processing image.");
             }
@@ -71,6 +72,32 @@ export default function ImageToImage() {
             alert("An error occurred while uploading the image.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    // Save the processed image to the collection folder
+    const saveToCollection = async (processedImageUrl) => {
+        try {
+            const response = await fetch(processedImageUrl);
+            const blob = await response.blob();
+
+            const formData = new FormData();
+            formData.append("image", blob, "processed_image.png");
+            formData.append("username", username);
+
+            const saveResponse = await fetch("http://localhost:8001/save-image", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (saveResponse.ok) {
+                console.log("Processed image saved to collection folder.");
+            } else {
+                const errorText = await saveResponse.text();
+                console.error("Failed to save processed image to collection folder:", errorText);
+            }
+        } catch (error) {
+            console.error("Error saving processed image to collection folder:", error);
         }
     };
 
@@ -88,7 +115,7 @@ export default function ImageToImage() {
         setShowOptionsPopup(false);
         setShowWebcamPopup(true);
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({video: true});
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             videoRef.current.srcObject = stream;
             videoRef.current.play();
         } catch (error) {
@@ -121,7 +148,7 @@ export default function ImageToImage() {
 
             // Convert data URL to Blob
             const blob = await fetch(imageData).then((res) => res.blob());
-            const file = new File([blob], "webcam-image.png", {type: "image/png"});
+            const file = new File([blob], "webcam-image.png", { type: "image/png" });
 
             handleUpload(file);
             stopWebcam();
@@ -138,7 +165,7 @@ export default function ImageToImage() {
                     <h3>Input Image</h3>
                     <div className="image-preview">
                         {inputImage ? (
-                            <img src={inputImage} alt="Input" className="image"/>
+                            <img src={inputImage} alt="Input" className="image" />
                         ) : (
                             <p className="placeholder-text">Upload or capture an image</p>
                         )}
@@ -153,19 +180,12 @@ export default function ImageToImage() {
                     <h3>Processed Image</h3>
                     <div className="image-preview">
                         {processedImage ? (
-                            <img src={processedImage} alt="Processed" className="image"/>
+                            <img src={processedImage} alt="Processed" className="image" />
                         ) : (
                             <p className="placeholder-text">No processed image</p>
                         )}
                     </div>
                 </div>
-            </div>
-
-            {/* Generate Button */}
-            <div className="generate-button-container">
-                <button className="generate-button" disabled={loading}>
-                    {loading ? "Processing..." : "Generate"}
-                </button>
             </div>
 
             {/* Options Popup */}
@@ -193,7 +213,7 @@ export default function ImageToImage() {
                             id="fileInput"
                             accept="image/*"
                             onChange={handleFileUpload}
-                            style={{display: "none"}}
+                            style={{ display: "none" }}
                         />
                     </div>
                 </div>
@@ -204,8 +224,8 @@ export default function ImageToImage() {
                 <div className="webcam-popup">
                     <div className="popup-content">
                         <h3>Capture Image from Webcam</h3>
-                        <video ref={videoRef} autoPlay className="webcam-video"/>
-                        <canvas ref={canvasRef} style={{display: "none"}}/>
+                        <video ref={videoRef} autoPlay className="webcam-video" />
+                        <canvas ref={canvasRef} style={{ display: "none" }} />
                         <div className="popup-actions">
                             <button onClick={captureImage} className="capture-button">
                                 Capture
