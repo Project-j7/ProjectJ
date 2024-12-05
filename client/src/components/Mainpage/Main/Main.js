@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import React, {useState, useEffect} from "react";
+import {Outlet, useNavigate} from "react-router-dom";
+import Sidebar from "../../Sidebar/Sidebar";
 import "./Main.css";
 
 export default function Main() {
@@ -51,9 +51,9 @@ export default function Main() {
 
     return (
         <div className="main-container">
-            <Sidebar username={username} handleLogout={handleLogout} />
+            <Sidebar username={username} handleLogout={handleLogout}/>
             <div className="content">
-                <Outlet />
+                <Outlet/>
             </div>
         </div>
     );
