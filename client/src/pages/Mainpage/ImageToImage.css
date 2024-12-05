@@ -1,0 +1,88 @@
+/* General container */
+.image-to-image-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border-radius: 8px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Image boxes layout */
+.image-boxes {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.image-preview {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-color: #3a3a3a;
+    border: 2px dashed #555555;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.plus-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.plus-button:hover {
+    background-color: #0056b3;
+}
+
+/* Generate button */
+.generate-button-container {
+    margin-top: 20px;
+}
+
+.generate-button {
+    padding: 15px 30px;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.generate-button:disabled {
+    background-color: #94d3a2;
+    cursor: not-allowed;
+}
+
+.generate-button:hover:not(:disabled) {
+    background-color: #218838;
+    transform: scale(1.05);
+}

@@ -90,8 +90,23 @@ def process_image_with_model(image_path, output_path):
     predictions = generator(input_sketch, training=False)
 
     # Upscale and brighten the result
-    brightened_output = upscale_and_brighten_output(l̥predictions)
+    brightened_output = upscale_and_brighten_output(predictions)
 
     # Save the output
     brightened_output.save(output_path)
     print(f"Processed and saved: {output_path}")
+
+
+if __name__ == "__main__":
+    # Path to the input image (replace with your image path)
+    input_image_path = r"C:\Users\rites\OneDrive\Desktop\testImages2\gs16.jpg"
+
+    # Path to save the output image (replace with your desired output path)
+    output_image_path = r"C:\Users\rites\OneDrive\Desktop\g16.jpg"
+
+    try:
+        # Process the input image with the generator model
+        process_image_with_model(input_image_path, output_image_path)
+        print("Image processing completed successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}")

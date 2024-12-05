@@ -1,42 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {GoogleOAuthProvider} from '@react-oauth/google';
-
-
-//css import 
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-//components imports
-import Error from './pages/Error/Error';
+// Component imports
+import Error from "./pages/Error/Error";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Main from "./pages/Mainpage/Main";
+import ImageToImage from "./pages/Mainpage/ImageToImage";
+import TextToImage from "./pages/Mainpage/TextToImage";
+// import Collections from "./pages/Mainpage/Collections";
+// import Favorites from "./pages/Mainpage/Favorites";
 
-// rendering , main code
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
-        path: '/',
-        element: <Home/>,
-        errorElement: <Error/>
+        path: "/",
+        element: <Home />,
+        errorElement: <Error />,
     },
     {
-        path: '/account/login',
-        element: <Login/>
+        path: "/account/login",
+        element: <Login />,
     },
     {
-        path: '/account/signup',
-        element: <Signup/>
+        path: "/account/signup",
+        element: <Signup />,
     },
     {
-        path: 'account/main',
-        element: <Main/>
+        path: "/account/main",
+        element: <Main />,
+        children: [
+            { path: "image-to-image", element: <ImageToImage /> },
+            { path: "text-to-image", element: <TextToImage /> },
+            // { path: "collections", element: <Collections /> },
+            // { path: "favorites", element: <Favorites /> },
+        ],
     },
-])
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
