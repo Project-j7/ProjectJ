@@ -11,7 +11,6 @@
     transition: width 0.3s ease-in-out;
     overflow: hidden;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-    z-index: 100;
 }
 
 .sidebar.collapsed {
@@ -22,11 +21,10 @@
 .sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 15px 20px;
     background-color: #000000;
     border-bottom: 1px solid #333333;
-    cursor: pointer;
 }
 
 .logo {
@@ -44,6 +42,14 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #ffffff;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 /* Sidebar Menu */
@@ -92,62 +98,25 @@
     display: none;
 }
 
-/* Footer and Profile */
+/* Footer */
 .sidebar-footer {
     text-align: center;
     margin-bottom: 20px;
-    position: relative;
 }
 
-.profile-button {
-    background: none;
-    border: none;
-    color: #ffffff;
+.sidebar-footer a {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
+    color: #ffffff;
     padding: 10px 20px;
     font-size: 1rem;
-    cursor: pointer;
     border-radius: 5px;
     transition: background 0.3s, color 0.3s;
 }
 
-.profile-button:hover {
+.sidebar-footer a:hover {
     background-color: #333333;
     color: #e91e63;
-}
-
-.profile-menu {
-    background-color: #333333;
-    position: absolute;
-    bottom: 60px;
-    left: 20px;
-    right: 20px;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.profile-menu p {
-    margin: 0 0 10px;
-    color: #fff;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.logout-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #e91e63;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.logout-button:hover {
-    background-color: #d81b60;
 }

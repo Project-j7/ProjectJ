@@ -5,7 +5,6 @@ import "./style.css";
 import Image from "./homePageImage.jpg";
 
 export default function Home() {
-    const [showLogin, setShowLogin] = useState(false);
     const [username, setUsername] = useState();
     const [showOptions, setShowOptions] = useState(false);
     const navigate = useNavigate();
@@ -21,11 +20,6 @@ export default function Home() {
         } else {
             navigate("/account/signup");
         }
-    }
-
-    function loginPopUp() {
-        console.log("body button");
-        setShowLogin(true);
     }
 
     const handleProfileClick = () => {
