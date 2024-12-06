@@ -20,6 +20,18 @@ function isAuthorized(req, res, next) {
     }
 }
 
+
+router.get("/check",(req,res)=>{
+    try{
+        if(req.session.username){
+            return res.status(200).json({user:{username:req.session.username}});
+        }
+    }catch(error){
+        return res.status(404).json({Error:error})
+    }
+})
+
+
 // User signup endpoint
 router.post("/signup", async (req, res) => {
     const {username, email, password} = req.body;
