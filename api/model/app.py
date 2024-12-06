@@ -5,7 +5,7 @@ from image_processing import process_image_with_model
 from processing import clean_up_orphaned_files
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 UPLOAD_FOLDER = './uploads'
 PROCESSED_FOLDER = './processed'
