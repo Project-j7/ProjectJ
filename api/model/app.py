@@ -5,7 +5,7 @@ from image_processing import process_image_with_model
 from processing import clean_up_orphaned_files
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
 UPLOAD_FOLDER = './uploads'
 PROCESSED_FOLDER = './processed'
@@ -81,6 +81,11 @@ def save_text_generated_image():
     except Exception as e:
         return jsonify({'error': f'An error occurred while saving the image: {str(e)}'}), 500
 
+@app.route('/processed/<username>/<filename>', methods=['GET'])
+def get_processed_image(username, filename):
+    return send_from_directory(os.path.join(COLLECTION_FOLDER, username), filename)
+
+
 @app.route('/collection/<username>', methods=['GET'])
 def list_processed_images(username):
     user_folder = os.path.join(COLLECTION_FOLDER, username)
@@ -108,6 +113,7 @@ def serve_processed_image(username, filename):
         abort(409)  # Return 404 if the file does not exist
 
     return send_from_directory(user_folder, filename)
+
 
 if __name__ == '__main__':
     clean_up_orphaned_files()
