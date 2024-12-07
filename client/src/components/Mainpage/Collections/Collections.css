@@ -1,0 +1,119 @@
+/* Collection Container */
+.collection-container {
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* Welcome Message */
+.welcome {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.welcome h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+}
+
+.welcome .description {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Image Gallery */
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 23px;
+}
+
+.image-gallery img {
+    width: 200px;
+    height: 210px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+}
+
+.popup.show-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-incontainer {
+    background: #222;
+    border-radius: 15px;
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    height: 650px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* Close Button */
+.close-button {
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 10px;
+    background: #ff4d4d;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    margin-right: 10px;
+}
+
+.close-button:hover {
+    background: #e60000;
+}
+
+/* Blurred Background */
+.blurred {
+    filter: blur(5px);
+}
+
+/* 404 Error */
+.not-found {
+    text-align: center;
+    color: #555;
+}
+
+.status {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #ff4d4d;
+}
