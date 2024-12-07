@@ -28,8 +28,8 @@
 .image-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+    gap: 50px;
+    padding: 23px;
 }
 
 .image-gallery img {

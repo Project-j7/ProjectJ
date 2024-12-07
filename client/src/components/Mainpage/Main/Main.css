@@ -1,11 +1,13 @@
 .main-container {
     display: flex;
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
     background-color: #1c1c1c;
 }
 
 .content {
+    width: 100%;
     margin-left: 250px; /* Matches the sidebar width */
     flex: 1;
     padding: 20px;

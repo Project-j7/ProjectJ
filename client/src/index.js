@@ -40,7 +40,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/account/collections",
+        path: "/account/main/collections",
         element: <Collection/>,
     },
 ]);
