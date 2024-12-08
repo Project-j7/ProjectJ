@@ -28,14 +28,10 @@
 .image-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    padding: 0px;
+    gap: 34px;
+    padding: 23px;
 }
-.image-card{
-    height: 230px;
-    width: 200px;
-    background-color: red;
-}
+
 .image-gallery img {
     width: 200px;
     height: 210px;
@@ -65,7 +61,7 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease;
-    z-index: 9;
+    z-index: 999;
 }
 
 .popup.show-popup {
@@ -120,4 +116,26 @@
     font-size: 5rem;
     font-weight: bold;
     color: #ff4d4d;
+}
+
+/* Delete Button */
+.delete-button {
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 10px;
+    background: #ff6347;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.delete-button:hover {
+    background: #e60000;
+}
+
+.delete-button i {
+    margin-right: 5px;
 }

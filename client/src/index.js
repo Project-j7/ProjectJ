@@ -13,8 +13,7 @@ import Main from "./components/Mainpage/Main/Main";
 import ImageToImage from "./components/Mainpage/ImageToImage/ImageToImage";
 import TextToImage from "./components/Mainpage/TestToImage/TextToImage";
 import Collections from "./components/Mainpage/Collections/Collections";
-// import Favorites from "./pages/Mainpage/Favorites";
-
+import Favourite from "./components/Mainpage/Favourites/favourites";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -36,7 +35,7 @@ const router = createBrowserRouter([
             {path: "image-to-image", element: <ImageToImage/>},
             {path: "text-to-image", element: <TextToImage/>},
             {path: "collections", element: <Collections/>},
-            // { path: "favorites", element: <Favorites /> },
+            { path: "favourites", element: <Favourite /> },
         ],
     },
 ]);

@@ -106,7 +106,7 @@ export default function Sidebar() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/account/main/favorites" activeClassName="active-link">
+                    <NavLink to="/account/main/favourites" activeClassName="active-link">
                         <AiOutlineStar className="sidebar-icon"/>
                         {!isCollapsed && <span>Favorites</span>}
                     </NavLink>

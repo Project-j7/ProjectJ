@@ -115,6 +115,55 @@ def serve_processed_image(username, filename):
     return send_from_directory(user_folder, filename)
 
 
+
+
+@app.route('/api/like-image', methods=['POST'])
+def like_image():
+    data = request.get_json()
+    username = data.get('username')
+    old_src = data.get('oldSrc')
+    new_src = data.get('newSrc')
+
+    if not username or not old_src or not new_src:
+        return jsonify({'error': 'Missing required data'}), 400
+
+    old_path = os.path.join(COLLECTION_FOLDER, username, old_src.split('/')[-1])
+    new_path = os.path.join(COLLECTION_FOLDER, username, new_src.split('/')[-1])
+
+    if not os.path.exists(old_path):
+        return jsonify({'error': 'Original image does not exist'}), 404
+
+    try:
+        os.rename(old_path, new_path)
+        return jsonify({'message': 'Image renamed successfully'})
+    except Exception as e:
+        return jsonify({'error': f'Error renaming image: {str(e)}'}), 500
+
+
+
+
+@app.route('/api/delete-image', methods=['DELETE'])
+def delete_image():
+    data = request.get_json()
+    username = data.get('username')
+    filename = data.get('filename')
+
+    if not username or not filename:
+        return jsonify({'error': 'Username or filename missing'}), 400
+
+    user_folder = os.path.join(COLLECTION_FOLDER, username)
+    file_path = os.path.join(user_folder, filename)
+
+    if not os.path.exists(file_path):
+        return jsonify({'error': f'File does not exist: {file_path}'}), 404
+
+    try:
+        os.remove(file_path)  # Delete the file
+        return jsonify({'message': f'Image {filename} deleted successfully'})
+    except Exception as e:
+        return jsonify({'error': f'Error deleting file: {str(e)}'}), 500
+
+
 if __name__ == '__main__':
     clean_up_orphaned_files()
     app.run(debug=True, port=5000)

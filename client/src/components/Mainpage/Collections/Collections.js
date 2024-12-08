@@ -6,6 +6,7 @@ export default function Collection() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [images, setImages] = useState([]);
+    const [selectedImageIndex, setSelectedImageIndex] = useState(null); // Track selected image index
 
     useEffect(() => {
         const fetchData = async () => {
@@ -63,19 +64,85 @@ export default function Collection() {
         return <div className="collection-container">Error: {error}</div>;
     }
 
-    function pop(event) {
+    function pop(event, index) {
         const clickedImage = event.target;
         const popImage = document.querySelector(".popup img");
         const popup = document.querySelector(".popup");
         popImage.src = clickedImage.src;
         popup.classList.add("show-popup"); // Add class to show popup
         document.querySelector(".image-gallery").classList.add("blurred");
+        setSelectedImageIndex(index); // Set selected image index
     }
 
     function close() {
         const popup = document.querySelector(".popup");
         popup.classList.remove("show-popup"); // Remove class to hide popup
         document.querySelector(".image-gallery").classList.remove("blurred");
+    }
+
+    async function likeImage() {
+        if (selectedImageIndex === null) return;
+
+        const popupImage = document.querySelector(".popup img");
+        const imageSrc = popupImage.src;
+
+        // Rename the full path to include `f_{index}`
+        const newFilename = `liked_${selectedImageIndex}_${imageSrc.split("/").pop()}`;
+        const newSrc = imageSrc.replace(imageSrc.split("/").pop(), newFilename);
+
+        try {
+            const response = await fetch("http://localhost:5000/api/like-image", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, oldSrc: imageSrc, newSrc }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to like image: ${response.statusText}`);
+            }
+
+            // Update the image source in state
+            setImages((prevImages) =>
+                prevImages.map((img, idx) => (idx === selectedImageIndex ? newSrc : img))
+            );
+
+            alert("Image liked successfully.");
+        } catch (error) {
+            console.error("Error liking image:", error);
+            alert("Failed to like the image.");
+        }
+    }
+
+    async function deleteImage() {
+        const popup = document.querySelector(".popup");
+        const imageSrc = popup.querySelector("img").src; // Retrieve the full image URL
+
+        // Extract the filename from the full URL
+        const filename = imageSrc.split("/").pop(); // Example: "image.jpg"
+
+        try {
+            const response = await fetch("http://localhost:5000/api/delete-image", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, filename }), // Send username and filename
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to delete image: ${response.statusText}`);
+            }
+
+            // Remove the deleted image from the state
+            setImages((prevImages) => prevImages.filter((img) => img !== imageSrc));
+            close(); // Close the popup
+            alert("Image deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting image:", error);
+            alert("Failed to delete the image.");
+        }
     }
 
     return (
@@ -97,7 +164,7 @@ export default function Collection() {
                                     className="image-item"
                                     width={200}
                                     height={210}
-                                    onClick={pop}
+                                    onClick={(event) => pop(event, index)}
                                 />
                             ))
                         ) : (
@@ -108,6 +175,12 @@ export default function Collection() {
                     <div className="popup">
                         <div className="popup-incontainer">
                             <div className="d-flex">
+                                <span className="ml-auto like-button" onClick={likeImage}>
+                                    <i className="fas fa-heart"></i>
+                                </span>
+                                <span className="ml-auto delete-button" onClick={deleteImage}>
+                                    <i className="fas fa-trash"></i>
+                                </span>
                                 <span
                                     className="ml-auto close-button"
                                     onClick={close}
