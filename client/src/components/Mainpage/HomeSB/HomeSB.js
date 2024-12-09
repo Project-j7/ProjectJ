@@ -3,36 +3,36 @@ import {Outlet, useNavigate} from "react-router-dom";
 import "./HomeSB.css";
 
 export default function HomeSB() {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("Guest");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchUsername = async () => {
             try {
-                const response = await fetch("http://localhost:8001/user/main", {
-                    method: "POST",
-                    credentials: "include",
+                const response = await fetch("http://localhost:8001/user/details", {
+                    method: "GET",
+                    credentials: "include", // To include cookies/session data
                 });
 
                 if (!response.ok) {
-                    throw new Error("Unauthorized access");
+                    throw new Error("Failed to fetch user details");
                 }
 
                 const data = await response.json();
-                setUsername(data.username);
+                setUsername(data.username || "Guest"); // Set fetched username or fallback to Guest
+                sessionStorage.setItem("username", data.username || "Guest");
             } catch (error) {
-                console.error("Failed to fetch main page data:", error);
-                navigate("/account/login");
+                console.error("Error fetching username:", error);
             }
         };
 
-        fetchData();
-    }, [navigate]);
+        fetchUsername();
+    }, []);
 
     return (
         <div className="homeSB-container">
             <div className="homeSB-content">
-                <h1 className="homeSB-title">Welcome, {username || "Guest"}!</h1>
+                <h1 className="homeSB-title">Welcome, {username}!</h1>
                 <section className="homeSB-about">
                     <h2 className="homeSB-subtitle">About Our Project</h2>
                     <p className="homeSB-paragraph">

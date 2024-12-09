@@ -1,21 +1,16 @@
-// Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app";
-import {getAuth} from 'firebase/auth'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import {getAuth} from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
 const firebaseConfig = {
-    apiKey: "AIzaSyB6nce-lYMFJQ0TdY9RwpsYh0hC0Vqctto",
-    authDomain: "projectj-d71f8.firebaseapp.com",
-    projectId: "projectj-d71f8",
-    storageBucket: "projectj-d71f8.appspot.com",
-    messagingSenderId: "349428955400",
-    appId: "1:349428955400:web:13a68bdc67b898ec9d14bd",
-    measurementId: "G-8KC9430PEG"
+    apiKey: "AIzaSyA3M0cX6DDobXDcJbNNzpTF_UHgP2D9iq0",
+    authDomain: "projectj-d79b0.firebaseapp.com",
+    projectId: "projectj-d79b0",
+    storageBucket: "projectj-d79b0.appspot.com", // Fixed typo here
+    messagingSenderId: "182583550810",
+    appId: "1:182583550810:web:03756c75dfef04ac240963",
+    measurementId: "G-YM67QRKG3S"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const authentication = getAuth(app);
+export const auth = getAuth(app);

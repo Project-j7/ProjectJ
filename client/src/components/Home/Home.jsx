@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
 import "./style.css";
-import Image from "./homePageImage.jpg";
 import Home_page_pic from "./home_page_pic.png";
 
 export default function Home() {
