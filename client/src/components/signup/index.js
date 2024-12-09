@@ -1,8 +1,6 @@
 import React from "react";
 import "./style.css";
 import { account } from "../../appwrite/appwrite-config";
-import Lottie from 'react-lottie-player';
-import signupAnimation from "./signupanimation.json";
 
 function Signup() {
 

@@ -103,7 +103,7 @@ function Login() {
                             Sign Up
                         </a>
                     </div>
-                    <input type="submit" defaultValue="Login" onclick="validateLogin(event)"/>
+                    <div className='text-center'><input  type="submit" defaultValue="Login" onclick="validateLogin(event)"/></div>
                     <p className="alternative-signin">or you can sign in with</p>
                     <div className="social-icon">
                         <a href="#">
