@@ -44,6 +44,26 @@ export default function Sidebar() {
         fetchUsername();
     }, []);
 
+    const handleLogout = async () => {
+        const response = await fetch("http://localhost:8001/user/logout", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const result = await response.json();
+        alert(result.msg);
+
+        if (response.status === 200) {
+            window.location.href = "http://localhost:3000/account/login";
+        } else {
+            alert(result.error || "Logout failed.");
+        }
+    };
+
+
     // Handle sidebar collapse
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
@@ -102,7 +122,12 @@ export default function Sidebar() {
                         <div className="popup-content">
                             <h3>Profile</h3>
                             <p>Username: {username || "Guest"}</p>
-                            <button className="popup-button logout-button">Logout</button>
+                            <button
+                                className="popup-button logout-button"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
                             <button
                                 className="popup-button close-popup-button"
                                 onClick={() => setShowProfilePopup(false)}

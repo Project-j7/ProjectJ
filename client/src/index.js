@@ -14,7 +14,7 @@ import ImageToImage from "./components/Mainpage/ImageToImage/ImageToImage";
 import TextToImage from "./components/Mainpage/TestToImage/TextToImage";
 import Collections from "./components/Mainpage/Collections/Collections";
 import Favourite from "./components/Mainpage/Favourites/favourites";
-import HomeSB from "./components/Mainpage/Home/HomeSB"
+import HomeSB from "./components/Mainpage/HomeSB/HomeSB"
 
 const router = createBrowserRouter([
     {

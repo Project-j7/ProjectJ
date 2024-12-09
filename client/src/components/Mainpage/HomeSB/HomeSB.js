@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
-import "./Home.css";
+import "./HomeSB.css";
 
 export default function HomeSB() {
     const [username, setUsername] = useState("");
@@ -30,50 +30,50 @@ export default function HomeSB() {
     }, [navigate]);
 
     return (
-        <div className="home-container">
-            <div className="home-content">
-                <h1>Welcome, {username || "Guest"}!</h1>
-                <section className="about-project">
-                    <h2>About Our Project</h2>
-                    <p>
+        <div className="homeSB-container">
+            <div className="homeSB-content">
+                <h1 className="homeSB-title">Welcome, {username || "Guest"}!</h1>
+                <section className="homeSB-about">
+                    <h2 className="homeSB-subtitle">About Our Project</h2>
+                    <p className="homeSB-paragraph">
                         We specialize in transforming <strong>jewelry sketches</strong> into
                         <strong> realistic gold images</strong>. Our platform uses cutting-edge AI technology to
                         convert artistic sketches into lifelike visuals, empowering designers and enthusiasts.
                     </p>
                 </section>
-                <section className="project-features">
-                    <h2>Key Features</h2>
-                    <ul>
-                        <li>
+                <section className="homeSB-features">
+                    <h2 className="homeSB-subtitle">Key Features</h2>
+                    <ul className="homeSB-list">
+                        <li className="homeSB-list-item">
                             ✍️ <strong>Sketch to Gold:</strong> Upload your jewelry sketches and convert them into
                             stunning gold visuals.
                         </li>
-                        <li>
+                        <li className="homeSB-list-item">
                             📝 <strong>Text-to-Image:</strong> Describe your jewelry design in text and generate its
                             image.
                         </li>
-                        <li>
+                        <li className="homeSB-list-item">
                             🎨 <strong>High-Quality Output:</strong> Generate high-resolution, realistic visuals of
                             jewelry.
                         </li>
-                        <li>
+                        <li className="homeSB-list-item">
                             🚀 <strong>Fast & Accurate:</strong> Get results quickly with precision-driven AI models.
                         </li>
-                        <li>
+                        <li className="homeSB-list-item">
                             🌐 <strong>Webcam Integration:</strong> Capture sketches directly using your webcam.
                         </li>
                     </ul>
                 </section>
-                <section className="call-to-action">
-                    <p>Start transforming your jewelry sketches into reality today!</p>
+                <section className="homeSB-call-to-action">
+                    <p className="homeSB-paragraph">Start transforming your jewelry sketches into reality today!</p>
                     <button
-                        className="explore-button"
+                        className="homeSB-button"
                         onClick={() => navigate("/account/main/image-to-image")}
                     >
                         Try Sketch-to-Gold
                     </button>
                     <button
-                        className="explore-button outline"
+                        className="homeSB-button homeSB-button-outline"
                         onClick={() => navigate("/account/main/text-to-image")}
                     >
                         Explore Text-to-Image
