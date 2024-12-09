@@ -1,8 +1,16 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("./userModel");
+const path = require("path");
+const fs = require("fs");
 const fileUpload = require("express-fileupload");
 const router = express.Router();
+
+const COLLECTION_FOLDER = path.join(__dirname, '/model/collection');
+// Enable file upload
+router.use(fileUpload({
+    createParentPath: true, // Automatically create parent directories if they don't exist
+}));
 
 // Enable file upload
 router.use(fileUpload({
@@ -168,6 +176,87 @@ router.post("/main", isAuthorized, async (req, res) => {
     }
 });
 
+// Route to list processed images for a user
+router.get('/collection/:username', (req, res) => {
+    const {username} = req.params;
+    const userFolder = path.join(COLLECTION_FOLDER, username);
+
+    // Check if the user's folder exists
+    if (!fs.existsSync(userFolder)) {
+        return res.status(404).json({error: 'User collection folder does not exist'});
+    }
+
+    // Check if the folder is empty
+    const files = fs.readdirSync(userFolder)
+        .filter(file => fs.lstatSync(path.join(userFolder, file)).isFile());
+
+    if (files.length === 0) {
+        return res.status(200).json({msg: "Empty Folder"});
+    }
+
+    // If files exist, return their URLs
+    const fileUrls = files.map(file => `http://localhost:8001/user/collection/${username}/${file}`);
+    return res.json(fileUrls);
+});
+
+// Route to serve an individual processed image for a given user
+router.get('/collection/:username/:filename', (req, res) => {
+    const {username, filename} = req.params;
+    const userFolder = path.join(COLLECTION_FOLDER, username);
+    const filePath = path.join(userFolder, filename);
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).send('File does not exist');
+    }
+
+    res.sendFile(filePath);
+});
+
+// Route to rename (like) an image
+router.post('/api/like-image', (req, res) => {
+    const {username, oldSrc, newSrc} = req.body;
+
+    if (!username || !oldSrc || !newSrc) {
+        return res.status(400).json({error: 'Missing required data'});
+    }
+
+    const oldPath = path.join(COLLECTION_FOLDER, username, path.basename(oldSrc));
+    const newPath = path.join(COLLECTION_FOLDER, username, path.basename(newSrc));
+
+    if (!fs.existsSync(oldPath)) {
+        return res.status(404).json({error: 'Original image does not exist'});
+    }
+
+    try {
+        fs.renameSync(oldPath, newPath);
+        res.json({message: 'Image renamed successfully'});
+    } catch (error) {
+        res.status(500).json({error: `Error renaming image: ${error.message}`});
+    }
+});
+
+// Route to delete an image
+router.delete('/api/delete-image', (req, res) => {
+    const {username, filename} = req.body;
+
+    if (!username || !filename) {
+        return res.status(400).json({error: 'Username or filename missing'});
+    }
+
+    const userFolder = path.join(COLLECTION_FOLDER, username);
+    const filePath = path.join(userFolder, filename);
+
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).json({error: `File does not exist: ${filePath}`});
+    }
+
+    try {
+        fs.unlinkSync(filePath);
+        res.json({message: `Image ${filename} deleted successfully`});
+    } catch (error) {
+        res.status(500).json({error: `Error deleting file: ${error.message}`});
+    }
+});
 // User logout endpoint
 router.post("/logout", isAuthorized, (req, res) => {
     if (req.session.username) {

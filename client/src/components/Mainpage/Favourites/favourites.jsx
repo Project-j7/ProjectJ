@@ -31,7 +31,7 @@ export default function Favourite() {
 
                 // Fetch list of processed image URLs
                 const imageResponse = await fetch(
-                    `http://localhost:5000/collection/${user.username}`
+                    `http://localhost:8001/user/collection/${user.username}`
                 );
 
                 if (!imageResponse.ok) {
@@ -80,40 +80,47 @@ export default function Favourite() {
         document.querySelector(".image-gallery").classList.remove("blurred");
     }
 
-    async function likeImage() {
+    const likeImage = async () => {
         if (selectedImageIndex === null) return;
+    
+        const imageSrc = images[selectedImageIndex];
+        let updatedSrc;
+    
+        // Check if the image is already liked
+        if (imageSrc.includes("liked")) {
+            // Remove the "liked" part of the filename
+            updatedSrc = imageSrc.replace("liked_", "");
 
-        const popupImage = document.querySelector(".popup img");
-        const imageSrc = popupImage.src;
-
-        // Rename the full path to include `f_{index}`
-        const newFilename = `liked_${selectedImageIndex}_${imageSrc.split("/").pop()}`;
-        const newSrc = imageSrc.replace(imageSrc.split("/").pop(), newFilename);
-
+        } else {
+            // Add "liked" part to the filename
+            const newFilename = `liked_${imageSrc.split("/").pop()}`;
+            updatedSrc = imageSrc.replace(imageSrc.split("/").pop(), newFilename);
+        }
+    
         try {
-            const response = await fetch("http://localhost:5000/api/like-image", {
+            const response = await fetch("http://localhost:8001/user/api/like-image", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, oldSrc: imageSrc, newSrc }),
+                body: JSON.stringify({ username, oldSrc: imageSrc, newSrc: updatedSrc }),
             });
-
+    
             if (!response.ok) {
-                throw new Error(`Failed to like image: ${response.statusText}`);
+                throw new Error(`Failed to like/unlike image: ${response.statusText}`);
             }
-
-            // Update the image source in state
+    
+            // Update the local state with the new image URL
             setImages((prevImages) =>
-                prevImages.map((img, idx) => (idx === selectedImageIndex ? newSrc : img))
+                prevImages.map((img, idx) => (idx === selectedImageIndex ? updatedSrc : img))
             );
-
-            alert("Image liked successfully.");
+    
         } catch (error) {
-            console.error("Error liking image:", error);
-            alert("Failed to like the image.");
+            console.error("Error liking/unliking image:", error);
+            alert("Failed to update the image.");
         }
-    }
+    };
+    
 
     async function deleteImage() {
         const popup = document.querySelector(".popup");
@@ -123,7 +130,7 @@ export default function Favourite() {
         const filename = imageSrc.split("/").pop(); // Example: "image.jpg"
 
         try {
-            const response = await fetch("http://localhost:5000/api/delete-image", {
+            const response = await fetch("http://localhost:8001/user/api/delete-image", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -144,7 +151,9 @@ export default function Favourite() {
             alert("Failed to delete the image.");
         }
     }
-
+    const isLiked = (imageSrc) => {
+        return imageSrc ? imageSrc.includes("liked") : false;
+    };
     return (
         <div className="collection-container">
             {username ? (
@@ -177,16 +186,16 @@ export default function Favourite() {
                     <div className="popup">
                         <div className="popup-incontainer">
                             <div className="d-flex">
-                                <span className="ml-auto like-button" onClick={likeImage}>
-                                    <i className="fas fa-heart"></i>
+                                <span
+                                    className={`ml-auto like-button ${isLiked(images[selectedImageIndex]) ? "liked" : ""}`}
+                                    onClick={likeImage}
+                                >
+                                    <i className={`fas fa-heart ${isLiked(images[selectedImageIndex]) ? "liked-icon" : ""}`}></i>
                                 </span>
                                 <span className="ml-auto delete-button" onClick={deleteImage}>
                                     <i className="fas fa-trash"></i>
                                 </span>
-                                <span
-                                    className="ml-auto close-button"
-                                    onClick={close}
-                                >
+                                <span className="ml-auto close-button" onClick={close}>
                                     Close
                                 </span>
                             </div>

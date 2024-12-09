@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./TextToImage.css";
 
 export default function TextToImage() {
@@ -51,13 +51,13 @@ export default function TextToImage() {
                 },
                 body: JSON.stringify({
                     inputs: textPrompt,
-                    options: { wait_for_model: true },
+                    options: {wait_for_model: true},
                 }),
             });
 
             if (response.ok) {
                 const blob = await response.blob();
-                const file = new File([blob], "generated_image.png", { type: "image/png" });
+                const file = new File([blob], "generated_image.png", {type: "image/png"});
                 const imageUrl = URL.createObjectURL(blob);
                 setGeneratedImage(imageUrl);
 
@@ -116,7 +116,7 @@ export default function TextToImage() {
             {generatedImage && (
                 <div className="image-preview-container">
                     <h3>Generated Image</h3>
-                    <img src={generatedImage} alt="Generated" className="generated-image" />
+                    <img src={generatedImage} alt="Generated" className="generated-image"/>
                 </div>
             )}
         </div>

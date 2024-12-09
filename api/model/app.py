@@ -81,87 +81,10 @@ def save_text_generated_image():
     except Exception as e:
         return jsonify({'error': f'An error occurred while saving the image: {str(e)}'}), 500
 
+
 @app.route('/processed/<username>/<filename>', methods=['GET'])
 def get_processed_image(username, filename):
     return send_from_directory(os.path.join(COLLECTION_FOLDER, username), filename)
-
-
-@app.route('/collection/<username>', methods=['GET'])
-def list_processed_images(username):
-    user_folder = os.path.join(COLLECTION_FOLDER, username)
-    if not os.path.exists(user_folder):
-        return jsonify({'error': 'User collection folder does not exist'}), 404
-
-    # List all files in the collection folder and construct the full path for each file
-    files = [
-        f"http://localhost:5000/collection/{username}/{filename}"  # Full URL to the image
-        for filename in os.listdir(user_folder)
-        if os.path.isfile(os.path.join(user_folder, filename))
-    ]
-    return jsonify(files)
-
-
-@app.route('/collection/<username>/<filename>', methods=['GET'])
-def serve_processed_image(username, filename):
-    """
-    Serve an individual processed image for a given user.
-    """
-    user_folder = os.path.join(COLLECTION_FOLDER, username)
-    file_path = os.path.join(user_folder, filename)
-
-    if not os.path.exists(file_path):
-        abort(409)  # Return 404 if the file does not exist
-
-    return send_from_directory(user_folder, filename)
-
-
-
-
-@app.route('/api/like-image', methods=['POST'])
-def like_image():
-    data = request.get_json()
-    username = data.get('username')
-    old_src = data.get('oldSrc')
-    new_src = data.get('newSrc')
-
-    if not username or not old_src or not new_src:
-        return jsonify({'error': 'Missing required data'}), 400
-
-    old_path = os.path.join(COLLECTION_FOLDER, username, old_src.split('/')[-1])
-    new_path = os.path.join(COLLECTION_FOLDER, username, new_src.split('/')[-1])
-
-    if not os.path.exists(old_path):
-        return jsonify({'error': 'Original image does not exist'}), 404
-
-    try:
-        os.rename(old_path, new_path)
-        return jsonify({'message': 'Image renamed successfully'})
-    except Exception as e:
-        return jsonify({'error': f'Error renaming image: {str(e)}'}), 500
-
-
-
-
-@app.route('/api/delete-image', methods=['DELETE'])
-def delete_image():
-    data = request.get_json()
-    username = data.get('username')
-    filename = data.get('filename')
-
-    if not username or not filename:
-        return jsonify({'error': 'Username or filename missing'}), 400
-
-    user_folder = os.path.join(COLLECTION_FOLDER, username)
-    file_path = os.path.join(user_folder, filename)
-
-    if not os.path.exists(file_path):
-        return jsonify({'error': f'File does not exist: {file_path}'}), 404
-
-    try:
-        os.remove(file_path)  # Delete the file
-        return jsonify({'message': f'Image {filename} deleted successfully'})
-    except Exception as e:
-        return jsonify({'error': f'Error deleting file: {str(e)}'}), 500
 
 
 if __name__ == '__main__':
