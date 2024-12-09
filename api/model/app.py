@@ -89,4 +89,5 @@ def get_processed_image(username, filename):
 
 if __name__ == '__main__':
     clean_up_orphaned_files()
+    print("Server started")
     app.run(debug=True, port=5000)
