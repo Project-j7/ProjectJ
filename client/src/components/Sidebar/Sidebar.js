@@ -6,7 +6,7 @@ import {
     AiOutlineStar,
     AiOutlineUser,
     AiOutlineAppstore,
-    AiOutlineMenu,
+    AiOutlineHome,
 } from "react-icons/ai";
 import {FaGem} from "react-icons/fa"; // Diamond logo
 import "./Sidebar.css";
@@ -49,44 +49,19 @@ export default function Sidebar() {
         setIsCollapsed(!isCollapsed);
     };
 
-    // Handle user logout
-    const handleLogout = async () => {
-        try {
-            const response = await fetch("http://localhost:8001/user/logout", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            const result = await response.json();
-            alert(result.msg);
-
-            if (response.status === 200) {
-                sessionStorage.removeItem("username"); // Clear sessionStorage
-                window.location.href = "http://localhost:3000/account/login";
-            } else {
-                alert(result.error || "Logout failed.");
-            }
-        } catch (error) {
-            console.error("Error logging out:", error);
-            alert("An error occurred during logout.");
-        }
-    };
-
     return (
         <aside className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
-            <div className="sidebar-header">
-                <div className="logo">
-                    <FaGem className="diamond-icon"/>
-                    {!isCollapsed && <span className="logo-text">ProjectJ</span>}
-                </div>
-                <button className="sidebar-toggle" onClick={toggleSidebar}>
-                    <AiOutlineMenu/>
-                </button>
+            <div className="sidebar-header" onClick={toggleSidebar}>
+                <FaGem className="diamond-icon"/>
+                {!isCollapsed && <span className="logo-text">ProjectJ</span>}
             </div>
             <ul className="sidebar-menu">
+                <li>
+                    <NavLink to="/account/main/home" activeClassName="active-link">
+                        <AiOutlineHome className="sidebar-icon"/>
+                        {!isCollapsed && <span>Home</span>}
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink to="/account/main/image-to-image" activeClassName="active-link">
                         <AiOutlinePicture className="sidebar-icon"/>
@@ -127,11 +102,9 @@ export default function Sidebar() {
                         <div className="popup-content">
                             <h3>Profile</h3>
                             <p>Username: {username || "Guest"}</p>
-                            <button className="logout-button" onClick={handleLogout}>
-                                Logout
-                            </button>
+                            <button className="popup-button logout-button">Logout</button>
                             <button
-                                className="close-popup-button"
+                                className="popup-button close-popup-button"
                                 onClick={() => setShowProfilePopup(false)}
                             >
                                 Close

@@ -14,6 +14,8 @@ import ImageToImage from "./components/Mainpage/ImageToImage/ImageToImage";
 import TextToImage from "./components/Mainpage/TestToImage/TextToImage";
 import Collections from "./components/Mainpage/Collections/Collections";
 import Favourite from "./components/Mainpage/Favourites/favourites";
+import HomeSB from "./components/Mainpage/Home/HomeSB"
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -32,10 +34,11 @@ const router = createBrowserRouter([
         path: "/account/main",
         element: <Main/>,
         children: [
+            {path: "home", element: <HomeSB/>},
             {path: "image-to-image", element: <ImageToImage/>},
             {path: "text-to-image", element: <TextToImage/>},
             {path: "collections", element: <Collections/>},
-            { path: "favourites", element: <Favourite /> },
+            {path: "favourites", element: <Favourite/>},
         ],
     },
 ]);

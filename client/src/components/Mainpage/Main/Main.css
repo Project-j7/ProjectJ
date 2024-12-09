@@ -12,17 +12,10 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    background-color: #1c1c1c;
+    background-color: #ffffff;
     color: #fff;
 }
 
-h2 {
-    color: #e91e63;
-}
-
-p {
-    color: #ccc;
-}
 
 @media (max-width: 768px) {
     .sidebar {
