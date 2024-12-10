@@ -78,10 +78,26 @@
 }
 
 
+.signup-box form .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signup-box form .links a {
+    color: #8f8f8f;
+    font-size: 0.99em;
+    text-decoration: none;
+}
+
+.signup-box form .links a:hover {
+    color: #fff;
+}
+
+
 .signup-box {
     position: relative;
     width: 400px;
-    height: 640px;
+    height: 680px;
     background-color: transparent;
     border-radius: 8px;
     overflow: hidden;
@@ -159,6 +175,34 @@
     margin-top: 10px;
 }
 
+
+.signup-box form .links {
+    display: flex;
+    justify-content: center;
+    margin-top: 13px; /* Adjust spacing from the submit button */
+    margin-bottom: 15px;
+    color: #8f8f8f;
+}
+
+.signup-box form .links a {
+    color: rgb(102, 116, 204);
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px; /* Add some spacing between text and link */
+}
+
+
+.signup-box form .links a:hover {
+    color: #fff;
+}
+
+.signup-box form .links p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
 .signup-box form input[type="submit"]:active {
     opacity: 0.8;
 }
@@ -196,20 +240,39 @@
 
 
 .submit-btn {
+    display: flex;
     width: 90%;
-    padding: 12px;
-    background-color: brown;
+    padding: 14px;
+    background-color: rgb(102, 116, 204);
+    justify-content: center;
+    align-items: center;
     color: white;
     font-size: 16px;
     margin-top: 15px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Hover effect */
 .submit-btn:hover {
+    background-color: rgb(81, 94, 170);
+    transform: translateY(-2px); /* Slight lift effect */
+}
 
+/* Focus effect */
+.submit-btn:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(102, 116, 204, 0.7);
+}
+
+/* Active effect */
+.submit-btn:active {
+    transform: translateY(2px); /* Button press effect */
 }
 
 /* Google Button Styles */

@@ -83,8 +83,17 @@ function Signup() {
                         <input type="password" required id="signup-field-confirm-password"/>
                         <span>Confirm Password</span>
                     </div>
-                    <button type="submit" className="submit-btn">Sign Up</button>
+                    <div className="links">
+                        <p>Already have an account?</p>
+                        <a href="/account/login" className="login">
+                            Login
+                        </a>
+                    </div>
+                    <div className="submit-button">
+                        <button type="submit" className="submit-btn">Sign Up</button>
+                    </div>
                     <p className="alternative-signin">Or sign up with</p>
+
                     <div className="social-icon">
                         <button type="button" onClick={handleGoogleLogin} className="google-btn">
     <span className="google-icon">
