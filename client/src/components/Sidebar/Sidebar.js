@@ -94,7 +94,7 @@ export default function Sidebar() {
                         className={({isActive}) => (isActive ? "active-link" : "")}
                     >
                         <AiOutlinePicture className="sidebar-icon"/>
-                        {!isCollapsed && <span>Image to Image</span>}
+                        {!isCollapsed && <span>Sketch to Real</span>}
                     </NavLink>
                 </li>
                 <li>

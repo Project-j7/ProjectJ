@@ -45,7 +45,7 @@ export default function HomeSB() {
                     <h2 className="homeSB-subtitle">Key Features</h2>
                     <ul className="homeSB-list">
                         <li className="homeSB-list-item">
-                            ✍️ <strong>Sketch to Gold:</strong> Upload your jewelry sketches and convert them into
+                            ✍️ <strong>Sketch to Real:</strong> Upload your jewelry sketches and convert them into
                             stunning gold visuals.
                         </li>
                         <li className="homeSB-list-item">
@@ -67,7 +67,7 @@ export default function HomeSB() {
                         className="homeSB-button"
                         onClick={() => navigate("/account/main/image-to-image")}
                     >
-                        Try Sketch-to-Gold
+                        Try Sketch-to-Real
                     </button>
                     <button
                         className="homeSB-button homeSB-button-outline"

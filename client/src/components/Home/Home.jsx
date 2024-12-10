@@ -165,10 +165,10 @@ export default function Home() {
                                     Innovate your Design
                                 </h1>
                                 <p className="text-center">
-                                    Enhance your jewellery designs effprtlessly. Our tool uses Deep
+                                    Enhance your jewellery designs effortlessly. Our tool uses Deep
                                     Learning technology to create
                                     <br />
-                                    hign-quality visuals that capture the essence of luxury.
+                                    high-quality visuals that capture the essence of luxury.
                                 </p>
                             </div>
                             <div className="col-12 d-flex flex-row justify-content-center">
@@ -279,7 +279,7 @@ export default function Home() {
                                     </div>
                                     <div className="answer">
                                         <p>
-                                            The process is near real-time for standard aimages. However,
+                                            The process is near real-time for standard images. However,
                                             very high-resolution images or complex transformations may
                                             take a bit longer.
                                         </p>
@@ -294,7 +294,7 @@ export default function Home() {
                                     </div>
                                     <div className="answer">
                                         <p>
-                                            To start colorizing your greyscale images, simply upload your
+                                            To start colorizing your sketch images, simply upload your
                                             image file to our platform, and the deep learning model will
                                             automatically process and return a colorized version.
                                         </p>
@@ -310,7 +310,7 @@ export default function Home() {
                                     <div className="answer">
                                         <p>
                                             The accuracy of the colorization depends on the quality and
-                                            features of the greyscale image. While the deep learning model
+                                            features of the sketch image. While the deep learning model
                                             provides realistic color outputs, minor adjustments may
                                             sometimes be needed for specific color tones. However, the
                                             results are typically impressive and visually appealing.
@@ -338,7 +338,7 @@ export default function Home() {
                                 <div className="faqs mt-3 mr-5 mb-3 pb-2" onClick={HandleFaq}>
                                     <div className="question d-flex align-items-center">
                                         <h1>
-                                            What technology do you use to colorize greyscale images?
+                                            What technology do you use to colorize sketch images?
                                         </h1>
                                         <i className="fa-solid fa-chevron-right ml-2" />
                                     </div>
@@ -363,56 +363,7 @@ export default function Home() {
                         <div className="col-6">
                             <img src="" alt="" />
                         </div>
-                        <div className="col-6 d-flex flex-column justify-content-start">
-                            <h1 className="mb-3 text-white">Connect with Us</h1>
-                            <div className="d-flex flex-row justify-content-start ml-2 mt-5 mr-5 mb-5">
-                                <div className="office_hours mr-5">
-                                    <h1>
-                                        <i className="fa-solid fa-clock mr-2" />
-                                        Office Hours
-                                    </h1>
-                                    <p style={{ marginLeft: 35 }}>
-                                        Monday-Friday
-                                        <br />
-                                        8:00 am to 5:00 pm
-                                    </p>
-                                </div>
-                                <div className="address ml-5">
-                                    <h1>
-                                        <i className="fa-solid fa-location-dot mr-2" />
-                                        Our Address
-                                    </h1>
-                                    <p style={{ marginLeft: 30 }}>
-                                        8502 Preston Rd.Ingle
-                                        <br />
-                                        Maine 98380, USA
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="d-flex flex-row justify-content-start ml-2 mt-5 mr-5 mb-5">
-                                <div className="office_hours mr-5">
-                                    <h1>
-                                        <i className="fa-solid fa-building mr-2" />
-                                        Design Studio
-                                    </h1>
-                                    <p style={{ marginLeft: 35 }}>
-                                        5678 Jewel Ave
-                                        <br />
-                                        Brooklyn, NY 11201, USA
-                                    </p>
-                                </div>
-                                <div className="phone_no ml-3">
-                                    <h1>
-                                        <i className="fa-solid fa-phone mr-2" />
-                                        Get In Touch
-                                    </h1>
-                                    <p style={{ marginLeft: 30 }}>
-                                        +1-246-888-0653
-                                        <br /> +1-222-632-0194
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+
                         <div className="text-center col-12 mb-3">
                             <h1 className="copy_rights">
                                 <i className="fa-solid fa-copyright" />
