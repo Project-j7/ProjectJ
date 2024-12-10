@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./ImageToImage.css";
 
 export default function ImageToImage() {
@@ -6,12 +6,15 @@ export default function ImageToImage() {
     const [processedImage, setProcessedImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showOptionsPopup, setShowOptionsPopup] = useState(false);
+    const [showPromptPopup, setShowPromptPopup] = useState(false);
     const [showWebcamPopup, setShowWebcamPopup] = useState(false);
     const [username, setUsername] = useState(sessionStorage.getItem("username") || "");
     const [fileToProcess, setFileToProcess] = useState(null);
+    const [selectedPrompt, setSelectedPrompt] = useState(null);
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
 
+    // Fetch username on load
     useEffect(() => {
         const fetchUsername = async () => {
             if (!username) {
@@ -32,14 +35,13 @@ export default function ImageToImage() {
                 }
             }
         };
-
         fetchUsername();
     }, [username]);
 
     const handleUpload = (imageFile) => {
         if (imageFile) {
-            setInputImage(URL.createObjectURL(imageFile)); // Show the preview
-            setFileToProcess(imageFile); // Store the file to be processed later
+            setInputImage(URL.createObjectURL(imageFile));
+            setFileToProcess(imageFile);
         }
     };
 
@@ -49,9 +51,18 @@ export default function ImageToImage() {
             return;
         }
 
+        // Show prompt selection popup
+        setShowPromptPopup(true);
+    };
+
+    const submitProcess = async (promptId) => {
+        setShowPromptPopup(false);
+        setSelectedPrompt(promptId);
+
         const formData = new FormData();
         formData.append("image", fileToProcess);
         formData.append("username", username || "default_user");
+        formData.append("prompt_id", promptId);
 
         try {
             setLoading(true);
@@ -88,7 +99,7 @@ export default function ImageToImage() {
         setShowOptionsPopup(false);
         setShowWebcamPopup(true);
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            const stream = await navigator.mediaDevices.getUserMedia({video: true});
             videoRef.current.srcObject = stream;
             videoRef.current.play();
         } catch (error) {
@@ -118,7 +129,7 @@ export default function ImageToImage() {
             const imageData = canvas.toDataURL("image/png");
 
             const blob = await fetch(imageData).then((res) => res.blob());
-            const file = new File([blob], "webcam-image.png", { type: "image/png" });
+            const file = new File([blob], "webcam-image.png", {type: "image/png"});
 
             handleUpload(file);
             stopWebcam();
@@ -134,7 +145,7 @@ export default function ImageToImage() {
                     <h3>Input Image</h3>
                     <div className="image-preview">
                         {inputImage ? (
-                            <img src={inputImage} alt="Input" className="image" />
+                            <img src={inputImage} alt="Input" className="image"/>
                         ) : (
                             <p className="placeholder-text">Upload or capture an image</p>
                         )}
@@ -147,7 +158,7 @@ export default function ImageToImage() {
                     <h3>Processed Image</h3>
                     <div className="image-preview">
                         {processedImage ? (
-                            <img src={processedImage} alt="Processed" className="image" />
+                            <img src={processedImage} alt="Processed" className="image"/>
                         ) : (
                             <p className="placeholder-text">No processed image</p>
                         )}
@@ -161,6 +172,8 @@ export default function ImageToImage() {
             >
                 {loading ? "Processing..." : "Generate"}
             </button>
+
+            {/* Options Popup */}
             {showOptionsPopup && (
                 <div className="options-popup">
                     <div className="popup-content">
@@ -185,17 +198,43 @@ export default function ImageToImage() {
                             id="fileInput"
                             accept="image/*"
                             onChange={handleFileUpload}
-                            style={{ display: "none" }}
+                            style={{display: "none"}}
                         />
                     </div>
                 </div>
             )}
+
+            {/* Prompt Selection Popup */}
+            {showPromptPopup && (
+                <div className="prompt-popup">
+                    <div className="popup-content">
+                        <h3>Select a Prompt</h3>
+                        {[1, 2, 3, 4].map((id) => (
+                            <button
+                                key={id}
+                                className="prompt-button"
+                                onClick={() => submitProcess(id)}
+                            >
+                                Prompt {id}
+                            </button>
+                        ))}
+                        <button
+                            className="close-popup-button"
+                            onClick={() => setShowPromptPopup(false)}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Webcam Popup */}
             {showWebcamPopup && (
                 <div className="webcam-popup">
                     <div className="popup-content">
                         <h3>Capture Image from Webcam</h3>
-                        <video ref={videoRef} autoPlay className="webcam-video" />
-                        <canvas ref={canvasRef} style={{ display: "none" }} />
+                        <video ref={videoRef} autoPlay className="webcam-video"/>
+                        <canvas ref={canvasRef} style={{display: "none"}}/>
                         <div className="popup-actions">
                             <button onClick={captureImage} className="capture-button">
                                 Capture
