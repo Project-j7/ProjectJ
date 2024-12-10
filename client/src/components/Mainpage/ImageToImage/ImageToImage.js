@@ -5,6 +5,7 @@ export default function ImageToImage() {
     const [inputImage, setInputImage] = useState(null);
     const [processedImage, setProcessedImage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [processing, setProcessing] = useState(false);
     const [showOptionsPopup, setShowOptionsPopup] = useState(false);
     const [showPromptPopup, setShowPromptPopup] = useState(false);
     const [showWebcamPopup, setShowWebcamPopup] = useState(false);
@@ -51,7 +52,6 @@ export default function ImageToImage() {
             return;
         }
 
-        // Show prompt selection popup
         setShowPromptPopup(true);
     };
 
@@ -62,10 +62,11 @@ export default function ImageToImage() {
         const formData = new FormData();
         formData.append("image", fileToProcess);
         formData.append("username", username || "default_user");
-        formData.append("prompt_id", promptId);
+        formData.append("prompt_id", promptId.toString());
 
         try {
             setLoading(true);
+            setProcessing(true);
             const response = await fetch("http://localhost:5000/api/upload", {
                 method: "POST",
                 body: formData,
@@ -84,6 +85,7 @@ export default function ImageToImage() {
             alert("An error occurred while processing the image.");
         } finally {
             setLoading(false);
+            setProcessing(false);
         }
     };
 
@@ -138,7 +140,7 @@ export default function ImageToImage() {
 
     return (
         <div className="image-to-image-container">
-            <h2 className="page-title">Image to Image Processing</h2>
+            <h2 className="page-title text-dark">Image to Image Processing</h2>
             <p>Welcome, {username || "Guest"}</p>
             <div className="image-boxes">
                 <div className="image-box">
@@ -157,7 +159,9 @@ export default function ImageToImage() {
                 <div className="image-box">
                     <h3>Processed Image</h3>
                     <div className="image-preview">
-                        {processedImage ? (
+                        {processing ? (
+                            <div className="spinner"></div>
+                        ) : processedImage ? (
                             <img src={processedImage} alt="Processed" className="image"/>
                         ) : (
                             <p className="placeholder-text">No processed image</p>
@@ -167,17 +171,17 @@ export default function ImageToImage() {
             </div>
             <button
                 className="generate-button"
-                onClick={handleProcess}
+                onClick={() => setShowPromptPopup(true)}
                 disabled={!fileToProcess || loading}
             >
-                {loading ? "Processing..." : "Generate"}
+                {loading ? <span className="spinner"></span> : "Generate"}
             </button>
 
             {/* Options Popup */}
             {showOptionsPopup && (
                 <div className="options-popup">
                     <div className="popup-content">
-                        <h3>Select Input Option</h3>
+                        <h3 className={"text-dark"}>Select Input Option</h3>
                         <button
                             className="popup-option-button"
                             onClick={() => document.getElementById("fileInput").click()}
@@ -206,16 +210,21 @@ export default function ImageToImage() {
 
             {/* Prompt Selection Popup */}
             {showPromptPopup && (
-                <div className="prompt-popup">
+                <div className="generate-popup">
                     <div className="popup-content">
-                        <h3>Select a Prompt</h3>
-                        {[1, 2, 3, 4].map((id) => (
+                        <h3>Select a Type</h3>
+                        {[
+                            {id: 1, name: "Diamond"},
+                            {id: 2, name: "Gemstones"},
+                            {id: 3, name: "Platinum"},
+                            {id: 4, name: "Gold"},
+                        ].map(({id, name}) => (
                             <button
                                 key={id}
-                                className="prompt-button"
+                                className="popup-option-button"
                                 onClick={() => submitProcess(id)}
                             >
-                                Prompt {id}
+                                {name}
                             </button>
                         ))}
                         <button
