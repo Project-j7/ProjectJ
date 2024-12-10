@@ -139,3 +139,76 @@
 .delete-button i {
     margin-right: 5px;
 }
+
+
+/* Popup Actions Container */
+.popup .popup-incontainer .actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+/* Common Button Styling */
+.popup .popup-incontainer .action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.popup .popup-incontainer .action-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.popup .popup-incontainer .like-button {
+    background-color: #e74c3c;
+}
+
+.popup .popup-incontainer .like-button:hover {
+    background-color: #c0392b;
+}
+
+.popup .popup-incontainer .delete-button {
+    background-color: #f39c12;
+}
+
+.popup .popup-incontainer .delete-button:hover {
+    background-color: #e67e22;
+}
+
+.popup .popup-incontainer .close-button {
+    background-color: #2ecc71;
+}
+
+.popup .popup-incontainer .close-button:hover {
+    background-color: #27ae60;
+}
+
+/* Icon Styling */
+.popup .popup-incontainer .action-button i {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+/* Adjusted Image for Better Spacing */
+.popup img {
+    margin-bottom: 15px;
+    border-radius: 10px;
+    max-height: 70vh;
+    object-fit: contain;
+}
+

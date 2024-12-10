@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./style.css";
 
 export default function Favourite() {
@@ -22,7 +22,7 @@ export default function Favourite() {
                     throw new Error(`User API returned status: ${userResponse.status}`);
                 }
 
-                const { user } = await userResponse.json();
+                const {user} = await userResponse.json();
                 if (!user?.username) {
                     throw new Error("Username is missing in the user data");
                 }
@@ -82,10 +82,10 @@ export default function Favourite() {
 
     const likeImage = async () => {
         if (selectedImageIndex === null) return;
-    
+
         const imageSrc = images[selectedImageIndex];
         let updatedSrc;
-    
+
         // Check if the image is already liked
         if (imageSrc.includes("liked")) {
             // Remove the "liked" part of the filename
@@ -96,31 +96,31 @@ export default function Favourite() {
             const newFilename = `liked_${imageSrc.split("/").pop()}`;
             updatedSrc = imageSrc.replace(imageSrc.split("/").pop(), newFilename);
         }
-    
+
         try {
             const response = await fetch("http://localhost:8001/user/api/like-image", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, oldSrc: imageSrc, newSrc: updatedSrc }),
+                body: JSON.stringify({username, oldSrc: imageSrc, newSrc: updatedSrc}),
             });
-    
+
             if (!response.ok) {
                 throw new Error(`Failed to like/unlike image: ${response.statusText}`);
             }
-    
+
             // Update the local state with the new image URL
             setImages((prevImages) =>
                 prevImages.map((img, idx) => (idx === selectedImageIndex ? updatedSrc : img))
             );
-    
+
         } catch (error) {
             console.error("Error liking/unliking image:", error);
             alert("Failed to update the image.");
         }
     };
-    
+
 
     async function deleteImage() {
         const popup = document.querySelector(".popup");
@@ -135,7 +135,7 @@ export default function Favourite() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, filename }), // Send username and filename
+                body: JSON.stringify({username, filename}), // Send username and filename
             });
 
             if (!response.ok) {
@@ -151,6 +151,7 @@ export default function Favourite() {
             alert("Failed to delete the image.");
         }
     }
+
     const isLiked = (imageSrc) => {
         return imageSrc ? imageSrc.includes("liked") : false;
     };
@@ -185,21 +186,19 @@ export default function Favourite() {
 
                     <div className="popup">
                         <div className="popup-incontainer">
-                            <div className="d-flex">
-                                <span
-                                    className={`ml-auto like-button ${isLiked(images[selectedImageIndex]) ? "liked" : ""}`}
-                                    onClick={likeImage}
-                                >
+                            <img src="" alt="Full Size View"/>
+                            <div className="actions">
+                                <button className="action-button like-button" onClick={likeImage}>
                                     <i className={`fas fa-heart ${isLiked(images[selectedImageIndex]) ? "liked-icon" : ""}`}></i>
-                                </span>
-                                <span className="ml-auto delete-button" onClick={deleteImage}>
-                                    <i className="fas fa-trash"></i>
-                                </span>
-                                <span className="ml-auto close-button" onClick={close}>
-                                    Close
-                                </span>
+                                    {isLiked(images[selectedImageIndex]) ? "Unlike" : "Like"}
+                                </button>
+                                <button className="action-button delete-button" onClick={deleteImage}>
+                                    <i className="fas fa-trash"></i> Delete
+                                </button>
+                                <button className="action-button close-button" onClick={close}>
+                                    <i className="fas fa-times"></i> Close
+                                </button>
                             </div>
-                            <img src="" alt="Full Size View" />
                         </div>
                     </div>
                 </>

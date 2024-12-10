@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import "./Collections.css";
 
 export default function Collection() {
@@ -7,7 +7,7 @@ export default function Collection() {
     const [error, setError] = useState(null);
     const [images, setImages] = useState([]);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null); // Track selected image index
-    const [newSrc,setNewSrc] = useState();
+    const [newSrc, setNewSrc] = useState();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -22,7 +22,7 @@ export default function Collection() {
                     throw new Error(`User API returned status: ${userResponse.status}`);
                 }
 
-                const { user } = await userResponse.json();
+                const {user} = await userResponse.json();
                 if (!user?.username) {
                     throw new Error("Username is missing in the user data");
                 }
@@ -81,52 +81,49 @@ export default function Collection() {
     }
 
 
-
     const likeImage = async () => {
         if (selectedImageIndex === null) return;
-    
+
         const imageSrc = images[selectedImageIndex];
         let updatedSrc;
-    
+
         // Check if the image is already liked
         if (imageSrc.includes("liked")) {
             // Remove the "liked" part of the filename
             updatedSrc = imageSrc.replace("liked_", "");
             console.log("image:", updatedSrc);
 
-            alert("Image unliked.");
         } else {
             // Add "liked" part to the filename
             const newFilename = `liked_${imageSrc.split("/").pop()}`;
             updatedSrc = imageSrc.replace(imageSrc.split("/").pop(), newFilename);
             console.log("image:", updatedSrc);
-            alert("Image liked.");
         }
-    
+
         try {
             const response = await fetch("http://localhost:8001/user/api/like-image", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, oldSrc: imageSrc, newSrc: updatedSrc }),
+                body: JSON.stringify({username, oldSrc: imageSrc, newSrc: updatedSrc}),
             });
-    
+
             if (!response.ok) {
                 throw new Error(`Failed to like/unlike image: ${response.statusText}`);
             }
-    
+
             // Update the local state with the new image URL
             setImages((prevImages) =>
                 prevImages.map((img, idx) => (idx === selectedImageIndex ? updatedSrc : img))
             );
-    
+
         } catch (error) {
             console.error("Error liking/unliking image:", error);
             alert("Failed to update the image.");
         }
     };
-    
+
     async function deleteImage() {
         const popup = document.querySelector(".popup");
         const imageSrc = popup.querySelector("img").src;
@@ -139,7 +136,7 @@ export default function Collection() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ username, filename }),
+                body: JSON.stringify({username, filename}),
             });
 
             if (!response.ok) {
@@ -148,7 +145,6 @@ export default function Collection() {
 
             setImages((prevImages) => prevImages.filter((img) => img !== imageSrc));
             close();
-            alert("Image deleted successfully.");
         } catch (error) {
             console.error("Error deleting image:", error);
             alert("Failed to delete the image.");
@@ -189,23 +185,22 @@ export default function Collection() {
 
                     <div className="popup">
                         <div className="popup-incontainer">
-                            <div className="d-flex">
-                                <span
-                                    className={`ml-auto like-button ${isLiked(images[selectedImageIndex]) ? "liked" : ""}`}
-                                    onClick={likeImage}
-                                >
+                            <img src="" alt="Full Size View"/>
+                            <div className="actions">
+                                <button className="action-button like-button" onClick={likeImage}>
                                     <i className={`fas fa-heart ${isLiked(images[selectedImageIndex]) ? "liked-icon" : ""}`}></i>
-                                </span>
-                                <span className="ml-auto delete-button" onClick={deleteImage}>
-                                    <i className="fas fa-trash"></i>
-                                </span>
-                                <span className="ml-auto close-button" onClick={close}>
-                                    Close
-                                </span>
+                                    {isLiked(images[selectedImageIndex]) ? "Unlike" : "Like"}
+                                </button>
+                                <button className="action-button delete-button" onClick={deleteImage}>
+                                    <i className="fas fa-trash"></i> Delete
+                                </button>
+                                <button className="action-button close-button" onClick={close}>
+                                    <i className="fas fa-times"></i> Close
+                                </button>
                             </div>
-                            <img src="" alt="Full Size View" />
                         </div>
                     </div>
+
                 </>
             ) : (
                 <div className="not-found">
