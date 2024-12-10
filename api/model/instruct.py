@@ -18,9 +18,9 @@ print("🚀 Instruct pix2pix loaded")
 
 def generate_image(image_path: str, output_path: str, prompt_id: int):
     prompts = {
-        1: "Turn this sketch into a hyper-realistic diamond necklace jewelry piece with rich shine, intricate details, and gemstones",
-        2: "Convert this sketch into a futuristic sci-fi helmet with glowing lights and metallic surfaces",
-        3: "Transform this rough sketch into a beautiful landscape painting with mountains, rivers, and vibrant sunset colors"
+        1: "Enhance this sketch into a hyper-realistic diamond necklace while strictly preserving every element of the original design. Add a radiant shine to the diamonds, refine intricate details, and emphasize the luxury of the piece with a polished and realistic finish. Ensure that diamonds are placed only where indicated in the sketch, without altering their size or placement.",
+        2: "Transform this sketch into a lifelike jewelry piece featuring vibrant rubies, gemstones, and precious stones. Keep the exact design and arrangement of elements intact. Ensure gemstones are applied only where required and as per the sketch, maintaining appropriate sizes and avoiding excessive placement. Focus on enriching the colors and textures of the stones while polishing the final look.",
+        3: "Convert this sketch into an ultra-realistic platinum jewelry piece, ensuring that the original design is completely preserved. Highlight the smooth, reflective surface of platinum with precise detailing and subtle light reflections. If gemstones are present, ensure they are applied sparingly, only where indicated in the sketch, and maintain their size and arrangement accurately."
     }
 
     # Validate prompt_id

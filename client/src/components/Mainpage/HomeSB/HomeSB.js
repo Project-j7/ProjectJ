@@ -59,9 +59,6 @@ export default function HomeSB() {
                         <li className="homeSB-list-item">
                             🚀 <strong>Fast & Accurate:</strong> Get results quickly with precision-driven AI models.
                         </li>
-                        <li className="homeSB-list-item">
-                            🌐 <strong>Webcam Integration:</strong> Capture sketches directly using your webcam.
-                        </li>
                     </ul>
                 </section>
                 <section className="homeSB-call-to-action">

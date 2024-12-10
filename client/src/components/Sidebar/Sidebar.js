@@ -140,7 +140,7 @@ export default function Sidebar() {
                 {showProfilePopup && (
                     <div className="profile-popup">
                         <div className="popup-content">
-                            <h3>Profile</h3>
+                            <h3 className="text-dark">Profile</h3>
                             <p>Username: {username}</p>
                             <button
                                 className="popup-button logout-button"
