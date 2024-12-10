@@ -35,20 +35,25 @@ a personalized collection.
    from [this link](https://drive.google.com/file/d/1FFodj1KsoHN1KyNaPr5T_0WbR3CCn1UL/view?usp=sharing).  
    Place the downloaded file in the `.../api/model` folder and rename it to **`generator.h5`**.
 
+
 2. **Install Dependencies**:  
    Open a terminal and navigate to the project directory. Use the following command to install all required Node.js
    modules:
    ```bash
    npm install
    ```
+3. **Add Instruct to project**:  
+   To be unable the additional features for sketch to image, uncomment the 60th line in api/model/app.py which requires 
+   further additional download to run it (>3GB).
 
-3. **Start the Application**:  
+
+4. **Start the Application**:  
    To run the entire application (backend, API, and client) simultaneously, use:
    ```bash
    npm start
    ```
 
-4. **Alternative Startup**:  
+5. **Alternative Startup**:  
    To run only the API and client together, use:
    ```bash
    npm run web

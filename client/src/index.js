@@ -11,7 +11,7 @@ import Login from "./components/login/index";
 import Home from "./components/Home/Home";
 import Main from "./components/Mainpage/Main/Main";
 import ImageToImage from "./components/Mainpage/ImageToImage/ImageToImage";
-import TextToImage from "./components/Mainpage/TestToImage/TextToImage";
+import TextToImage from "./components/Mainpage/TextToImage/TextToImage";
 import Collections from "./components/Mainpage/Collections/Collections";
 import Favourite from "./components/Mainpage/Favourites/favourites";
 import HomeSB from "./components/Mainpage/HomeSB/HomeSB"

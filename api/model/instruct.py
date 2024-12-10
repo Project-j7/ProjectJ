@@ -2,9 +2,21 @@ import torch
 from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
 from PIL import Image
 
+model_id = "timbrooks/instruct-pix2pix"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+pipe = StableDiffusionInstructPix2PixPipeline.from_pretrained(
+    model_id,
+    safety_checker=None,
+    torch_dtype=torch.float32 if device == "cpu" else torch.float16
+)
+pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
+pipe = pipe.to(device)
+
+print("🚀 Instruct pix2pix loaded")
+
 
 def generate_image(image_path: str, output_path: str, prompt_id: int):
-    # Step 1: Predefined prompts
     prompts = {
         1: "Turn this sketch into a hyper-realistic diamond necklace jewelry piece with rich shine, intricate details, and gemstones",
         2: "Convert this sketch into a futuristic sci-fi helmet with glowing lights and metallic surfaces",
@@ -15,19 +27,6 @@ def generate_image(image_path: str, output_path: str, prompt_id: int):
     if prompt_id not in prompts:
         raise ValueError("Invalid prompt_id. Please use 1, 2, or 3.")
 
-    # Step 2: Load the model and scheduler
-    model_id = "timbrooks/instruct-pix2pix"
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-
-    pipe = StableDiffusionInstructPix2PixPipeline.from_pretrained(
-        model_id,
-        safety_checker=None,
-        torch_dtype=torch.float32 if device == "cpu" else torch.float16
-    )
-    pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(pipe.scheduler.config)
-    pipe = pipe.to(device)
-
-    # Step 3: Load and preprocess the input image
     image = Image.open(image_path).convert("RGB")
     image = image.resize((512, 512), Image.Resampling.LANCZOS)
 

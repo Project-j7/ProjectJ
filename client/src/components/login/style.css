@@ -97,7 +97,9 @@
     display: flex;
     flex-direction: column;
 }
-
+.inputBox{
+    border-bottom: 1px solid white;
+}
 .login-box form h2{
     color:#fff;
     font-weight: 500;

@@ -57,7 +57,8 @@ def upload_image():
     # Process image based on prompt_id
     if 1 <= prompt_id <= 3:
         # Use generate_image function
-        generate_image(image_path, processed_image_path, prompt_id)
+        #generate_image(image_path, processed_image_path, prompt_id)
+        print("Image generated successfully")
     elif prompt_id == 4:
         # Use custom processing for prompt_id 4
         process_image_with_model(image_path, processed_image_path)
