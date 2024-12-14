@@ -11,7 +11,7 @@ a personalized collection.
 ## Features
 
 1. **Image-to-Jewelry Transformation**:  
-   Upload an artistic jewelry sketch, and the system generates a realistic gold jewelry image.
+   Upload an artistic jewelry sketch, and the system generates a realistic jewelry image.
 
 2. **Text-to-Image Generation**:  
    Enter a text prompt to generate stunning jewelry images based on your imagination.
@@ -42,18 +42,14 @@ a personalized collection.
    ```bash
    npm install
    ```
-3. **Add Instruct to project**:  
-   To be unable the additional features for sketch to image, uncomment the 60th line in api/model/app.py which requires 
-   further additional download to run it (>3GB).
 
-
-4. **Start the Application**:  
+3. **Start the Application**:  
    To run the entire application (backend, API, and client) simultaneously, use:
    ```bash
    npm start
    ```
 
-5. **Alternative Startup**:  
+4. **Alternative Startup**:  
    To run only the API and client together, use:
    ```bash
    npm run web
