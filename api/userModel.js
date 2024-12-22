@@ -17,23 +17,7 @@ const userSchema = new mongoose.Schema({
         required: false,
         default: null,
     },
-    imagePairs: [{
-        artImage: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'fs.files', // Reference to GridFS collection
-            required: true,
-        },
-        realImage: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'fs.files', // Reference to GridFS collection
-            required: true,
-        }
-    }],
-    pairCount: {
-        type: Number,
-        default: 0
-    }
 }, {timestamps: true});
 
 // Export the user model
-module.exports = mongoose.model('test_user', userSchema);
+module.exports = mongoose.model('Users', userSchema);

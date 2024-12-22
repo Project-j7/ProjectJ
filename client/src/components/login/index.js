@@ -19,7 +19,6 @@ function Login() {
     }, []);
 
     // Google Login
-    // Google Login
     const handleGoogleLogin = async () => {
         const provider = new GoogleAuthProvider();
 
@@ -94,6 +93,7 @@ function Login() {
                     }
                 }
             } catch (error) {
+                alert("Invalid credentials");
                 console.error("Login Error:", error.message);
                 setError(error.message);
             }
@@ -102,11 +102,6 @@ function Login() {
 
     return (
         <>
-            {/* <nav>
-                <div className="navbar-brand-name">
-                    <h2><a href="/">Jewellery Creator</a></h2>
-                </div>
-            </nav> */}
             <div className="login-container">
 
                 <div className="login-box">
