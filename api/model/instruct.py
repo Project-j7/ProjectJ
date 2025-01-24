@@ -31,7 +31,7 @@ def generate_image(image_path: str, output_path: str, prompt_id: int):
     image = image.resize((512, 512), Image.Resampling.LANCZOS)
 
     # Step 4: Generate the image
-    num_inference_steps = 5
+    num_inference_steps = 10
     guidance_scale = 7.5
     prompt = prompts[prompt_id]
 
